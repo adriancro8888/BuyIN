@@ -10,7 +10,7 @@ private let reuseIdentifier = "cell"
 class CategoriesViewController: UIViewController {
 
     
-    
+    var searchString : String? = nil;
     @IBOutlet weak var categoryNameLable: UILabel!
     
     @IBOutlet weak var productsCollectonView: StorefrontCollectionView!
@@ -40,8 +40,11 @@ class CategoriesViewController: UIViewController {
 //            self.registerForPreviewing(with: self, sourceView: self.catiogriesCollectionView)
       //  }
     }
+    
     fileprivate func fetchCollections(after cursor: String? = nil) {
-        Client.shared.fetchCollections(after: cursor) { collections in
+        
+        
+        Client.shared.fetchCollections( after: cursor,queryString: searchString) { collections in
             if let collections = collections {
                 self.collections = collections
                 self.catiogriesCollectionView.reloadData()
@@ -191,21 +194,23 @@ extension CategoriesViewController :UICollectionViewDelegateFlowLayout{
         if collectionView == catiogriesCollectionView {
             width = width / 2.5
             height = height/1.2
-            if width > 1100 {
-                width = width / 6.0
-            }else if width > 500 {
-                width = width / 4.0
+            if collectionView.frame.width > 1100 {
+                width = collectionView.frame.width / 4.0
+            }else if collectionView.frame.width > 500 {
+                width = collectionView.frame.width / 3.0
             }
             return CGSize(width: width, height: height)
             
         }else if collectionView == productsCollectonView {
-            width = width / 2.2
+            width = collectionView.frame.width / 2.2
             height = height/3
-            if width > 1100 {
-                width = width / 4.0
-            }else if width > 500 {
-                width = width / 3.0
+           
+            if collectionView.frame.width > 1100 {
+                width = collectionView.frame.width / 4.25
+            }else if collectionView.frame.width > 500 {
+                width = collectionView.frame.width / 3.2
             }
+            print ("collectionView.frame.width \(collectionView.frame.width ) width : \(width)")
             return CGSize(width: width, height: height)
         }
         return CGSize(width: width, height: width)
@@ -222,7 +227,8 @@ extension CategoriesViewController :UICollectionViewDelegateFlowLayout{
 extension CategoriesViewController : UISearchBarDelegate{
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
+        searchString = searchText;
+        self.fetchCollections();
          
     }
      

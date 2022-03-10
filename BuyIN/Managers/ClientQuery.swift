@@ -87,9 +87,10 @@ final class ClientQuery {
     // ----------------------------------
     //  MARK: - Storefront -
     //
-    static func queryForCollections(limit: Int, after cursor: String? = nil, productLimit: Int = 25, productCursor: String? = nil) -> Storefront.QueryRootQuery {
+  
+    static func queryForCollections( limit: Int,queryString : String?=nil , after cursor: String? = nil, productLimit: Int = 25, productCursor: String? = nil) -> Storefront.QueryRootQuery {
         return Storefront.buildQuery { $0
-            .collections(first: Int32(limit), after: cursor) { $0
+            .collections(first: Int32(limit), after: cursor,query: queryString) { $0
                 .pageInfo { $0
                     .hasNextPage()
                 }
@@ -102,8 +103,7 @@ final class ClientQuery {
                         .image( ) { $0
                             .url()
                         }
-                        
-                        .products(first: Int32(productLimit), after: productCursor) { $0
+                        .products(first: Int32(productLimit), after: productCursor ) { $0
                             .fragmentForStandardProduct()
                         }
                     }
@@ -112,6 +112,7 @@ final class ClientQuery {
         }
     }
     
+    
     static func queryForProducts(in collection: CollectionViewModel, limit: Int, after cursor: String? = nil) -> Storefront.QueryRootQuery {
         
         return Storefront.buildQuery { $0
@@ -119,22 +120,6 @@ final class ClientQuery {
             .node(id: collection.model.node.id) { $0
                 .onCollection { $0
                 .products(first: Int32(limit), after: cursor) { $0
-                        .fragmentForStandardProduct()
-                    }
-                }
-                
-            }
-            
-        }
-    }
-    static func queryForProducts(in collection: CollectionViewModel,query :String, limit: Int, after cursor: String? = nil) -> Storefront.QueryRootQuery {
-        
-        return Storefront.buildQuery { $0
-                
-            .node(id: collection.model.node.id) { $0
-            
-                .onCollection { $0
-                .products(first: Int32(limit), after: cursor ) { $0
                         .fragmentForStandardProduct()
                     }
                 }
