@@ -99,8 +99,8 @@ final class ClientQuery {
                         .id()
                         .title()
                         .descriptionHtml()
-                        .image(maxWidth: ClientQuery.maxImageDimension, maxHeight: ClientQuery.maxImageDimension) { $0
-                            .transformedSrc()
+                        .image( ) { $0
+                            .url()
                         }
                         
                         .products(first: Int32(productLimit), after: productCursor) { $0
@@ -134,18 +134,12 @@ final class ClientQuery {
             .node(id: collection.model.node.id) { $0
             
                 .onCollection { $0
-                .products(first: Int32(limit), after: cursor) { $0
+                .products(first: Int32(limit), after: cursor ) { $0
                         .fragmentForStandardProduct()
                     }
                 }
                 
             }
-//            .products( first: Int32(limit), after: cursor,   query:"")
-//            {$0
-//                    .edges  {$0 .node {$0 .co}
-//                    .fragmentForStandardProduct()
-//                
-//            }
             
         }
     }
