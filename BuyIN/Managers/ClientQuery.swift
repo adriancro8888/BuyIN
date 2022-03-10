@@ -115,13 +115,38 @@ final class ClientQuery {
     static func queryForProducts(in collection: CollectionViewModel, limit: Int, after cursor: String? = nil) -> Storefront.QueryRootQuery {
         
         return Storefront.buildQuery { $0
+                
             .node(id: collection.model.node.id) { $0
                 .onCollection { $0
-                    .products(first: Int32(limit), after: cursor) { $0
+                .products(first: Int32(limit), after: cursor) { $0
                         .fragmentForStandardProduct()
                     }
                 }
+                
             }
+            
+        }
+    }
+    static func queryForProducts(in collection: CollectionViewModel,query :String, limit: Int, after cursor: String? = nil) -> Storefront.QueryRootQuery {
+        
+        return Storefront.buildQuery { $0
+                
+            .node(id: collection.model.node.id) { $0
+            
+                .onCollection { $0
+                .products(first: Int32(limit), after: cursor) { $0
+                        .fragmentForStandardProduct()
+                    }
+                }
+                
+            }
+//            .products( first: Int32(limit), after: cursor,   query:"")
+//            {$0
+//                    .edges  {$0 .node {$0 .co}
+//                    .fragmentForStandardProduct()
+//                
+//            }
+            
         }
     }
     
