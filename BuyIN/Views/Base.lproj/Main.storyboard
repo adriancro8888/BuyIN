@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xUa-4G-iON">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xUa-4G-iON">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -88,7 +88,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aAq-ig-j2O">
-                                <rect key="frame" x="314" y="64" width="40" height="33.5"/>
+                                <rect key="frame" x="315" y="64" width="39" height="31.5"/>
                                 <state key="normal">
                                     <imageReference key="image" image="cart.fill" catalog="system" symbolScale="large" renderingMode="original"/>
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="23"/>
@@ -129,11 +129,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p1E-gK-8E7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-
             <point key="canvasLocation" x="202.89855072463769" y="36.830357142857139"/>
-
-            <point key="canvasLocation" x="-707.24637681159425" y="36.830357142857139"/>
-
         </scene>
         <!--Categories-->
         <scene sceneID="do7-vo-bck">
@@ -415,13 +411,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2430" y="656"/>
+            <point key="canvasLocation" x="312" y="959"/>
         </scene>
-        <!--Item-->
+        <!--Home-->
         <scene sceneID="88o-vW-xBm">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Zwn-yp-2Jl" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="j9N-DK-YYT"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" selectedImage="house.fill" id="j9N-DK-YYT"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YEx-TN-NQo">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -434,13 +430,15 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zmD-Ik-uop" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2430.434782608696" y="575.89285714285711"/>
+            <point key="canvasLocation" x="-707" y="959"/>
         </scene>
     </scenes>
     <resources>
         <image name="camera.filters" catalog="system" width="128" height="116"/>
         <image name="cart.fill" catalog="system" width="128" height="102"/>
         <image name="gearshape.fill" catalog="system" width="128" height="121"/>
+        <image name="house" catalog="system" width="128" height="106"/>
+        <image name="house.fill" width="128" height="128"/>
         <image name="rectangle.3.group.fill" catalog="system" width="128" height="81"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -7,9 +7,9 @@
 
 import UIKit
 
-class RecentlyViewedHeaderCollectionReusableView: UICollectionReusableView {
+class RecentlyAddedHeaderCollectionReusableView: UICollectionReusableView {
         
-    static let identifier = "RecentlyViewedHeaderCollectionReusableView"
+    static let identifier = "RecentlyAddedHeaderCollectionReusableView"
     
     var sectionTitle: String {
         get {
@@ -24,9 +24,9 @@ class RecentlyViewedHeaderCollectionReusableView: UICollectionReusableView {
     
     private let recentlyViewedLabel: UILabel = {
         let label = UILabel()
-        label.text = "Recently viewed"
+        label.text = "Recently Added"
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 20, weight: .medium)
+        label.font = .systemFont(ofSize: 22, weight: .bold)
         return label
     }()
     
