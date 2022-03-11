@@ -28,6 +28,9 @@
 		18DF29DF27DA42B9006FE3C6 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF29DE27DA42B9006FE3C6 /* UIViewExtension.swift */; };
 		328C24BD27DA548300979917 /* ProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 328C24BB27DA548200979917 /* ProductCollectionViewCell.swift */; };
 		328C24BE27DA548300979917 /* ProductCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 328C24BC27DA548300979917 /* ProductCollectionViewCell.xib */; };
+		3293EC6D27DBC6E300B97997 /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3293EC6C27DBC6E300B97997 /* APIClientTests.swift */; };
+		3293EC7027DBD0F100B97997 /* CreateNewCustomerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3293EC6E27DBD0F100B97997 /* CreateNewCustomerViewController.swift */; };
+		3293EC7127DBD0F100B97997 /* CreateNewCustomerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3293EC6F27DBD0F100B97997 /* CreateNewCustomerViewController.xib */; };
 		329F260727D98882006A2897 /* Buy in Frameworks */ = {isa = PBXBuildFile; productRef = 329F260627D98882006A2897 /* Buy */; };
 		329F260927D98882006A2897 /* Pay in Frameworks */ = {isa = PBXBuildFile; productRef = 329F260827D98882006A2897 /* Pay */; };
 		32EEEE8727DA128C00188547 /* ClientQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EEEE8627DA128C00188547 /* ClientQuery.swift */; };
@@ -106,6 +109,9 @@
 		18DF29DE27DA42B9006FE3C6 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		328C24BB27DA548200979917 /* ProductCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCollectionViewCell.swift; sourceTree = "<group>"; };
 		328C24BC27DA548300979917 /* ProductCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductCollectionViewCell.xib; sourceTree = "<group>"; };
+		3293EC6C27DBC6E300B97997 /* APIClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
+		3293EC6E27DBD0F100B97997 /* CreateNewCustomerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewCustomerViewController.swift; sourceTree = "<group>"; };
+		3293EC6F27DBD0F100B97997 /* CreateNewCustomerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateNewCustomerViewController.xib; sourceTree = "<group>"; };
 		32EEEE8627DA128C00188547 /* ClientQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientQuery.swift; sourceTree = "<group>"; };
 		32EEEF5327DA131000188547 /* GraphQL+Serializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GraphQL+Serializable.swift"; sourceTree = "<group>"; };
 		32EEEF5527DA131B00188547 /* Fragment+VariantConnectionQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fragment+VariantConnectionQuery.swift"; sourceTree = "<group>"; };
@@ -214,6 +220,7 @@
 			children = (
 				18DF298B27D9719D006FE3C6 /* BuyINTests.swift */,
 				18DF298D27D9719D006FE3C6 /* Info.plist */,
+				3293EC6C27DBC6E300B97997 /* APIClientTests.swift */,
 			);
 			path = BuyINTests;
 			sourceTree = "<group>";
@@ -260,6 +267,8 @@
 				18DF29BF27DA125D006FE3C6 /* OrdersTableViewCell.xib */,
 				186199EA27DA6AC000470847 /* WishListCollectionViewCell.swift */,
 				186199EB27DA6AC000470847 /* WishListCollectionViewCell.xib */,
+				3293EC6E27DBD0F100B97997 /* CreateNewCustomerViewController.swift */,
+				3293EC6F27DBD0F100B97997 /* CreateNewCustomerViewController.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -483,6 +492,7 @@
 				32EEEF8B27DA303F00188547 /* CategoriesCollectionViewCell.xib in Resources */,
 				18DF298127D9719C006FE3C6 /* LaunchScreen.storyboard in Resources */,
 				328C24BE27DA548300979917 /* ProductCollectionViewCell.xib in Resources */,
+				3293EC7127DBD0F100B97997 /* CreateNewCustomerViewController.xib in Resources */,
 				18DF297E27D9719C006FE3C6 /* Assets.xcassets in Resources */,
 				186199ED27DA6AC000470847 /* WishListCollectionViewCell.xib in Resources */,
 				18DF29C127DA125D006FE3C6 /* OrdersTableViewCell.xib in Resources */,
@@ -550,6 +560,7 @@
 				32EEEF5427DA131000188547 /* GraphQL+Serializable.swift in Sources */,
 				32EEEF6327DA131D00188547 /* Fragment+DiscountAllocation.swift in Sources */,
 				18DF29B027D98369006FE3C6 /* Client.swift in Sources */,
+				3293EC7027DBD0F100B97997 /* CreateNewCustomerViewController.swift in Sources */,
 				32EEEF6227DA131D00188547 /* Fragment+ImageConnectionQuery.swift in Sources */,
 				18DF29B027D98369006FE3C6 /* Client.swift in Sources */,
 				18DF29C027DA125D006FE3C6 /* OrdersTableViewCell.swift in Sources */,
@@ -562,6 +573,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18DF298C27D9719D006FE3C6 /* BuyINTests.swift in Sources */,
+				3293EC6D27DBC6E300B97997 /* APIClientTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
