@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreML
 
 class HomeViewController: UIViewController {
 
@@ -255,4 +256,3 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         present(vc, animated: true)
     }
 }
-
