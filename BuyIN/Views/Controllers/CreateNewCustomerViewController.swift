@@ -21,14 +21,8 @@ class CreateNewCustomerViewController: UIViewController {
     
     
     override func viewDidLoad() {
-        
-        
-        
-        //-------------------------
-        
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
     }
 
     @IBAction func inputFieldsValueChanged(_ sender: Any) {
@@ -80,7 +74,10 @@ class CreateNewCustomerViewController: UIViewController {
             if let customer = customer {
                 
                 let alert = UIAlertController(title: "Success", message: "Register Succeded \n \(customer.id)", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+                   
+                    self.dismiss(animated: true)
+                }))
                 self.present(alert, animated: true, completion: nil)
                 
                 
