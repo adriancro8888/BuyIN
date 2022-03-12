@@ -9,7 +9,7 @@ import UIKit
 
 class RecentlyAddedHeaderCollectionReusableView: UICollectionReusableView {
         
-    static let identifier = "RecentlyAddedHeaderCollectionReusableView"
+    static let identifier = className
     
     var sectionTitle: String {
         get {

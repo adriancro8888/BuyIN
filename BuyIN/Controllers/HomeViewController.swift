@@ -110,13 +110,18 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.addSubview(collectionView)
         navigationItem.searchController = searchController
         collectionView.delegate = self
         collectionView.dataSource = self
         navigationController?.navigationBar.barTintColor = UIColor.white
         fetchProductsForHome()
+//        tabBarController?.tabBar.isHidden = true
+        navigationController?.navigationBar.isHidden = true
     }
+    
+
     
     private func fetchProductsForHome() {
         
@@ -253,6 +258,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let vc = ProductDetailsViewController()
         vc.modalPresentationStyle = .fullScreen
         vc.modalTransitionStyle = .crossDissolve
+        vc.product = flashSaleItems[indexPath.row]
         present(vc, animated: true)
     }
 }
