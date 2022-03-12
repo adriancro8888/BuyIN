@@ -90,7 +90,7 @@
 		0A7346E727DB971500F0D5C0 /* HeroCategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroCategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
 		0A7346E927DBC80F00F0D5C0 /* HotProductsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotProductsCollectionViewCell.swift; sourceTree = "<group>"; };
 		0A7346EB27DBDF1D00F0D5C0 /* RecentlyAddedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyAddedCollectionViewCell.swift; sourceTree = "<group>"; };
-		0A7346ED27DC7F5C00F0D5C0 /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProductDetailsViewController.swift; path = BuyIN/Views/ProductDetailsViewController.swift; sourceTree = SOURCE_ROOT; };
+		0A7346ED27DC7F5C00F0D5C0 /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProductDetailsViewController.swift; path = BuyIN/Controllers/Group/ProductDetailsViewController.swift; sourceTree = SOURCE_ROOT; };
 		186199EA27DA6AC000470847 /* WishListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListCollectionViewCell.swift; sourceTree = "<group>"; };
 		186199EB27DA6AC000470847 /* WishListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WishListCollectionViewCell.xib; sourceTree = "<group>"; };
 		18DF296E27D97198006FE3C6 /* BuyIN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BuyIN.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -174,12 +174,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0AA2E69627DA29C5005F8A47 /* General */ = {
+		0A7346EF27DC884000F0D5C0 /* Group */ = {
 			isa = PBXGroup;
 			children = (
 				0A7346ED27DC7F5C00F0D5C0 /* ProductDetailsViewController.swift */,
 			);
-			path = General;
+			path = Group;
 			sourceTree = "<group>";
 		};
 		18DF296527D97198006FE3C6 = {
@@ -241,10 +241,10 @@
 		18DF29A727D9752D006FE3C6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0A7346EF27DC884000F0D5C0 /* Group */,
 				18DF297527D97198006FE3C6 /* HomeViewController.swift */,
 				18DF29B427D9872A006FE3C6 /* CategoriesViewController.swift */,
 				18DF29B927D98740006FE3C6 /* ProfileViewController.swift */,
-				0AA2E69627DA29C5005F8A47 /* General */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

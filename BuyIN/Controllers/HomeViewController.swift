@@ -247,5 +247,12 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         return UICollectionReusableView()
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = ProductDetailsViewController()
+        vc.modalPresentationStyle = .fullScreen
+        vc.modalTransitionStyle = .crossDissolve
+        present(vc, animated: true)
+    }
 }
 
