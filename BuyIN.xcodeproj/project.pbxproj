@@ -13,7 +13,7 @@
 		0A7346E827DB971500F0D5C0 /* HeroCategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7346E727DB971500F0D5C0 /* HeroCategoriesCollectionViewCell.swift */; };
 		0A7346EA27DBC80F00F0D5C0 /* HotProductsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7346E927DBC80F00F0D5C0 /* HotProductsCollectionViewCell.swift */; };
 		0A7346EC27DBDF1D00F0D5C0 /* RecentlyAddedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7346EB27DBDF1D00F0D5C0 /* RecentlyAddedCollectionViewCell.swift */; };
-		0A7346EE27DC7F5C00F0D5C0 /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7346ED27DC7F5C00F0D5C0 /* ProductDetailsViewController.swift */; };
+		0A7346F527DC894900F0D5C0 /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7346F427DC894900F0D5C0 /* ProductDetailsViewController.swift */; };
 		186199EC27DA6AC000470847 /* WishListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186199EA27DA6AC000470847 /* WishListCollectionViewCell.swift */; };
 		186199ED27DA6AC000470847 /* WishListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186199EB27DA6AC000470847 /* WishListCollectionViewCell.xib */; };
 		18DF297227D97198006FE3C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF297127D97198006FE3C6 /* AppDelegate.swift */; };
@@ -90,7 +90,7 @@
 		0A7346E727DB971500F0D5C0 /* HeroCategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroCategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
 		0A7346E927DBC80F00F0D5C0 /* HotProductsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotProductsCollectionViewCell.swift; sourceTree = "<group>"; };
 		0A7346EB27DBDF1D00F0D5C0 /* RecentlyAddedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyAddedCollectionViewCell.swift; sourceTree = "<group>"; };
-		0A7346ED27DC7F5C00F0D5C0 /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProductDetailsViewController.swift; path = BuyIN/Controllers/Group/ProductDetailsViewController.swift; sourceTree = SOURCE_ROOT; };
+		0A7346F427DC894900F0D5C0 /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
 		186199EA27DA6AC000470847 /* WishListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListCollectionViewCell.swift; sourceTree = "<group>"; };
 		186199EB27DA6AC000470847 /* WishListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WishListCollectionViewCell.xib; sourceTree = "<group>"; };
 		18DF296E27D97198006FE3C6 /* BuyIN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BuyIN.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -174,12 +174,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0A7346EF27DC884000F0D5C0 /* Group */ = {
+		0A7346F327DC893500F0D5C0 /* General */ = {
 			isa = PBXGroup;
 			children = (
-				0A7346ED27DC7F5C00F0D5C0 /* ProductDetailsViewController.swift */,
+				0A7346F427DC894900F0D5C0 /* ProductDetailsViewController.swift */,
 			);
-			path = Group;
+			path = General;
 			sourceTree = "<group>";
 		};
 		18DF296527D97198006FE3C6 = {
@@ -241,7 +241,7 @@
 		18DF29A727D9752D006FE3C6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				0A7346EF27DC884000F0D5C0 /* Group */,
+				0A7346F327DC893500F0D5C0 /* General */,
 				18DF297527D97198006FE3C6 /* HomeViewController.swift */,
 				18DF29B427D9872A006FE3C6 /* CategoriesViewController.swift */,
 				18DF29B927D98740006FE3C6 /* ProfileViewController.swift */,
@@ -541,7 +541,7 @@
 				32EEEF6827DA136300188547 /* PaginatedArray.swift in Sources */,
 				32EEEF7427DA138D00188547 /* ProductViewModel.swift in Sources */,
 				32EEEF6527DA131D00188547 /* Fragment+OrderLineItemConnectionQuery.swift in Sources */,
-				0A7346EE27DC7F5C00F0D5C0 /* ProductDetailsViewController.swift in Sources */,
+				0A7346F527DC894900F0D5C0 /* ProductDetailsViewController.swift in Sources */,
 				32EEEF6427DA131D00188547 /* Fragment+DiscountApplication.swift in Sources */,
 				328C24BD27DA548300979917 /* ProductCollectionViewCell.swift in Sources */,
 				32EEEF5E27DA131D00188547 /* Fragment+VariantConnectionQuery.swift in Sources */,
