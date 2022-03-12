@@ -69,6 +69,13 @@ class RecentlyAddedCollectionViewCell: UICollectionViewCell {
         fatalError()
     }
     
+    func configure(with model: ProductViewModel) {
+        priceLabel.text = model.price
+        let url = model.images.items[0].url
+        productImageView.setImageFrom(url)
+        productTitleLabel.text = model.title
+        
+    }
     
     private func configureConstraints() {
         let productImageViewConstraints = [
