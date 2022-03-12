@@ -6,13 +6,15 @@
 //
 
 import UIKit
+import CoreML
 
 class HomeViewController: UIViewController {
 
 
     
     private let categories: [String] = ["Shoes", "Hats", "Shirts", "Pants", "Glasses"]
-    
+    private var recentlyAddedItems: [ProductViewModel] = []
+    private var flashSaleItems: [ProductViewModel] = []
     let searchController: UISearchController = {
         let searchController = UISearchController()
         searchController.searchBar.placeholder = "Search items..."
@@ -113,7 +115,26 @@ class HomeViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         navigationController?.navigationBar.barTintColor = UIColor.white
-
+        fetchProductsForHome()
+    }
+    
+    private func fetchProductsForHome() {
+        
+        
+        Client.shared.fetchCollections {[weak self] result in
+            guard let result = result else {
+                return
+            }
+            self?.recentlyAddedItems = result.items[1].products.items
+            self?.flashSaleItems = result.items[0].products.items
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+            
+        }
+        
+        
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -133,11 +154,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
         
         else if section == 2{
-            return 10
+            return flashSaleItems.count
         }
         
         else if section == 3{
-            return 10
+            return recentlyAddedItems.count
         }
         
         return 0
@@ -175,6 +196,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             cell.contentView.layer.shadowOffset = CGSize(width: 5, height: 5)
             cell.contentView.layer.shadowRadius = 10
             cell.contentView.layer.shadowOpacity = 0.5
+            cell.configure(with: flashSaleItems[indexPath.row])
             return cell
             
             
@@ -188,6 +210,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             cell.contentView.layer.shadowOffset = CGSize(width: 5, height: 5)
             cell.contentView.layer.shadowRadius = 10
             cell.contentView.layer.shadowOpacity = 0.5
+            cell.configure(with: recentlyAddedItems[indexPath.row])
             return cell
             
         default:
@@ -225,5 +248,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         return UICollectionReusableView()
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = ProductDetailsViewController()
+        vc.modalPresentationStyle = .fullScreen
+        vc.modalTransitionStyle = .crossDissolve
+        present(vc, animated: true)
+    }
 }
-
