@@ -17,6 +17,27 @@ final class ClientQuery {
     // ----------------------------------
     //  MARK: - Customers -
     //
+    
+    
+    
+    static func mutationForCreatingCustomer(firstName : String , lastName :String , phone:String ,email:String ,password:String )-> Storefront.MutationQuery{
+        let input = Storefront.CustomerCreateInput.create(email: email, password: password, firstName:Input.value(firstName), lastName: Input.value(lastName), phone:Input.value( phone), acceptsMarketing:Input.value(false))
+        return Storefront.buildMutation { $0
+                .customerCreate( input: input) { $0
+                .customer { $0
+                .id()
+                .displayName()
+                .createdAt()
+                }
+                .customerUserErrors { $0
+                .code()
+                .field()
+                .message()
+                }
+                }
+        }
+        
+    }
     static func mutationForLogin(email: String, password: String) -> Storefront.MutationQuery {
         let input = Storefront.CustomerAccessTokenCreateInput(email: email, password: password)
         return Storefront.buildMutation { $0

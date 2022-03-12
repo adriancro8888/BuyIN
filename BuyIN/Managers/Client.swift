@@ -28,6 +28,30 @@ final class Client {
     // ----------------------------------
     //  MARK: - Customers -
     //
+    
+    @discardableResult
+    func CreateCustomer(firstName : String , lastName :String , phone:String ,email:String ,password:String , completion: @escaping (Storefront.Customer?,[Storefront.CustomerUserError]? ) -> Void) -> Task {
+
+        let mutation = ClientQuery.mutationForCreatingCustomer(firstName: firstName, lastName: lastName, phone: phone, email: email, password: password)
+        
+        let task     = self.client.mutateGraphWith(mutation) { (mutation, error) in
+            error.debugPrint()
+
+            if let container = mutation?.customerCreate?.customer {
+                completion(container,nil)
+            } else {
+                let errors = mutation?.customerCreate?.customerUserErrors ?? []
+                print("Failed to login customer: \(errors)")
+                completion(nil,errors)
+            }
+        }
+        task.resume()
+        return task
+    }
+
+
+    
+    
     @discardableResult
     func login(email: String, password: String, completion: @escaping (String?) -> Void) -> Task {
         
