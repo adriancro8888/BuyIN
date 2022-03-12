@@ -54,6 +54,16 @@ class CategoriesViewController: UIViewController {
             }
         }
     }
+    
+    // TODO : will be removed this is JUST FOR TESTING
+    @IBAction func tempActionForSingup(_ sender: Any) {
+        
+      //  let view = CreateNewCustomerViewController(nibName: "CreateNewCustomerViewController", bundle: nil)
+     
+        
+        let coordinator: CustomerCoordinator = CustomerCoordinator.instantiateFromNib()
+        self.present(coordinator, animated: true, completion: nil)
+    }
 }
 
 
