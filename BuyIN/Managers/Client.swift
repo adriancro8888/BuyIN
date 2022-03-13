@@ -13,7 +13,7 @@ final class Client {
     
     static let shopDomain = "itiios.myshopify.com"
     static let apiKey     = "f78f765d212201e09cf5b3d6f8020421"
-    
+    static let merchantID = "merchant.com.your.id"
     static let shared = Client()
     
     private let client: Graph.Client = Graph.Client(shopDomain: Client.shopDomain, apiKey: Client.apiKey, locale:nil)
@@ -212,244 +212,244 @@ final class Client {
         return task
     }
     
-//    // ----------------------------------
-//    //  MARK: - Discounts -
-//    //
-//    @discardableResult
-//    func applyDiscount(_ discountCode: String, to checkoutID: String, completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
-//        let mutation = ClientQuery.mutationForApplyingDiscount(discountCode, to: checkoutID)
-//        let task     = self.client.mutateGraphWith(mutation) { response, error in
-//            error.debugPrint()
-//
-//            completion(response?.checkoutDiscountCodeApplyV2?.checkout?.viewModel)
-//        }
-//
-//        task.resume()
-//        return task
-//    }
-//
-//    // ----------------------------------
-//    //  MARK: - Gift Cards -
-//    //
-//    @discardableResult
-//    func applyGiftCard(_ giftCardCode: String, to checkoutID: String, completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
-//        let mutation = ClientQuery.mutationForApplyingGiftCard(giftCardCode, to: checkoutID)
-//        let task     = self.client.mutateGraphWith(mutation) { response, error in
-//            error.debugPrint()
-//
-//            completion(response?.checkoutGiftCardsAppend?.checkout?.viewModel)
-//        }
-//
-//        task.resume()
-//        return task
-//    }
-//
-//    // ----------------------------------
-//    //  MARK: - Checkout -
-//    //
-//    @discardableResult
-//    func createCheckout(with cartItems: [CartItem], completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
-//        let mutation = ClientQuery.mutationForCreateCheckout(with: cartItems)
-//        let task     = self.client.mutateGraphWith(mutation) { response, error in
-//            error.debugPrint()
-//
-//            completion(response?.checkoutCreate?.checkout?.viewModel)
-//        }
-//
-//        task.resume()
-//        return task
-//    }
-//
-//    @discardableResult
-//    func updateCheckout(_ id: String, updatingPartialShippingAddress address: PayPostalAddress, completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
-//        let mutation = ClientQuery.mutationForUpdateCheckout(id, updatingPartialShippingAddress: address)
-//        let task     = self.client.mutateGraphWith(mutation) { response, error in
-//            error.debugPrint()
-//
-//            if let checkout = response?.checkoutShippingAddressUpdateV2?.checkout,
-//                let _ = checkout.shippingAddress {
-//                completion(checkout.viewModel)
-//            } else {
-//                completion(nil)
-//            }
-//        }
-//
-//        task.resume()
-//        return task
-//    }
-//
-//    @discardableResult
-//    func updateCheckout(_ id: String, updatingCompleteShippingAddress address: PayAddress, completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
-//        let mutation = ClientQuery.mutationForUpdateCheckout(id, updatingCompleteShippingAddress: address)
-//        let task     = self.client.mutateGraphWith(mutation) { response, error in
-//            error.debugPrint()
-//
-//            if let checkout = response?.checkoutShippingAddressUpdateV2?.checkout,
-//                let _ = checkout.shippingAddress {
-//                completion(checkout.viewModel)
-//            } else {
-//                completion(nil)
-//            }
-//        }
-//
-//        task.resume()
-//        return task
-//    }
-//
-//    @discardableResult
-//    func updateCheckout(_ id: String, updatingShippingRate shippingRate: PayShippingRate, completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
-//        let mutation = ClientQuery.mutationForUpdateCheckout(id, updatingShippingRate: shippingRate)
-//        let task     = self.client.mutateGraphWith(mutation) { response, error in
-//            error.debugPrint()
-//
-//            if let checkout = response?.checkoutShippingLineUpdate?.checkout,
-//                let _ = checkout.shippingLine {
-//                completion(checkout.viewModel)
-//            } else {
-//                completion(nil)
-//            }
-//        }
-//
-//        task.resume()
-//        return task
-//    }
-//
-//    @discardableResult
-//    func pollForReadyCheckout(_ id: String, completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
-//
-//        let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .finite(30)) { response, error -> Bool in
-//            error.debugPrint()
-//            return (response?.node as? Storefront.Checkout)?.ready ?? false == false
-//        }
-//
-//        let query = ClientQuery.queryForCheckout(id)
-//        let task  = client.queryGraphWith(query, cachePolicy: .networkOnly, retryHandler: retry) { response, error in
-//            error.debugPrint()
-//
-//            if let checkout = response?.node as? Storefront.Checkout {
-//                completion(checkout.viewModel)
-//            } else {
-//                completion(nil)
-//            }
-//        }
-//
-//        task.resume()
-//        return task
-//    }
-//
-//    @discardableResult
-//    func updateCheckout(_ id: String, updatingEmail email: String, completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
-//        let mutation = ClientQuery.mutationForUpdateCheckout(id, updatingEmail: email)
-//        let task     = self.client.mutateGraphWith(mutation) { response, error in
-//            error.debugPrint()
-//
-//            if let checkout = response?.checkoutEmailUpdateV2?.checkout,
-//                let _ = checkout.email {
-//                completion(checkout.viewModel)
-//            } else {
-//                completion(nil)
-//            }
-//        }
-//
-//        task.resume()
-//        return task
-//    }
-//
-//    @discardableResult
-//    func updateCheckout(_ id: String, associatingCustomer accessToken: String, completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
-//
-//        let mutation = ClientQuery.mutationForUpdateCheckout(id, associatingCustomer: accessToken)
-//        let task     = self.client.mutateGraphWith(mutation) { (mutation, error) in
-//            error.debugPrint()
-//
-//            if let checkout = mutation?.checkoutCustomerAssociateV2?.checkout {
-//                completion(checkout.viewModel)
-//            } else {
-//                completion(nil)
-//            }
-//        }
-//
-//        task.resume()
-//        return task
-//    }
-//
-//    @discardableResult
-//    func fetchShippingRatesForCheckout(_ id: String, completion: @escaping ((checkout: CheckoutViewModel, rates: [ShippingRateViewModel])?) -> Void) -> Task {
-//
-//        let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .finite(30)) { response, error -> Bool in
-//            error.debugPrint()
-//
-//            if let checkout = response?.node as? Storefront.Checkout {
-//                return checkout.availableShippingRates?.ready ?? false == false || checkout.ready == false
-//            } else {
-//                return false
-//            }
-//        }
-//
-//        let query = ClientQuery.queryShippingRatesForCheckout(id)
-//        let task  = self.client.queryGraphWith(query, cachePolicy: .networkOnly, retryHandler: retry) { response, error in
-//            error.debugPrint()
-//
-//            if let response = response,
-//                let checkout = response.node as? Storefront.Checkout {
-//                completion((checkout.viewModel, checkout.availableShippingRates!.shippingRates!.viewModels))
-//            } else {
-//                completion(nil)
-//            }
-//        }
-//
-//        task.resume()
-//        return task
-//    }
-//
-//    func completeCheckout(_ checkout: PayCheckout, billingAddress: PayAddress, applePayToken token: String, idempotencyToken: String, completion: @escaping (PaymentViewModel?) -> Void) {
-//
-//        let mutation = ClientQuery.mutationForCompleteCheckoutUsingApplePay(checkout, billingAddress: billingAddress, token: token, idempotencyToken: idempotencyToken)
-//        let task     = self.client.mutateGraphWith(mutation) { response, error in
-//            error.debugPrint()
-//
-//            if let payment = response?.checkoutCompleteWithTokenizedPaymentV3?.payment {
-//
-//                print("Payment created, fetching status...")
-//                self.fetchCompletedPayment(payment.id.rawValue) { paymentViewModel in
-//                    completion(paymentViewModel)
-//                }
-//
-//            } else {
-//                completion(nil)
-//            }
-//        }
-//
-//        task.resume()
-//    }
-//
-//    func fetchCompletedPayment(_ id: String, completion: @escaping (PaymentViewModel?) -> Void) {
-//
-//        let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .finite(30)) { response, error -> Bool in
-//            error.debugPrint()
-//
-//            if let payment = response?.node as? Storefront.Payment {
-//                print("Payment not ready yet, retrying...")
-//                return !payment.ready
-//            } else {
-//                return false
-//            }
-//        }
-//
-//        let query = ClientQuery.queryForPayment(id)
-//        let task  = self.client.queryGraphWith(query, retryHandler: retry) { query, error in
-//
-//            if let payment = query?.node as? Storefront.Payment {
-//                print("Payment error: \(payment.errorMessage ?? "none")")
-//                completion(payment.viewModel)
-//            } else {
-//                completion(nil)
-//            }
-//        }
-//
-//        task.resume()
-//    }
-//
+    // ----------------------------------
+    //  MARK: - Discounts -
+    //
+    @discardableResult
+    func applyDiscount(_ discountCode: String, to checkoutID: String, completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
+        let mutation = ClientQuery.mutationForApplyingDiscount(discountCode, to: checkoutID)
+        let task     = self.client.mutateGraphWith(mutation) { response, error in
+            error.debugPrint()
+
+            completion(response?.checkoutDiscountCodeApplyV2?.checkout?.viewModel)
+        }
+
+        task.resume()
+        return task
+    }
+
+    // ----------------------------------
+    //  MARK: - Gift Cards -
+    //
+    @discardableResult
+    func applyGiftCard(_ giftCardCode: String, to checkoutID: String, completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
+        let mutation = ClientQuery.mutationForApplyingGiftCard(giftCardCode, to: checkoutID)
+        let task     = self.client.mutateGraphWith(mutation) { response, error in
+            error.debugPrint()
+
+            completion(response?.checkoutGiftCardsAppend?.checkout?.viewModel)
+        }
+
+        task.resume()
+        return task
+    }
+
+    // ----------------------------------
+    //  MARK: - Checkout -
+    //
+    @discardableResult
+    func createCheckout(with cartItems: [CartItem], completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
+        let mutation = ClientQuery.mutationForCreateCheckout(with: cartItems)
+        let task     = self.client.mutateGraphWith(mutation) { response, error in
+            error.debugPrint()
+
+            completion(response?.checkoutCreate?.checkout?.viewModel)
+        }
+
+        task.resume()
+        return task
+    }
+
+    @discardableResult
+    func updateCheckout(_ id: String, updatingPartialShippingAddress address: PayPostalAddress, completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
+        let mutation = ClientQuery.mutationForUpdateCheckout(id, updatingPartialShippingAddress: address)
+        let task     = self.client.mutateGraphWith(mutation) { response, error in
+            error.debugPrint()
+
+            if let checkout = response?.checkoutShippingAddressUpdateV2?.checkout,
+                let _ = checkout.shippingAddress {
+                completion(checkout.viewModel)
+            } else {
+                completion(nil)
+            }
+        }
+
+        task.resume()
+        return task
+    }
+
+    @discardableResult
+    func updateCheckout(_ id: String, updatingCompleteShippingAddress address: PayAddress, completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
+        let mutation = ClientQuery.mutationForUpdateCheckout(id, updatingCompleteShippingAddress: address)
+        let task     = self.client.mutateGraphWith(mutation) { response, error in
+            error.debugPrint()
+
+            if let checkout = response?.checkoutShippingAddressUpdateV2?.checkout,
+                let _ = checkout.shippingAddress {
+                completion(checkout.viewModel)
+            } else {
+                completion(nil)
+            }
+        }
+
+        task.resume()
+        return task
+    }
+
+    @discardableResult
+    func updateCheckout(_ id: String, updatingShippingRate shippingRate: PayShippingRate, completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
+        let mutation = ClientQuery.mutationForUpdateCheckout(id, updatingShippingRate: shippingRate)
+        let task     = self.client.mutateGraphWith(mutation) { response, error in
+            error.debugPrint()
+
+            if let checkout = response?.checkoutShippingLineUpdate?.checkout,
+                let _ = checkout.shippingLine {
+                completion(checkout.viewModel)
+            } else {
+                completion(nil)
+            }
+        }
+
+        task.resume()
+        return task
+    }
+
+    @discardableResult
+    func pollForReadyCheckout(_ id: String, completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
+
+        let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .finite(30)) { response, error -> Bool in
+            error.debugPrint()
+            return (response?.node as? Storefront.Checkout)?.ready ?? false == false
+        }
+
+        let query = ClientQuery.queryForCheckout(id)
+        let task  = client.queryGraphWith(query, cachePolicy: .networkOnly, retryHandler: retry) { response, error in
+            error.debugPrint()
+
+            if let checkout = response?.node as? Storefront.Checkout {
+                completion(checkout.viewModel)
+            } else {
+                completion(nil)
+            }
+        }
+
+        task.resume()
+        return task
+    }
+
+    @discardableResult
+    func updateCheckout(_ id: String, updatingEmail email: String, completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
+        let mutation = ClientQuery.mutationForUpdateCheckout(id, updatingEmail: email)
+        let task     = self.client.mutateGraphWith(mutation) { response, error in
+            error.debugPrint()
+
+            if let checkout = response?.checkoutEmailUpdateV2?.checkout,
+                let _ = checkout.email {
+                completion(checkout.viewModel)
+            } else {
+                completion(nil)
+            }
+        }
+
+        task.resume()
+        return task
+    }
+
+    @discardableResult
+    func updateCheckout(_ id: String, associatingCustomer accessToken: String, completion: @escaping (CheckoutViewModel?) -> Void) -> Task {
+
+        let mutation = ClientQuery.mutationForUpdateCheckout(id, associatingCustomer: accessToken)
+        let task     = self.client.mutateGraphWith(mutation) { (mutation, error) in
+            error.debugPrint()
+
+            if let checkout = mutation?.checkoutCustomerAssociateV2?.checkout {
+                completion(checkout.viewModel)
+            } else {
+                completion(nil)
+            }
+        }
+
+        task.resume()
+        return task
+    }
+
+    @discardableResult
+    func fetchShippingRatesForCheckout(_ id: String, completion: @escaping ((checkout: CheckoutViewModel, rates: [ShippingRateViewModel])?) -> Void) -> Task {
+
+        let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .finite(30)) { response, error -> Bool in
+            error.debugPrint()
+
+            if let checkout = response?.node as? Storefront.Checkout {
+                return checkout.availableShippingRates?.ready ?? false == false || checkout.ready == false
+            } else {
+                return false
+            }
+        }
+
+        let query = ClientQuery.queryShippingRatesForCheckout(id)
+        let task  = self.client.queryGraphWith(query, cachePolicy: .networkOnly, retryHandler: retry) { response, error in
+            error.debugPrint()
+
+            if let response = response,
+                let checkout = response.node as? Storefront.Checkout {
+                completion((checkout.viewModel, checkout.availableShippingRates!.shippingRates!.viewModels))
+            } else {
+                completion(nil)
+            }
+        }
+
+        task.resume()
+        return task
+    }
+
+    func completeCheckout(_ checkout: PayCheckout, billingAddress: PayAddress, applePayToken token: String, idempotencyToken: String, completion: @escaping (PaymentViewModel?) -> Void) {
+
+        let mutation = ClientQuery.mutationForCompleteCheckoutUsingApplePay(checkout, billingAddress: billingAddress, token: token, idempotencyToken: idempotencyToken)
+        let task     = self.client.mutateGraphWith(mutation) { response, error in
+            error.debugPrint()
+
+            if let payment = response?.checkoutCompleteWithTokenizedPaymentV3?.payment {
+
+                print("Payment created, fetching status...")
+                self.fetchCompletedPayment(payment.id.rawValue) { paymentViewModel in
+                    completion(paymentViewModel)
+                }
+
+            } else {
+                completion(nil)
+            }
+        }
+
+        task.resume()
+    }
+
+    func fetchCompletedPayment(_ id: String, completion: @escaping (PaymentViewModel?) -> Void) {
+
+        let retry = Graph.RetryHandler<Storefront.QueryRoot>(endurance: .finite(30)) { response, error -> Bool in
+            error.debugPrint()
+
+            if let payment = response?.node as? Storefront.Payment {
+                print("Payment not ready yet, retrying...")
+                return !payment.ready
+            } else {
+                return false
+            }
+        }
+
+        let query = ClientQuery.queryForPayment(id)
+        let task  = self.client.queryGraphWith(query, retryHandler: retry) { query, error in
+
+            if let payment = query?.node as? Storefront.Payment {
+                print("Payment error: \(payment.errorMessage ?? "none")")
+                completion(payment.viewModel)
+            } else {
+                completion(nil)
+            }
+        }
+
+        task.resume()
+    }
+
     
 }
 
