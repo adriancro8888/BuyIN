@@ -41,7 +41,7 @@ class ProductDetailsViewController: UIViewController {
         }
     }
     
-    var product: ProductViewModel!
+  //  var product: ProductViewModel!
     
     
     
