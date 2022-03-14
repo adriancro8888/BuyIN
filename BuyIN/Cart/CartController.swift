@@ -165,4 +165,9 @@ class CartController {
         self.items.remove(at: index)
         self.itemsChanged()
     }
+    
+    func emptyCart() {
+        self.items.removeAll()
+        self.itemsChanged()
+    }
 }

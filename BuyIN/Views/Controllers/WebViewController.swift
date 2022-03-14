@@ -3,11 +3,11 @@
 import UIKit
 import WebKit
 
-class WebViewController: UIViewController {
+class WebViewController: UIViewController ,WKNavigationDelegate {
     
     let url: URL
     let accessToken: String?
-    
+   // var caller: CartViewController?
     private let webView = WKWebView(frame: .zero)
     
     // ----------------------------------
@@ -18,8 +18,9 @@ class WebViewController: UIViewController {
         self.accessToken = accessToken
         
         super.init(nibName: nil, bundle: nil)
-        
+        self.webView.navigationDelegate = self
         self.initialize()
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -40,6 +41,35 @@ class WebViewController: UIViewController {
         self.load(url: self.url)
     }
     
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        if let urlStr = navigationAction.request.url?.absoluteString {
+            
+            
+            if   urlStr.contains("/thank_you") {
+                print("Recevied OK !")
+                decisionHandler(.allow)
+                self.dismiss(animated: true) {
+                    CartController.shared.emptyCart()
+                    
+                }
+            }
+            else{
+                decisionHandler(.allow)
+            }
+            
+        }
+        else{
+            decisionHandler(.allow)
+        }
+        
+    }
+    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        //let responce  = navigationResponse.response
+      //  print("=========================navigationResponse")
+      //  print(responce)
+      
+        decisionHandler(.allow)
+    }
     // ----------------------------------
     //  MARK: - Request -
     //

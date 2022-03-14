@@ -94,6 +94,7 @@ class CartViewController: UIViewController {
         self.subtotal = CartController.shared.subtotal
         self.itemCount
         = CartController.shared.itemCount
+        collectionView.reloadData()
     }
     
     // ----------------------------------
