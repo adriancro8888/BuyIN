@@ -12,19 +12,22 @@ class WelcomingViewController: UIViewController {
     private var currentlyShownImageIndex: Int = 1
     private var toBeShownImageIndex: Int = 2
     private var isBackgroundShown: Bool = false
+    
     private var images: [String] = []
     private let logoLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "BuyIN'"
+        label.textColor = .white
         label.font = .systemFont(ofSize: 102, weight: .bold)
         return label
     }()
-    
+
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Expect more. Pay less."
+        label.textColor = .white
         label.font = .systemFont(ofSize: 30, weight: .medium)
         return label
     }()
@@ -54,10 +57,12 @@ class WelcomingViewController: UIViewController {
         backgroundImageView.alpha = 0
     }
     
+
+    
     private func updateBackgroundImage() {
         currentlyShownImageIndex += 2
         currentlyShownImageIndex %= images.count
-        backgroundImageView.image = UIImage(named: images[currentlyShownImageIndex])
+        backgroundImageView.image = UIImage(named: images[currentlyShownImageIndex]) // 0
     }
     
     private func updateForegroundImage() {
@@ -129,6 +134,7 @@ class WelcomingViewController: UIViewController {
         view.addSubview(descriptionLabel)
         view.addSubview(getStartedButton)
         
+        
         configureConstraints()
         configureLabels()
         
@@ -136,13 +142,13 @@ class WelcomingViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        UIView.animate(withDuration: 0.8, delay: 0.5, options: .curveEaseOut) { [weak self] in
+        UIView.animate(withDuration: 0.8, delay: 0.3, options: .curveEaseOut) { [weak self] in
             self?.logoLabel.transform = CGAffineTransform(translationX: 0, y: 0)
         } completion: { _ in
             
         }
         
-        UIView.animate(withDuration: 0.8, delay: 0.8, options: .curveEaseOut) { [weak self] in
+        UIView.animate(withDuration: 0.8, delay: 0.6, options: .curveEaseOut) { [weak self] in
             self?.descriptionLabel.transform = CGAffineTransform(translationX: 0, y: 0)
         } completion: { _ in
             
@@ -191,12 +197,14 @@ class WelcomingViewController: UIViewController {
             descriptionLabel.topAnchor.constraint(equalTo: logoLabel.bottomAnchor, constant: 5)
         ]
         
+
         let getStartedButtonConstraints = [
-            getStartedButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            getStartedButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            getStartedButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: view.frame.width / 10),
+            getStartedButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -view.frame.width / 10),
             getStartedButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
-            getStartedButton.heightAnchor.constraint(equalToConstant: 70)
+            getStartedButton.heightAnchor.constraint(equalToConstant: 70),
         ]
+
         
         NSLayoutConstraint.activate(backgroundImageViewConstraints)
         NSLayoutConstraint.activate(foregroundImageViewConstraints)
@@ -204,6 +212,5 @@ class WelcomingViewController: UIViewController {
         NSLayoutConstraint.activate(logoLabelConstraints)
         NSLayoutConstraint.activate(descriptionLabelConstraints)
         NSLayoutConstraint.activate(getStartedButtonConstraints)
-
     }
 }

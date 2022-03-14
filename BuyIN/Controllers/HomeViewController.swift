@@ -110,24 +110,30 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = .white
         view.addSubview(collectionView)
         navigationItem.searchController = searchController
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.backgroundColor = .white
         navigationController?.navigationBar.barTintColor = UIColor.white
         fetchProductsForHome()
 //        tabBarController?.tabBar.isHidden = true
         navigationController?.navigationBar.isHidden = true
+        collectionView.contentInsetAdjustmentBehavior = .never
     }
     
 
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        let vc = WelcomingViewController()
-//        vc.modalPresentationStyle = .fullScreen
-//        present(vc, animated: false)
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let vc = WelcomingViewController()
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: false)
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     private func fetchProductsForHome() {
         

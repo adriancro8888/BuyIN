@@ -7,9 +7,18 @@
 
 import UIKit
 
+
+protocol LoginViewControllerDelegate: AnyObject {
+    func loginViewControllerDelegateDidTapSignup()
+    func loginViewControllerDelegateDidTapContinue()
+    func loginViewControllerDelegateDidTapForgotPassword()
+    func loginViewControllerDelegateDidTapLoginAsGuest()
+}
+
 class SecondLoginViewController: UIViewController {
 
     
+    weak var delegate: LoginViewControllerDelegate?
 
     private let loginLabel: UILabel = {
        
@@ -19,6 +28,7 @@ class SecondLoginViewController: UIViewController {
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 50, weight: .bold)
         label.alpha = 0
+        label.textColor = .white
         label.layer.shadowColor = UIColor.black.cgColor
         label.layer.shadowRadius = 10
         label.layer.shadowOpacity = 1
@@ -27,6 +37,16 @@ class SecondLoginViewController: UIViewController {
         return label
     }()
 
+    
+    private let guestButton: UIButton = {
+       
+        let button = UIButton(type: .system)
+        button.tintColor = .white
+        button.setTitle("Login as a guest", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = .systemFont(ofSize: 18, weight: .medium)
+        return button
+    }()
 
     
     private lazy var blurredVisualEffect: UIVisualEffectView = {
@@ -39,7 +59,7 @@ class SecondLoginViewController: UIViewController {
         return view
     }()
     
-    private let userEmailField: UITextField = {
+    private lazy var userEmailField: UITextField = {
         let field = UITextField()
         field.returnKeyType = .next
         field.leftViewMode = .always
@@ -49,6 +69,7 @@ class SecondLoginViewController: UIViewController {
         field.layer.masksToBounds = true
         field.backgroundColor = .white
         field.layer.cornerRadius = 10
+        field.inputAccessoryView = doneToolBar
         field.translatesAutoresizingMaskIntoConstraints = false
         field.attributedPlaceholder = NSAttributedString(
             string: "Email",
@@ -57,16 +78,36 @@ class SecondLoginViewController: UIViewController {
         return field
     }()
     
-    private let userPasswordField: UITextField = {
+    @objc private func didTapDone() {
+        for _view in view.subviews {
+            if _view.isFirstResponder {
+                _view.resignFirstResponder()
+                break
+            }
+        }
+    }
+    
+    private let doneToolBar: UIToolbar = {
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
+        toolbar.barStyle = .black
+        let spacing = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(didTapDone))
+        toolbar.items = [spacing, doneButton]
+        return toolbar
+    }()
+    
+    private lazy var userPasswordField: UITextField = {
         let field = UITextField()
         field.returnKeyType = .done
         field.leftViewMode = .always
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
+        field.isSecureTextEntry = true
         field.layer.masksToBounds = true
         field.backgroundColor = .white
         field.layer.cornerRadius = 10
+        field.inputAccessoryView = doneToolBar
         field.translatesAutoresizingMaskIntoConstraints = false
         field.attributedPlaceholder = NSAttributedString(
             string: "Password",
@@ -121,7 +162,7 @@ class SecondLoginViewController: UIViewController {
         
         view.addSubview(blurredVisualEffect)
         view.addSubview(loginLabel)
-
+        view.addSubview(guestButton)
         view.addSubview(userEmailField)
         view.addSubview(userPasswordField)
         view.addSubview(continueButton)
@@ -129,8 +170,27 @@ class SecondLoginViewController: UIViewController {
         view.addSubview(signUpButton)
         view.addSubview(forgotPasswordButton)
         configureConstraints()
+        continueButton.addTarget(self, action: #selector(didTapContinue), for: .touchUpInside)
+        signUpButton.addTarget(self, action: #selector(didTapSignup), for: .touchUpInside)
+        forgotPasswordButton.addTarget(self, action: #selector(didTapForgotPassword), for: .touchUpInside)
+        guestButton.addTarget(self, action: #selector(didTapLoginAsGuest), for: .touchUpInside)
         
-        
+    }
+    
+    @objc private func didTapLoginAsGuest() {
+        delegate?.loginViewControllerDelegateDidTapLoginAsGuest()
+    }
+    
+    @objc private func didTapContinue() {
+        delegate?.loginViewControllerDelegateDidTapContinue()
+    }
+    
+    @objc private func didTapSignup() {
+        delegate?.loginViewControllerDelegateDidTapSignup()
+    }
+    
+    @objc private func didTapForgotPassword() {
+        delegate?.loginViewControllerDelegateDidTapForgotPassword()
     }
     
 
@@ -147,9 +207,9 @@ class SecondLoginViewController: UIViewController {
         
         let blurredVisualEffectConstraints = [
             blurredVisualEffect.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            blurredVisualEffect.heightAnchor.constraint(equalToConstant: 400),
+            blurredVisualEffect.heightAnchor.constraint(equalToConstant: 420),
             blurredVisualEffect.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            blurredVisualEffect.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -200)
+            blurredVisualEffect.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -180)
         ]
         
         
@@ -184,7 +244,7 @@ class SecondLoginViewController: UIViewController {
         
         let promptLabelConstraints = [
             promptLabel.leadingAnchor.constraint(equalTo: blurredVisualEffect.leadingAnchor, constant: 20),
-            promptLabel.topAnchor.constraint(equalTo: continueButton.bottomAnchor, constant: 20)
+            promptLabel.topAnchor.constraint(equalTo: continueButton.bottomAnchor, constant: 10)
         ]
         
         let signUpButtonConstraints = [
@@ -192,9 +252,14 @@ class SecondLoginViewController: UIViewController {
             signUpButton.centerYAnchor.constraint(equalTo: promptLabel.centerYAnchor)
         ]
         
+        let guestButtonConstraints = [
+            guestButton.leadingAnchor.constraint(equalTo: promptLabel.leadingAnchor),
+            guestButton.topAnchor.constraint(equalTo: promptLabel.bottomAnchor, constant: 10)
+        ]
+        
         let forgotPasswordButtonConstraints = [
             forgotPasswordButton.leadingAnchor.constraint(equalTo: blurredVisualEffect.leadingAnchor, constant: 20),
-            forgotPasswordButton.topAnchor.constraint(equalTo: promptLabel.bottomAnchor, constant: 20)
+            forgotPasswordButton.topAnchor.constraint(equalTo: guestButton.bottomAnchor, constant: 10)
         ]
 
 
@@ -206,6 +271,7 @@ class SecondLoginViewController: UIViewController {
         NSLayoutConstraint.activate(continueButtonConstraints)
         NSLayoutConstraint.activate(promptLabelConstraints)
         NSLayoutConstraint.activate(signUpButtonConstraints)
+        NSLayoutConstraint.activate(guestButtonConstraints)
         NSLayoutConstraint.activate(forgotPasswordButtonConstraints)
     }
 
