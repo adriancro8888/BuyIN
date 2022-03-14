@@ -11,6 +11,11 @@ import UIKit
 class ProductDetailsViewController: UIViewController {
 
     
+    var product: ProductViewModel!
+    
+    
+    
+    
     private let dismissButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
