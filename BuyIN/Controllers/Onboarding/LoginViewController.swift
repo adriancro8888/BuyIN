@@ -7,19 +7,12 @@
 
 import UIKit
 
+ 
+ 
+class LoginViewController: UIViewController {
 
-protocol LoginViewControllerDelegate: AnyObject {
-    func loginViewControllerDelegateDidTapSignup()
-    func loginViewControllerDelegateDidTapContinue()
-    func loginViewControllerDelegateDidTapForgotPassword()
-    func loginViewControllerDelegateDidTapLoginAsGuest()
-}
-
-class SecondLoginViewController: UIViewController {
-
-    
-    weak var delegate: LoginViewControllerDelegate?
-
+    var onBoarding : OnboardingParentViewController?
+   
     private let loginLabel: UILabel = {
        
         let label = UILabel()
@@ -42,7 +35,7 @@ class SecondLoginViewController: UIViewController {
        
         let button = UIButton(type: .system)
         button.tintColor = .white
-        button.setTitle("Login as a guest", for: .normal)
+        button.setTitle("Continue Shopping as a guest", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = .systemFont(ofSize: 18, weight: .medium)
         return button
@@ -50,7 +43,7 @@ class SecondLoginViewController: UIViewController {
 
     
     private lazy var blurredVisualEffect: UIVisualEffectView = {
-        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
+        let blurEffect = UIBlurEffect(style: .regular)
         let view = UIVisualEffectView(effect: blurEffect)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.clipsToBounds = true
@@ -67,7 +60,7 @@ class SecondLoginViewController: UIViewController {
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.layer.masksToBounds = true
-        field.backgroundColor = .white
+        field.backgroundColor = UIColor.systemBackground
         field.layer.cornerRadius = 10
         field.inputAccessoryView = doneToolBar
         field.translatesAutoresizingMaskIntoConstraints = false
@@ -105,7 +98,7 @@ class SecondLoginViewController: UIViewController {
         field.autocorrectionType = .no
         field.isSecureTextEntry = true
         field.layer.masksToBounds = true
-        field.backgroundColor = .white
+        field.backgroundColor =  UIColor.systemBackground
         field.layer.cornerRadius = 10
         field.inputAccessoryView = doneToolBar
         field.translatesAutoresizingMaskIntoConstraints = false
@@ -178,21 +171,76 @@ class SecondLoginViewController: UIViewController {
     }
     
     @objc private func didTapLoginAsGuest() {
-        delegate?.loginViewControllerDelegateDidTapLoginAsGuest()
+       self.loginViewControllerDelegateDidTapLoginAsGuest()
     }
     
     @objc private func didTapContinue() {
-        delegate?.loginViewControllerDelegateDidTapContinue()
+      self.loginViewControllerDelegateDidTapContinue(email : self.userEmailField.text ?? "" , password : self.userPasswordField.text ?? "")
     }
     
     @objc private func didTapSignup() {
-        delegate?.loginViewControllerDelegateDidTapSignup()
+       self.loginViewControllerDelegateDidTapSignup()
     }
     
     @objc private func didTapForgotPassword() {
-        delegate?.loginViewControllerDelegateDidTapForgotPassword()
+        self.loginViewControllerDelegateDidTapForgotPassword()
     }
     
+    
+    
+    
+    
+    func loginViewControllerDelegateDidTapContinue(email: String, password: String) {
+        Client.shared.login(email: email, password: password) { accessToken in
+            if let accessToken = accessToken {
+                AccountController.shared.save(accessToken: accessToken)
+                
+                let homeVC: UITabBarController = UITabBarController.instantiateFromMainStoryboard()
+                homeVC.modalTransitionStyle = .crossDissolve;
+                homeVC.modalPresentationStyle = .fullScreen;
+                self.present(homeVC, animated: true) {
+                    
+                }
+            } else {
+                let alert = UIAlertController(title: "Login Error", message: "Failed to login a customer with this email and password. Please check your credentials and try again.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    
+    func loginViewControllerDelegateDidTapSignup() {
+        
+        if let onBoarding = self.onBoarding {
+            
+            onBoarding.scrollView.setContentOffset(CGPoint(x: onBoarding.scrollView.frame.width, y: 0), animated: true)
+        }
+       
+    }
+    
+   
+    
+    func loginViewControllerDelegateDidTapForgotPassword() {
+        
+    }
+    
+    func loginViewControllerDelegateDidTapLoginAsGuest() {
+        let homeVC: UITabBarController = UITabBarController.instantiateFromMainStoryboard()
+        homeVC.modalTransitionStyle = .crossDissolve;
+        homeVC.modalPresentationStyle = .fullScreen;
+        self.present(homeVC, animated: true) {
+            
+        }
+
+    }
+    
+    func registrationViewControllerDidTapSignIn() {
+        if let onBoarding = self.onBoarding {
+            onBoarding.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        }
+       
+    }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

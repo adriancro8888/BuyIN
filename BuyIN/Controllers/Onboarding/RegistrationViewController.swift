@@ -7,13 +7,10 @@
 
 import UIKit
 
-protocol RegistrationViewControllerDelegate: AnyObject {
-    func registrationViewControllerDidTapSignIn()
-}
-
+ 
 class RegistrationViewController: UIViewController {
     
-    weak var delegate: RegistrationViewControllerDelegate?
+    weak var onBoarding: OnboardingParentViewController?
     
     private lazy var blurredVisualEffect: UIVisualEffectView = {
         let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
@@ -262,6 +259,10 @@ class RegistrationViewController: UIViewController {
         registerButton.isEnabled = false
         continueButton.isEnabled = false
         continueButton.addTarget(self, action: #selector(didTapContinue), for: .touchUpInside)
+        
+        
+        registerButton.addTarget(self, action: #selector(didTapRegister), for: .touchUpInside)
+        
         tacButton.addTarget(self, action: #selector(didTapTacButton), for: .touchUpInside)
         
     }
@@ -271,7 +272,60 @@ class RegistrationViewController: UIViewController {
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: email) ? email : nil
     }
-    
+    @objc private func didTapRegister() {
+        
+        
+        Client.shared.CreateCustomer(firstName: self.firstNameField.text!, lastName: self.lasNameField.text!, phone: self.phoneField.text!, email: self.emailField.text!, password: self.passwordField.text!) { [self] customer, errors in
+            
+            if let customer = customer {
+                
+                let alert = UIAlertController(title: "Success", message: "Registeration Succeded \n \(customer.createdAt)", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+            
+                    
+                    Client.shared.login(email: self.emailField.text!, password: self.passwordField.text!) { accessToken in
+                        if let accessToken = accessToken {
+                            AccountController.shared.save(accessToken: accessToken)
+                           
+                        }
+                    }
+                        
+                        
+                        
+                    let homeVC: UITabBarController = UITabBarController.instantiateFromMainStoryboard()
+                    homeVC.modalTransitionStyle = .crossDissolve;
+                    homeVC.modalPresentationStyle = .fullScreen;
+                    self.present(homeVC, animated: true) {
+                        
+                    }
+                    
+                    
+                    
+                }))
+                self.present(alert, animated: true, completion: nil)
+                
+                
+            }  else {
+                if let errors = errors  {
+                    if errors .count > 0 {
+                        let alert = UIAlertController(title: "Failed to register", message: errors[0].message, preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+                        self.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+                    }
+                    let alert = UIAlertController(title: "Failed to register", message:"Unknowen error !", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                    self.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+                    
+                }
+             
+                
+            }
+            
+        }
+        
+    }
     @objc private func didTapContinue() {
         guard let email = emailField.text,
               let validEmail = isValidEmail(email) else {
@@ -291,9 +345,61 @@ class RegistrationViewController: UIViewController {
     }
     
     @objc private func didTapSignIn() {
-        delegate?.registrationViewControllerDidTapSignIn()
+        self.registrationViewControllerDidTapSignIn()
     }
     
+    
+    func loginViewControllerDelegateDidTapContinue(email: String, password: String) {
+        Client.shared.login(email: email, password: password) { accessToken in
+            if let accessToken = accessToken {
+                AccountController.shared.save(accessToken: accessToken)
+                
+                let homeVC: UITabBarController = UITabBarController.instantiateFromMainStoryboard()
+                homeVC.modalTransitionStyle = .crossDissolve;
+                homeVC.modalPresentationStyle = .fullScreen;
+                self.present(homeVC, animated: true) {
+                    
+                }
+            } else {
+                let alert = UIAlertController(title: "Login Error", message: "Failed to login a customer with this email and password. Please check your credentials and try again.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    
+    func loginViewControllerDelegateDidTapSignup() {
+        
+        if let onBoarding = self.onBoarding {
+            
+            onBoarding.scrollView.setContentOffset(CGPoint(x: onBoarding.scrollView.frame.width, y: 0), animated: true)
+        }
+       
+    }
+    
+   
+    
+    func loginViewControllerDelegateDidTapForgotPassword() {
+        
+    }
+    
+    func loginViewControllerDelegateDidTapLoginAsGuest() {
+        let homeVC: UITabBarController = UITabBarController.instantiateFromMainStoryboard()
+        homeVC.modalTransitionStyle = .crossDissolve;
+        homeVC.modalPresentationStyle = .fullScreen;
+        self.present(homeVC, animated: true) {
+            
+        }
+
+    }
+    
+    func registrationViewControllerDidTapSignIn() {
+        if let onBoarding = self.onBoarding {
+            onBoarding.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        }
+       
+    }
     private func configureConstraints() {
         let blurredVisualEffectConstraints = [
             blurredVisualEffect.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),

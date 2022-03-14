@@ -18,12 +18,19 @@ extension UIStoryboard {
     
 }
 
+let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
 
 extension UIViewController {
-    
+   
    static func instantiateFromNib<T:UIViewController>() -> T {
         
         let viewController = T(nibName: T.className, bundle: nil) 
         return viewController
+    }
+    
+    static func instantiateFromMainStoryboard<T:UIViewController>() -> T{
+        
+        let viewController: T = mainStoryboard.instantiateViewController()
+        return viewController;
     }
 }

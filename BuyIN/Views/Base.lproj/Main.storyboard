@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xUa-4G-iON">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xUa-4G-iON">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -14,7 +14,7 @@
         <!--Profile-->
         <scene sceneID="cE8-GI-IOi">
             <objects>
-                <viewController id="cEf-xq-u4j" customClass="CustomerCoordinatorStoryBViewController" customModule="BuyIN" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="cEf-xq-u4j" customClass="CustomerCoordinator" customModule="BuyIN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Vrf-bL-2Sh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -86,7 +86,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aAq-ig-j2O">
-                                <rect key="frame" x="315" y="64" width="39" height="31.5"/>
+                                <rect key="frame" x="314" y="64" width="40" height="33.5"/>
                                 <state key="normal">
                                     <imageReference key="image" image="cart.fill" catalog="system" symbolScale="large" renderingMode="original"/>
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="23"/>
@@ -427,7 +427,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="zXI-8m-h0R">
             <objects>
-                <tabBarController id="xUa-4G-iON" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="UITabBarController" id="xUa-4G-iON" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ewD-o0-cyE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -446,7 +446,7 @@
         <!--Home View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="HomeViewController" customModule="BuyIN" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeViewController" id="BYZ-38-t0r" customClass="HomeViewController" customModule="BuyIN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -462,7 +462,7 @@
         <!--Home-->
         <scene sceneID="88o-vW-xBm">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Zwn-yp-2Jl" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="UINavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Zwn-yp-2Jl" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" selectedImage="house.fill" id="j9N-DK-YYT"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YEx-TN-NQo">

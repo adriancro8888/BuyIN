@@ -10,17 +10,17 @@ import UIKit
 class OnboardingParentViewController: UIViewController {
 
     
-    private let loginVC = SecondLoginViewController()
+    private let loginVC = LoginViewController()
     private let signupVC = RegistrationViewController()
     
-    private let scrollView: UIScrollView = {
+     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.isPagingEnabled = true
         scrollView.isScrollEnabled = false
         return scrollView
     }()
     
-    private let dismissButton: UIButton = {
+    let dismissButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         let image = UIImage(systemName: "arrow.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 24))
@@ -70,13 +70,13 @@ class OnboardingParentViewController: UIViewController {
         scrollView.addSubview(loginVC.view)
         loginVC.view.frame = CGRect(x: 0, y: 0, width: scrollView.frame.width, height: scrollView.frame.height)
         loginVC.didMove(toParent: self)
-        loginVC.delegate = self
+        loginVC.onBoarding = self
         
         addChild(signupVC)
         scrollView.addSubview(signupVC.view)
         signupVC.view.frame = CGRect(x: view.frame.width, y: 0, width: scrollView.frame.width, height: scrollView.frame.height)
         signupVC.didMove(toParent: self)
-        signupVC.delegate = self
+        signupVC.onBoarding = self
     }
     
     private func configureConstraints() {
@@ -91,26 +91,4 @@ class OnboardingParentViewController: UIViewController {
     }
 }
 
-extension OnboardingParentViewController: LoginViewControllerDelegate, RegistrationViewControllerDelegate {
-    
-    func loginViewControllerDelegateDidTapSignup() {
-        scrollView.setContentOffset(CGPoint(x: scrollView.frame.width, y: 0), animated: true)
-    }
-    
-    func loginViewControllerDelegateDidTapContinue() {
-        
-    }
-    
-    func loginViewControllerDelegateDidTapForgotPassword() {
-        
-    }
-    
-    func loginViewControllerDelegateDidTapLoginAsGuest() {
-        
-    }
-    
-    func registrationViewControllerDidTapSignIn() {
-        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
-    }
-    
-}
+ 
