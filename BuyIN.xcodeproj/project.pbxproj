@@ -23,6 +23,8 @@
 		0A73473F27DF3E7800F0D5C0 /* OnboardingParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A73473B27DF3E7800F0D5C0 /* OnboardingParentViewController.swift */; };
 		0A73474027DF3E7800F0D5C0 /* SecondLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A73473C27DF3E7800F0D5C0 /* SecondLoginViewController.swift */; };
 		0A73474127DF3E7800F0D5C0 /* WelcomingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A73473D27DF3E7800F0D5C0 /* WelcomingViewController.swift */; };
+		0A73474327DFAAFD00F0D5C0 /* TermsAndConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A73474227DFAAFD00F0D5C0 /* TermsAndConditionsViewController.swift */; };
+		0A73474527DFADC000F0D5C0 /* TermsAndConditionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A73474427DFADC000F0D5C0 /* TermsAndConditionsTableViewCell.swift */; };
 		186199EC27DA6AC000470847 /* WishListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186199EA27DA6AC000470847 /* WishListCollectionViewCell.swift */; };
 		186199ED27DA6AC000470847 /* WishListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 186199EB27DA6AC000470847 /* WishListCollectionViewCell.xib */; };
 		186199F927DBEF6E00470847 /* ProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186199F727DBEF6E00470847 /* ProductsViewController.swift */; };
@@ -175,6 +177,8 @@
 		0A73473B27DF3E7800F0D5C0 /* OnboardingParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingParentViewController.swift; sourceTree = "<group>"; };
 		0A73473C27DF3E7800F0D5C0 /* SecondLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondLoginViewController.swift; sourceTree = "<group>"; };
 		0A73473D27DF3E7800F0D5C0 /* WelcomingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomingViewController.swift; sourceTree = "<group>"; };
+		0A73474227DFAAFD00F0D5C0 /* TermsAndConditionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsViewController.swift; sourceTree = "<group>"; };
+		0A73474427DFADC000F0D5C0 /* TermsAndConditionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsTableViewCell.swift; sourceTree = "<group>"; };
 		186199EA27DA6AC000470847 /* WishListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListCollectionViewCell.swift; sourceTree = "<group>"; };
 		186199EB27DA6AC000470847 /* WishListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WishListCollectionViewCell.xib; sourceTree = "<group>"; };
 		186199F727DBEF6E00470847 /* ProductsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsViewController.swift; sourceTree = "<group>"; };
@@ -339,6 +343,7 @@
 				0A73473A27DF3E7800F0D5C0 /* RegistrationViewController.swift */,
 				0A73473C27DF3E7800F0D5C0 /* SecondLoginViewController.swift */,
 				0A73473D27DF3E7800F0D5C0 /* WelcomingViewController.swift */,
+				0A73474227DFAAFD00F0D5C0 /* TermsAndConditionsViewController.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -453,6 +458,7 @@
 				0A73472827DCF7FB00F0D5C0 /* ProductHeaderCollectionViewCell.swift */,
 				0A73472A27DD255F00F0D5C0 /* ProductPreviewDescriptionCollectionViewCell.swift */,
 				0A73472C27DD366E00F0D5C0 /* RelevantCollectionReusableView.swift */,
+				0A73474427DFADC000F0D5C0 /* TermsAndConditionsTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -834,6 +840,7 @@
 				3293ECB127DD28FB00B97997 /* CheckoutViewModel+PayCheckout.swift in Sources */,
 				328FE98D27DD39BF00FE22B2 /* ManualCodeViewModel.swift in Sources */,
 				32EEEF6627DA131D00188547 /* Fragment+CheckoutQuery.swift in Sources */,
+				0A73474327DFAAFD00F0D5C0 /* TermsAndConditionsViewController.swift in Sources */,
 				32EEEF6127DA131D00188547 /* Fragment+PaymentQuery.swift in Sources */,
 				32EEEF7527DA138D00188547 /* VariantViewModel.swift in Sources */,
 				3293ECA627DD27BD00B97997 /* CheckoutViewModel.swift in Sources */,
@@ -923,6 +930,7 @@
 				18DF29C027DA125D006FE3C6 /* OrdersTableViewCell.swift in Sources */,
 				0A73474127DF3E7800F0D5C0 /* WelcomingViewController.swift in Sources */,
 				3293ECAF27DD28FB00B97997 /* GiftCardViewModel+PayGiftCard.swift in Sources */,
+				0A73474527DFADC000F0D5C0 /* TermsAndConditionsTableViewCell.swift in Sources */,
 				3293ECA227DD27BD00B97997 /* DiscountAllocationViewModel.swift in Sources */,
 				328FE99C27DE31E500FE22B2 /* UICollectionViewCell+CollectionSwipableCellExtension.swift in Sources */,
 				0A7346EA27DBC80F00F0D5C0 /* HotProductsCollectionViewCell.swift in Sources */,
