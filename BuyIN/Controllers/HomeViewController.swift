@@ -122,12 +122,12 @@ class HomeViewController: UIViewController {
     }
     
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        let vc = WelcomingViewController()
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: false)
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        let vc = WelcomingViewController()
+//        vc.modalPresentationStyle = .fullScreen
+//        present(vc, animated: false)
+//    }
     
     private func fetchProductsForHome() {
         
