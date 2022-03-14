@@ -57,15 +57,15 @@ class CustomerCoordinator: UIViewController {
     }
     private func showOrders(animated: Bool) {
 // TODO view customer screen with orders
-        let token = AccountController.shared.accessToken
-        Client.shared.fetchCustomerAndOrders(accessToken: token!) { container in
-            if let container = container {
-                self.customer = container.customer
-                self.updateState()
-            }
-        }
-        
-        
+//        let token = AccountController.shared.accessToken
+//        Client.shared.fetchCustomerAndOrders(accessToken: token!) { container in
+//            if let container = container {
+//                self.customer = container.customer
+//                self.updateState()
+//            }
+//        }
+//
+ 
        
         
     }

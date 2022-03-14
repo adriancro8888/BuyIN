@@ -89,3 +89,5 @@ fastlane/test_output
 
 iOSInjectionProject/
 BuyIN.xcodeproj/project.xcworkspace/
+
+.DS_Store

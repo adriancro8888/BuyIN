@@ -61,8 +61,14 @@ class CategoriesViewController: UIViewController {
       //  let view = CreateNewCustomerViewController(nibName: "CreateNewCustomerViewController", bundle: nil)
      
         
-        let coordinator: CustomerCoordinator = CustomerCoordinator.instantiateFromNib()
-        self.present(coordinator, animated: true, completion: nil)
+//        let coordinator: CustomerCoordinator = CustomerCoordinator.instantiateFromNib()
+//        self.present(coordinator, animated: true, completion: nil)
+        
+        
+        let view : CartViewController = CartViewController.instantiateFromNib()
+        view.modalPresentationStyle = .fullScreen;
+        view.modalTransitionStyle = .crossDissolve;
+        self.present(view, animated: true, completion: nil)
     }
 }
 
@@ -185,6 +191,24 @@ extension CategoriesViewController :UICollectionViewDelegate{
 
 
         }
+        else if collectionView == productsCollectonView{
+            let newViewController = ProductsViewController(nibName: "ProductsViewController", bundle: nil)
+            let collection = self.selectedCollection!
+            newViewController.selectedCollection = collection
+           
+            
+            // Present View "Modally"
+         //   self.present(newViewController, animated: true, completion: nil)
+            
+           
+            //Test Add product to cart
+            
+            let product = self.products.items[indexPath.item]
+            let item = CartItem(product: product, variant: product.variants.items[0])
+            CartController.shared.add(item)
+            
+            
+        }
     }
     
 }
@@ -220,7 +244,7 @@ extension CategoriesViewController :UICollectionViewDelegateFlowLayout{
             }else if collectionView.frame.width > 500 {
                 width = collectionView.frame.width / 3.2
             }
-            print ("collectionView.frame.width \(collectionView.frame.width ) width : \(width)")
+           
             return CGSize(width: width, height: height)
         }
         return CGSize(width: width, height: width)
