@@ -186,6 +186,36 @@ final class Client {
     // ----------------------------------
     //  MARK: - Products -
     //
+    
+    
+    @discardableResult
+    func fetchProducts(limit: Int = 25, after cursor: String? = nil, withQuery  :String? = nil, completion: @escaping (PageableArray<ProductViewModel>?) -> Void) -> Task {
+        
+        let query = ClientQuery.queryForProducts(limit: limit, after: cursor,withQuery: withQuery)
+        let task  = self.client.queryGraphWith(query) { (query, error) in
+            error.debugPrint()
+            
+            if let query = query {
+                
+                let products = PageableArray(
+                    with:     query.products.edges,
+                    pageInfo: query.products.pageInfo
+                )
+                completion(products)
+                
+            } else {
+                print("Failed to load products : \(String(describing: error))")
+                completion(nil)
+            }
+        }
+        
+        task.resume()
+        return task
+    }
+    
+    
+    
+    
     @discardableResult
     func fetchProducts(in collection: CollectionViewModel, limit: Int = 25, after cursor: String? = nil, completion: @escaping (PageableArray<ProductViewModel>?) -> Void) -> Task {
         
@@ -211,6 +241,43 @@ final class Client {
         task.resume()
         return task
     }
+    @discardableResult
+    func fetchProductRecommendation(in product: ProductViewModel, completion: @escaping ([Storefront.Product]?) -> Void) -> Task {
+        
+        let query = ClientQuery.queryForProductRecommendation(in: product)
+        let task  = self.client.queryGraphWith(query) { (query, error) in
+            error.debugPrint()
+            
+            if let query = query,
+               let products = query.productRecommendations {
+                completion(products) 
+            } else {
+                print("Failed to load product recommendations : \(String(describing: error))")
+                completion(nil)
+            }
+        }
+        
+        task.resume()
+        return task
+    }
+
+    func fetchProductBrands( completion: @escaping ([String : [ProductViewModel]]?) -> Void) -> Task {
+
+        var task = fetchProducts { products in
+            
+            if let products = products?.items {
+                let groupByBrand = Dictionary(grouping: products) { $0.vendor }
+                completion(groupByBrand)
+               
+                }
+            }
+        task.resume()
+        return task
+        }
+    
+    
+ 
+
     
     // ----------------------------------
     //  MARK: - Discounts -

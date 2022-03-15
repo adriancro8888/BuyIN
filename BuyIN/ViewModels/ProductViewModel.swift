@@ -38,6 +38,8 @@ final class ProductViewModel: ViewModel {
     let title:    String
     let summary:  String
     let price:    String
+    let vendor:    String
+    let type:    String
     let images:   PageableArray<ImageViewModel>
     let variants: PageableArray<VariantViewModel>
     
@@ -56,7 +58,9 @@ final class ProductViewModel: ViewModel {
         
         self.id       = model.node.id.rawValue
         self.title    = model.node.title
-        self.summary  = model.node.descriptionHtml
+        self.vendor    = model.node.vendor
+        self.summary  = model.node.description
+        self.type = model.node.productType
         self.price    = lowestPrice == nil ? "No price" : Currency.stringFrom(lowestPrice!)
         
         self.images   = PageableArray(
@@ -74,3 +78,4 @@ final class ProductViewModel: ViewModel {
 extension Storefront.ProductEdge: ViewModeling {
     typealias ViewModelType = ProductViewModel
 }
+

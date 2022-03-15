@@ -367,7 +367,7 @@
 				32EEEF6927DA137B00188547 /* ViewModels */,
 				32EEEF7627DA13DE00188547 /* Formatters */,
 				18DF29AB27D975D1006FE3C6 /* Resources */,
-				18DF29AA27D975BA006FE3C6 /* Managers */,
+				18DF29AA27D975BA006FE3C6 /* API Manager */,
 				18DF29A727D9752D006FE3C6 /* Controllers */,
 				18DF29CC27DA13EC006FE3C6 /* Extentions */,
 				18DF297D27D9719C006FE3C6 /* Assets.xcassets */,
@@ -451,7 +451,7 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		18DF29AA27D975BA006FE3C6 /* Managers */ = {
+		18DF29AA27D975BA006FE3C6 /* API Manager */ = {
 			isa = PBXGroup;
 			children = (
 				32EEEF5227DA12FD00188547 /* Extensions */,
@@ -459,7 +459,7 @@
 				32EEEE8627DA128C00188547 /* ClientQuery.swift */,
 				3293EC7F27DC050600B97997 /* AccountController.swift */,
 			);
-			path = Managers;
+			path = "API Manager";
 			sourceTree = "<group>";
 		};
 		18DF29AB27D975D1006FE3C6 /* Resources */ = {

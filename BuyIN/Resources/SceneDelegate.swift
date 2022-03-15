@@ -17,17 +17,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         
         
-        if false 
-            //let _ = AccountController.shared.accessToken
+        if let _ = AccountController.shared.accessToken
         {
-            
             let homeVC : UITabBarController = UITabBarController.instantiateFromMainStoryboard()
             let navigation = UINavigationController(rootViewController: homeVC)
             window.rootViewController = navigation
             self.window = window
             window.makeKeyAndVisible()
-            
-            print("Logged in ! ")
         }
         else {
             

@@ -120,7 +120,7 @@ final class ClientQuery {
                     .node { $0
                         .id()
                         .title()
-                        .descriptionHtml()
+                        .description()
                         .image( ) { $0
                             .url()
                         }
@@ -145,6 +145,36 @@ final class ClientQuery {
                     }
                 }
                 
+            }
+            
+        }
+    }
+    static func queryForProducts( limit: Int, after cursor: String? = nil , withQuery :String? = nil) -> Storefront.QueryRootQuery {
+        
+        return Storefront.buildQuery { $0
+                .products( first: Int32(limit), after: cursor,query: withQuery){$0
+                    
+                .pageInfo { $0
+                .hasNextPage()
+                }
+                .edges { $0
+                .node{$0
+                .fragmentForStandardProduct()
+                }
+                    
+                    
+                }
+                    
+                }
+        }
+    }
+    
+    static func queryForProductRecommendation(in product: ProductViewModel ) -> Storefront.QueryRootQuery {
+        
+        return Storefront.buildQuery { $0
+                .productRecommendations( productId: product.model.node.id)
+            {$0
+                    .fragmentForStandardProduct()
             }
             
         }
