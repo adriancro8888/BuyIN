@@ -27,6 +27,7 @@ class RecentlyAddedHeaderCollectionReusableView: UICollectionReusableView {
         label.text = "Recently Added"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 22, weight: .bold)
+        label.textColor = .black
         return label
     }()
     

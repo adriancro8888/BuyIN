@@ -296,7 +296,7 @@ extension ProductDetailsViewController: UICollectionViewDelegate, UICollectionVi
                 return UICollectionViewCell()
             }
             
-            cell.configure(with: product!)
+            cell.configure(with: "", thumbnail: "")
 //            cell.backgroundColor = .red
 //            cell.sizeToFit()
             return cell

@@ -50,15 +50,16 @@ class RecentlyAddedCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.addSubview(productImageView)
-        contentView.addSubview(priceLabel)
-        contentView.addSubview(productTitleLabel)
-        contentView.addSubview(vendorLabel)
-        configureConstraints()
-        contentView.backgroundColor = .tertiarySystemFill
-        clipsToBounds = true
-        layer.masksToBounds = true
-        layer.cornerRadius = 10
+        contentView.backgroundColor = .yellow
+//        contentView.addSubview(productImageView)
+//        contentView.addSubview(priceLabel)
+//        contentView.addSubview(productTitleLabel)
+//        contentView.addSubview(vendorLabel)
+//        configureConstraints()
+//        contentView.backgroundColor = .tertiarySystemFill
+//        clipsToBounds = true
+//        layer.masksToBounds = true
+//        layer.cornerRadius = 10
         
     }
   
