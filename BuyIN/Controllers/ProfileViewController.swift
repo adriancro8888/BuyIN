@@ -38,14 +38,17 @@ class ProfileViewController: UIViewController {
     }
     func fetchOrders(after cursuer:String? = nil) {
         if let accessToken = AccountController.shared.accessToken{
-        
+            print("acesstoken :\(accessToken)")
             Client.shared.fetchCustomerAndOrders(  after: cursuer, accessToken: accessToken){
                 container in
                 if let container = container{
                     
                     self.userInfo = container.customer
                     self.ordersArray = container.orders
+                    
+                    print(self.ordersArray?.items)
                     self.ordersCollectionViews.reloadData()
+                    
                     
                     
                   //  let order =  self.ordersArray?.items[0].model..lineItems.edges[0].node.
@@ -166,7 +169,7 @@ extension ProfileViewController : UICollectionViewDelegateFlowLayout {
 extension ProfileViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == ordersCollectionViews {
-            return 2
+            return ordersArray?.items.count ?? 0
             
         } else {
             return 5
@@ -193,7 +196,9 @@ extension ProfileViewController : UICollectionViewDataSource {
         if collectionView == ordersCollectionViews {
             let orderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "OrderCollectionViewCell", for: indexPath) as! OrderCollectionViewCell
             if let order1 = self.ordersArray?.items[0].model.node.orderNumber{
+                
             orderCell.dateOfOrder.text = String(order1)
+                
             
             }
             return orderCell

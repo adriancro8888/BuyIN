@@ -61,14 +61,14 @@ class CategoriesViewController: UIViewController {
       //  let view = CreateNewCustomerViewController(nibName: "CreateNewCustomerViewController", bundle: nil)
      
         
-        let coordinator: CustomerCoordinator = CustomerCoordinator.instantiateFromNib()
-        self.present(coordinator, animated: true, completion: nil)
+//        let coordinator: CustomerCoordinator = CustomerCoordinator.instantiateFromNib()
+//        self.present(coordinator, animated: true, completion: nil)
         
         
-//        let view : CartViewController = CartViewController.instantiateFromNib()
-//        view.modalPresentationStyle = .fullScreen;
-//        view.modalTransitionStyle = .crossDissolve;
-//        self.present(view, animated: true, completion: nil)
+        let view : CartViewController = CartViewController.instantiateFromNib()
+        view.modalPresentationStyle = .fullScreen;
+        view.modalTransitionStyle = .crossDissolve;
+        self.present(view, animated: true, completion: nil)
     }
 }
 

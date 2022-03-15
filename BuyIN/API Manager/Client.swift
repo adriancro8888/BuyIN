@@ -121,6 +121,7 @@ final class Client {
             error.debugPrint()
             
             if let customer = query?.customer {
+                
                 let viewModel   = customer.viewModel
                 let collections = PageableArray(
                     with:     customer.orders.edges,
