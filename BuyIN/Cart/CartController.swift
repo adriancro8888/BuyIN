@@ -12,6 +12,8 @@ class CartController {
     static let shared = CartController()
     
     private(set) var items: [CartItem] = []
+    private(set) var orders: [CartItem] = []  // by yousra
+
     
     var subtotal: Decimal {
         return self.items.reduce(0) {
@@ -167,6 +169,8 @@ class CartController {
     }
     
     func emptyCart() {
+       self.orders = items // by Yousra
+        print(orders)
         self.items.removeAll()
         self.itemsChanged()
     }

@@ -11,6 +11,19 @@ extension Storefront.OrderConnectionQuery {
         .edges { $0
             .cursor()
             .node { $0
+                .edited()
+                .cancelReason()
+                    .lineItems(){$0
+                    .edges(){$0
+                        .node(){$0
+                            .currentQuantity()
+                            .title()
+                        }
+                    }
+                }
+                
+                
+                
                 .id()
                 .orderNumber()
                 .email()
