@@ -136,6 +136,7 @@ final class ClientQuery {
                         .id()
                         .title()
                         .description()
+                      
                         .image( ) { $0
                             .url()
                         }

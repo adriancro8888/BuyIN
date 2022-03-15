@@ -59,7 +59,7 @@ class HeroHeaderCollectionViewCell: UICollectionViewCell {
     private func configureConstraints() {
         let heroTextLabelConstraints = [
             heroTextLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            heroTextLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 160),
+            heroTextLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -50),
             heroTextLabel.widthAnchor.constraint(equalToConstant: 280)
         ]
         
