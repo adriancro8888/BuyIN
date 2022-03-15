@@ -2,7 +2,7 @@
 //  ProfileViewController.swift
 //  BuyIN
 //
-//  Created by apple on 3/10/22.
+//  Created by Yousra Eid on 10/3/2022.
 //
 
 import UIKit
@@ -10,8 +10,10 @@ import UIKit
 class ProfileViewController: UIViewController {
 
     //@IBOutlet var itemsTableView: UITableView!
+    var userInfo : CustomerViewModel?
+    var ordersArray: PageableArray<OrderViewModel>?
     
-    @IBOutlet weak var ordersCollectionViews: UICollectionView!
+    @IBOutlet weak var ordersCollectionViews: StorefrontCollectionView!
     @IBOutlet var wishList: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,15 +30,34 @@ class ProfileViewController: UIViewController {
         
         let orderNib = UINib(nibName: "OrderCollectionViewCell", bundle: nil)
         self.ordersCollectionViews.register(orderNib, forCellWithReuseIdentifier: "OrderCollectionViewCell")
+        fetchOrders()
         
         
         
         
     }
+    func fetchOrders(after cursuer:String? = nil) {
+        if let accessToken = AccountController.shared.accessToken{
+        
+            Client.shared.fetchCustomerAndOrders(  after: cursuer, accessToken: accessToken){
+                container in
+                if let container = container{
+                    
+                    self.userInfo = container.customer
+                    self.ordersArray = container.orders
+                    self.ordersCollectionViews.reloadData()
+                    
+                    
+                  //  let order =  self.ordersArray?.items[0].model..lineItems.edges[0].node.
+                    
+                }
+            }
+        }
+    }
     
 
     @IBAction func settingButton(_ sender: Any) {
-        let newViewController = ProductsViewController(nibName: "ProductsViewController", bundle: nil)
+        let newViewController = OrdersDetailsViewController(nibName: "OrdersDetailsViewController", bundle: nil)
 
         // Present View "Modally"
         self.present(newViewController, animated: true, completion: nil)
@@ -86,6 +107,46 @@ class ProfileViewController: UIViewController {
 //    }
 //
 //    }
+extension ProfileViewController : StorefrontCollectionViewDelegate {
+    func collectionViewShouldBeginPaging(_ collectionView: StorefrontCollectionView) -> Bool {
+        let flag = self.ordersArray?.hasNextPage ?? false
+        
+//        if flag {
+//
+//            // Activity indicator show
+//        }
+        
+        
+        
+        return flag
+    }
+
+    func collectionViewWillBeginPaging(_ collectionView: StorefrontCollectionView) {
+        if let orders = self.ordersArray ,
+           let lastOrder = orders.items.last{
+            if let accessToken = AccountController.shared.accessToken{
+            
+                Client.shared.fetchCustomerAndOrders(  after: lastOrder.cursor, accessToken: accessToken){
+                    container in
+                    if let container = container{
+                        
+                       
+                        self.ordersArray?.appendPage( from: container.orders)
+                        collectionView.reloadData()
+                        collectionView.completePaging()
+                        
+                    }
+                }
+            }
+            
+        }
+    }
+    
+    func collectionViewDidCompletePaging(_ collectionView: StorefrontCollectionView) {
+        
+    }
+    
+}
 
 extension ProfileViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -131,6 +192,10 @@ extension ProfileViewController : UICollectionViewDataSource {
         
         if collectionView == ordersCollectionViews {
             let orderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "OrderCollectionViewCell", for: indexPath) as! OrderCollectionViewCell
+            if let order1 = self.ordersArray?.items[0].model.node.orderNumber{
+            orderCell.dateOfOrder.text = String(order1)
+            
+            }
             return orderCell
             
         }else {
@@ -143,3 +208,4 @@ extension ProfileViewController : UICollectionViewDataSource {
     
     
 }
+
