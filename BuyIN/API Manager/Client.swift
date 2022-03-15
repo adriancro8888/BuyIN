@@ -22,7 +22,7 @@ final class Client {
     //  MARK: - Init -
     //
     private init() {
-        self.client.cachePolicy = .cacheFirst(expireIn: 100)
+        self.client.cachePolicy = .cacheFirst(expireIn: 4000)
     }
     
     // ----------------------------------
