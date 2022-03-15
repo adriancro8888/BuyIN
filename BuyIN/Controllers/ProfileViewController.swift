@@ -46,7 +46,7 @@ class ProfileViewController: UIViewController {
                     self.userInfo = container.customer
                     self.ordersArray = container.orders
                     
-                    print(self.ordersArray?.items)
+                   // print(self.ordersArray?.items)
                     self.ordersCollectionViews.reloadData()
                     
                     
