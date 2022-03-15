@@ -9,24 +9,24 @@ import UIKit
 
 class FlashSaleSectionHeaderCollectionReusableView: UICollectionReusableView {
         
-    static let identifier = "FlashSaleSectionHeaderCollectionReusableView"
+    static let identifier = className
     
-    private let saleDeadlineLabel: UILabel = {
-        let label = UILabel()
-        label.text = "closes in"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 20, weight: .medium)
-        label.textColor = .secondaryLabel
-        return label
-    }()
-    
-    private let saleDeadlineTimeLabel: UILabel = {
-        let label = UILabel()
-        label.text = "00:12:45"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 20, weight: .medium)
-        return label
-    }()
+//    private let saleDeadlineLabel: UILabel = {
+//        let label = UILabel()
+//        label.text = "closes in"
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        label.font = .systemFont(ofSize: 20, weight: .medium)
+//        label.textColor = .secondaryLabel
+//        return label
+//    }()
+//
+//    private let saleDeadlineTimeLabel: UILabel = {
+//        let label = UILabel()
+//        label.text = "00:12:45"
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        label.font = .systemFont(ofSize: 20, weight: .medium)
+//        return label
+//    }()
     
     var sectionTitle: String {
         get {
@@ -44,14 +44,15 @@ class FlashSaleSectionHeaderCollectionReusableView: UICollectionReusableView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 22, weight: .bold)
+        label.textColor = .black
         return label
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(sectionTitleLabel)
-        addSubview(saleDeadlineLabel)
-        addSubview(saleDeadlineTimeLabel)
+//        addSubview(saleDeadlineLabel)
+//        addSubview(saleDeadlineTimeLabel)
         configureConstraints()
     }
     
@@ -66,18 +67,18 @@ class FlashSaleSectionHeaderCollectionReusableView: UICollectionReusableView {
             sectionTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ]
         
-        let saleDeadlineTimeLabelConstraints = [
-            saleDeadlineTimeLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            saleDeadlineTimeLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
-        ]
-        
-        let saleDeadlineLabelConstraints = [
-            saleDeadlineLabel.trailingAnchor.constraint(equalTo: saleDeadlineTimeLabel.leadingAnchor, constant: -10),
-            saleDeadlineLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
-        ]
-        
+//        let saleDeadlineTimeLabelConstraints = [
+//            saleDeadlineTimeLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+//            saleDeadlineTimeLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+//        ]
+//
+//        let saleDeadlineLabelConstraints = [
+//            saleDeadlineLabel.trailingAnchor.constraint(equalTo: saleDeadlineTimeLabel.leadingAnchor, constant: -10),
+//            saleDeadlineLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+//        ]
+//
         NSLayoutConstraint.activate(sectionTitleLabelConstraints)
-        NSLayoutConstraint.activate(saleDeadlineTimeLabelConstraints)
-        NSLayoutConstraint.activate(saleDeadlineLabelConstraints)
+//        NSLayoutConstraint.activate(saleDeadlineTimeLabelConstraints)
+//        NSLayoutConstraint.activate(saleDeadlineLabelConstraints)
     }
 }
