@@ -38,6 +38,21 @@ final class ClientQuery {
         }
         
     }
+    
+    static func mutationCustomerRecovery(email: String) -> Storefront.MutationQuery {
+        return Storefront.buildMutation { $0
+                .customerRecover( email: email) { $0
+                .customerUserErrors { $0
+                .message()
+                }
+                }
+        }
+    }
+    
+ 
+    
+    
+    
     static func mutationForLogin(email: String, password: String) -> Storefront.MutationQuery {
         let input = Storefront.CustomerAccessTokenCreateInput(email: email, password: password)
         return Storefront.buildMutation { $0

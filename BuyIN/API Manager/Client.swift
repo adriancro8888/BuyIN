@@ -48,7 +48,28 @@ final class Client {
         task.resume()
         return task
     }
-
+    @discardableResult
+    func resetPassword(withEmail: String , completion: @escaping (_ errorMessage : String?) -> Void) -> Task {
+        
+        let mutation = ClientQuery.mutationCustomerRecovery(email: withEmail)
+        let task     = self.client.mutateGraphWith(mutation) { (mutation, error) in
+            error.debugPrint()
+            
+            if let errors = mutation?.customerReset?.customerUserErrors {
+                if(errors.count>0){
+                    completion(errors[0].message)
+                }
+                else {
+                    completion(nil)
+                }
+                    
+            } else {
+                completion(nil)
+            }
+        } 
+        task.resume()
+        return task
+    }
 
     
     
