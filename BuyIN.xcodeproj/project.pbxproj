@@ -77,6 +77,7 @@
 		328FE9AB27DE42D000FE22B2 /* SwipeableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 328FE9AA27DE42D000FE22B2 /* SwipeableCollectionViewCell.swift */; };
 		328FE9AE27DE484B00FE22B2 /* SwipeCellKit in Frameworks */ = {isa = PBXBuildFile; productRef = 328FE9AD27DE484B00FE22B2 /* SwipeCellKit */; };
 		328FE9B127E0B16700FE22B2 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 328FE9B027E0B16500FE22B2 /* ResetPasswordViewController.swift */; };
+		328FE9B327E0E14000FE22B2 /* WishlistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 328FE9B227E0E14000FE22B2 /* WishlistController.swift */; };
 		3293EC6D27DBC6E300B97997 /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3293EC6C27DBC6E300B97997 /* APIClientTests.swift */; };
 		3293EC7927DC020D00B97997 /* CustomerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3293EC7727DC020D00B97997 /* CustomerCoordinator.swift */; };
 		3293EC7A27DC020D00B97997 /* CustomerCoordinator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3293EC7827DC020D00B97997 /* CustomerCoordinator.xib */; };
@@ -232,6 +233,7 @@
 		328FE9A727DE331300FE22B2 /* SwipableUITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipableUITableView.swift; sourceTree = "<group>"; };
 		328FE9AA27DE42D000FE22B2 /* SwipeableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeableCollectionViewCell.swift; sourceTree = "<group>"; };
 		328FE9B027E0B16500FE22B2 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
+		328FE9B227E0E14000FE22B2 /* WishlistController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistController.swift; sourceTree = "<group>"; };
 		3293EC6C27DBC6E300B97997 /* APIClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
 		3293EC7727DC020D00B97997 /* CustomerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerCoordinator.swift; sourceTree = "<group>"; };
 		3293EC7827DC020D00B97997 /* CustomerCoordinator.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomerCoordinator.xib; sourceTree = "<group>"; };
@@ -524,6 +526,7 @@
 			isa = PBXGroup;
 			children = (
 				3293EC8927DD1A8000B97997 /* CartController.swift */,
+				328FE9B227E0E14000FE22B2 /* WishlistController.swift */,
 				3293EC8A27DD1A8100B97997 /* CartItem.swift */,
 				3293EC8827DD1A7F00B97997 /* CartItemViewModel.swift */,
 			);
@@ -906,6 +909,7 @@
 				32EEEF6227DA131D00188547 /* Fragment+ImageConnectionQuery.swift in Sources */,
 				3293EC8527DCF76800B97997 /* CartViewController.swift in Sources */,
 				0A73474027DF3E7800F0D5C0 /* LoginViewController.swift in Sources */,
+				328FE9B327E0E14000FE22B2 /* WishlistController.swift in Sources */,
 				3293EC8027DC050600B97997 /* AccountController.swift in Sources */,
 				18619A3127DD494200470847 /* OrdersViewController.swift in Sources */,
 				18DF29B027D98369006FE3C6 /* Client.swift in Sources */,
