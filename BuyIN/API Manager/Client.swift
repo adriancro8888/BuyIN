@@ -55,7 +55,7 @@ final class Client {
         let task     = self.client.mutateGraphWith(mutation) { (mutation, error) in
             error.debugPrint()
             
-            if let errors = mutation?.customerReset?.customerUserErrors {
+            if let errors = mutation?.customerRecover?.customerUserErrors {
                 if(errors.count>0){
                     completion(errors[0].message)
                 }

@@ -12,6 +12,7 @@ class OnboardingParentViewController: UIViewController {
     
     private let loginVC = LoginViewController()
     private let signupVC = RegistrationViewController()
+    private let resetPasswordVC = ResetPasswordViewController()
     
      let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -48,13 +49,10 @@ class OnboardingParentViewController: UIViewController {
         view.addSubview(scrollView)
         view.addSubview(dismissButton)
 
-//        scrollView.delegate = self
-        scrollView.contentSize = CGSize(width: view.frame.width * 2, height: scrollView.frame.height)
+ 
+        scrollView.contentSize = CGSize(width: view.frame.width * 3, height: scrollView.frame.height)
         addChildren()
-//        scrollView.isScrollEnabled = false
-
         dismissButton.addTarget(self, action: #selector(didTapDismiss), for: .touchUpInside)
-        
         configureConstraints()
 
     }
@@ -77,6 +75,14 @@ class OnboardingParentViewController: UIViewController {
         signupVC.view.frame = CGRect(x: view.frame.width, y: 0, width: scrollView.frame.width, height: scrollView.frame.height)
         signupVC.didMove(toParent: self)
         signupVC.onBoarding = self
+        
+        addChild(resetPasswordVC)
+        scrollView.addSubview(resetPasswordVC.view)
+        resetPasswordVC.view.frame = CGRect(x: view.frame.width*2, y: 0, width: scrollView.frame.width, height: scrollView.frame.height)
+        resetPasswordVC.didMove(toParent: self)
+        resetPasswordVC.onBoarding = self
+        
+        
     }
     
     private func configureConstraints() {

@@ -222,7 +222,10 @@ class LoginViewController: UIViewController {
    
     
     func loginViewControllerDelegateDidTapForgotPassword() {
-        
+        if let onBoarding = self.onBoarding {
+            
+            onBoarding.scrollView.setContentOffset(CGPoint(x: onBoarding.scrollView.frame.width * 2 , y: 0), animated: true)
+        }
     }
     
     func loginViewControllerDelegateDidTapLoginAsGuest() {
@@ -324,3 +327,10 @@ class LoginViewController: UIViewController {
     }
 
 }
+
+
+
+////
+///
+///
+
