@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HotProductsCollectionViewCell: UICollectionViewCell {
+class CategoryCollectionViewCell: UICollectionViewCell {
     
     static let identifier = className
     

@@ -6,11 +6,11 @@
 //
 
 import UIKit
-import CoreML
+
 
 class HomeViewController: UIViewController {
     
-    
+    private var timer: Timer?
     
     private let categories: [String] = ["Women", "Men", "Jeans"]
     private let categoriesThumbnails: [String] = ["womenBanner", "menBanner", "jeansBanner"]
@@ -24,6 +24,23 @@ class HomeViewController: UIViewController {
         return searchController
     }()
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        timer?.invalidate()
+    }
+    
+    @objc private func shouldUpdateBanner() {
+        guard let cell = collectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? HeroHeaderCollectionViewCell else {
+            return
+        }
+        cell.updateCurrentlyShownCell()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(shouldUpdateBanner), userInfo: nil, repeats: true)
+    }
     
     static func layoutProvider(to section: Int) -> NSCollectionLayoutSection {
         
@@ -35,17 +52,7 @@ class HomeViewController: UIViewController {
             let section = NSCollectionLayoutSection(group: group)
             section.orthogonalScrollingBehavior = .groupPagingCentered
             return section
-            
-//        case 1:
-//
-//            let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
-//            item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-//            let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(250)), subitems: [item])
-//            let section = NSCollectionLayoutSection(group: group)
-//            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-//            section.orthogonalScrollingBehavior = .continuous
-//            return section
-//
+
             
         case 1:
             
@@ -114,12 +121,14 @@ class HomeViewController: UIViewController {
         
         collectionView.register(HeroHeaderCollectionViewCell.self, forCellWithReuseIdentifier: HeroHeaderCollectionViewCell.identifier)
         collectionView.register(HeroCategoriesCollectionViewCell.self, forCellWithReuseIdentifier: HeroCategoriesCollectionViewCell.identifier)
-        collectionView.register(HotProductsCollectionViewCell.self, forCellWithReuseIdentifier: HotProductsCollectionViewCell.identifier)
+        collectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
         collectionView.register(RecentlyAddedCollectionViewCell.self, forCellWithReuseIdentifier: RecentlyAddedCollectionViewCell.identifier)
         collectionView.register(GifCollectionViewCell.self, forCellWithReuseIdentifier: GifCollectionViewCell.identifier)
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         return collectionView
     }()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -134,15 +143,10 @@ class HomeViewController: UIViewController {
 //                tabBarController?.tabBar.isHidden = true
         navigationController?.navigationBar.isHidden = true
         collectionView.contentInsetAdjustmentBehavior = .never
+        
+        
     }
-    
-//
-//        override func viewWillAppear(_ animated: Bool) {
-//            super.viewWillAppear(animated)
-//            let vc = WelcomingViewController()
-//            vc.modalPresentationStyle = .fullScreen
-//            present(vc, animated: false)
-//        }
+
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -172,7 +176,7 @@ class HomeViewController: UIViewController {
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
-            return 5
+            return 1
         }
         
         else if section == 1{
@@ -204,20 +208,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             }
             
             return cell
-            //            HeroCategoriesCollectionViewCell
-            
-//        case 1:
-//            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeroCategoriesCollectionViewCell.identifier, for: indexPath) as? HeroCategoriesCollectionViewCell else {
-//                return UICollectionViewCell()
-//            }
-//            cell.categoryTitle = categories[indexPath.row]
-//            return cell
-//
-            
-            //            HotProductsCollectionViewCell
+
             
         case 1:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotProductsCollectionViewCell.identifier, for: indexPath) as? HotProductsCollectionViewCell else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.identifier, for: indexPath) as? CategoryCollectionViewCell else {
                 return UICollectionViewCell()
             }
 //            cell.contentView.layer.shadowColor = UIColor.black.cgColor
@@ -288,5 +282,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         vc.modalTransitionStyle = .crossDissolve
         vc.product = flashSaleItems[indexPath.row]
         present(vc, animated: true)
+        
+//        let vc = ProductCardViewController()
+//        present(vc, animated: true)
     }
 }
