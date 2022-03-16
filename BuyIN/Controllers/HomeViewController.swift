@@ -10,12 +10,7 @@ import CoreML
 
 class HomeViewController: UIViewController {
     
-    
-    
-    private let categories: [String] = ["Women", "Men", "Jeans"]
-    private let categoriesThumbnails: [String] = ["womenBanner", "menBanner", "jeansBanner"]
-    private var recentlyAddedItems: [ProductViewModel] = []
-    private var flashSaleItems: [ProductViewModel] = []
+
     let searchController: UISearchController = {
         let searchController = UISearchController()
         searchController.searchBar.placeholder = "Search items..."
@@ -26,8 +21,6 @@ class HomeViewController: UIViewController {
     
     
     static func layoutProvider(to section: Int) -> NSCollectionLayoutSection {
-        
-        
         switch section {
         case 0:
             let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
@@ -56,7 +49,7 @@ class HomeViewController: UIViewController {
             
             let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/3)))
             item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-            let group = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(420)), subitems: [item])
+            let group = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(700)), subitems: [item])
             let section = NSCollectionLayoutSection(group: group)
             section.orthogonalScrollingBehavior = .continuous
             section.boundarySupplementaryItems = [supplementaryView]
@@ -67,7 +60,7 @@ class HomeViewController: UIViewController {
             
             let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
             item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-            let group = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(400)), subitems: [item])
+            let group = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(600)), subitems: [item])
             let section = NSCollectionLayoutSection(group: group)
             section.orthogonalScrollingBehavior = .continuous
             return section
@@ -121,6 +114,10 @@ class HomeViewController: UIViewController {
         return collectionView
     }()
     
+    
+    var caterories : PageableArray<CollectionViewModel>!
+    var salesBanners : PageableArray<CollectionViewModel>!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -130,38 +127,36 @@ class HomeViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.backgroundColor = .white
         navigationController?.navigationBar.barTintColor = UIColor.white
-        fetchProductsForHome()
-//                tabBarController?.tabBar.isHidden = true
         navigationController?.navigationBar.isHidden = true
         collectionView.contentInsetAdjustmentBehavior = .never
+        
+        fetchData()
     }
-    
-//
-//        override func viewWillAppear(_ animated: Bool) {
-//            super.viewWillAppear(animated)
-//            let vc = WelcomingViewController()
-//            vc.modalPresentationStyle = .fullScreen
-//            present(vc, animated: false)
-//        }
+    func fetchData()  {
+        
+        Client.shared.fetchCollections(ofType:CollectionType.category ) { collections in
+            if let collections = collections {
+                self.caterories = collections
+                self.collectionView.reloadData()
+            }
+        }
+        
+        Client.shared.fetchCollections(ofType:CollectionType.sales ) { collections in
+            if let collections = collections {
+                self.salesBanners = collections
+                self.collectionView.reloadData()
+            }
+        }
+        
+        
+    }
+
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
-    private func fetchProductsForHome() {
-        
-        
-        Client.shared.fetchCollections(ofType: .sales) {[weak self] result in
-            guard let result = result else {
-                return
-            }
-            self?.recentlyAddedItems = result.items[1].products.items
-            self?.flashSaleItems = result.items[0].products.items
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-            }
-        }
-    }
+ 
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -172,28 +167,18 @@ class HomeViewController: UIViewController {
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
-            return 5
+            return salesBanners?.items.count ?? 0
         }
         
         else if section == 1{
-            return 3
-        }
-        
-        else if section == 2{
-            return 1
-        }
-        else if section == 3 {
-            return 1
-        }
-        else if section == 4 {
-            return recentlyAddedItems.count
+            return caterories?.items.count ?? 0
         }
         
         return 0
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
+        return 2
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -202,49 +187,16 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeroHeaderCollectionViewCell.identifier, for: indexPath) as? HeroHeaderCollectionViewCell else {
                 return UICollectionViewCell()
             }
-            
+            cell.configer(with: salesBanners.items[indexPath.item])
             return cell
-            //            HeroCategoriesCollectionViewCell
-            
-//        case 1:
-//            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeroCategoriesCollectionViewCell.identifier, for: indexPath) as? HeroCategoriesCollectionViewCell else {
-//                return UICollectionViewCell()
-//            }
-//            cell.categoryTitle = categories[indexPath.row]
-//            return cell
-//
-            
-            //            HotProductsCollectionViewCell
-            
         case 1:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotProductsCollectionViewCell.identifier, for: indexPath) as? HotProductsCollectionViewCell else {
                 return UICollectionViewCell()
             }
-//            cell.contentView.layer.shadowColor = UIColor.black.cgColor
-//            cell.contentView.layer.shadowOffset = CGSize(width: 5, height: 5)
-//            cell.contentView.layer.shadowRadius = 10
-//            cell.contentView.layer.shadowOpacity = 0.5
-            cell.configure(with: categories[indexPath.row], thumbnail: categoriesThumbnails[indexPath.row])
+            cell.configer(with: caterories.items[indexPath.item])
+          //  cell.configure(with: categories[indexPath.row], thumbnail: categoriesThumbnails[indexPath.row])
             return cell
-            
-            
-            //            RecentlyAddedCollectionViewCell
-            
-            
-        case 2:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GifCollectionViewCell.identifier, for: indexPath) as? GifCollectionViewCell else {
-                return UICollectionViewCell()
-            }
-            
-            return cell
-            
-        case 3:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecentlyAddedCollectionViewCell.identifier, for: indexPath) as? RecentlyAddedCollectionViewCell else {
-                return UICollectionViewCell()
-            }
-
-            cell.configure(with: recentlyAddedItems[indexPath.row])
-            return cell
+             
             
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
@@ -283,10 +235,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = ProductDetailsViewController()
-        vc.modalPresentationStyle = .fullScreen
-        vc.modalTransitionStyle = .crossDissolve
-        vc.product = flashSaleItems[indexPath.row]
-        present(vc, animated: true)
+//        let vc = ProductDetailsViewController()
+//        vc.modalPresentationStyle = .fullScreen
+//        vc.modalTransitionStyle = .crossDissolve
+//        vc.product = flashSaleItems[indexPath.row]
+//        present(vc, animated: true)
     }
 }

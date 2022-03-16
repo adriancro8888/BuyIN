@@ -11,7 +11,11 @@ class HeroHeaderCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "HeroHeaderCollectionViewCell"
     
+    func configer(with collection  : CollectionViewModel)  {
     
+        heroTextLabel.text = collection.title;
+        heroImageView.setImageFrom(collection.imageURL);
+    }
     private let heroTextLabel: UILabel = {
       
         let label = UILabel()
