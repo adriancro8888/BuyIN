@@ -151,7 +151,7 @@ class HomeViewController: UIViewController {
     private func fetchProductsForHome() {
         
         
-        Client.shared.fetchCollections {[weak self] result in
+        Client.shared.fetchCollections(ofType: .sales) {[weak self] result in
             guard let result = result else {
                 return
             }

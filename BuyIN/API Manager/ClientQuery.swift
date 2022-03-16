@@ -9,7 +9,10 @@
 import UIKit
 import Buy
 import Pay
-
+enum CollectionType: String {
+    case sales
+    case category
+}
 final class ClientQuery {
 
     static let maxImageDimension = Int32(UIScreen.main.bounds.width)
@@ -20,7 +23,11 @@ final class ClientQuery {
     
     
     
-    static func mutationForCreatingCustomer(firstName : String , lastName :String , phone:String ,email:String ,password:String )-> Storefront.MutationQuery{
+    static func mutationForCreatingCustomer(firstName : String , lastName :String , phone:String ,email:String ,password:String )->
+    Storefront.MutationQuery{
+        
+        
+        
         let input = Storefront.CustomerCreateInput.create(email: email, password: password, firstName:Input.value(firstName), lastName: Input.value(lastName), phone:Input.value( phone), acceptsMarketing:Input.value(false))
         return Storefront.buildMutation { $0
                 .customerCreate( input: input) { $0
@@ -123,7 +130,12 @@ final class ClientQuery {
     // ----------------------------------
     //  MARK: - Storefront -
     //
-  
+    static func queryForCollections(ofType : CollectionType ,  limit: Int,queryString : String?=nil , after cursor: String? = nil, productLimit: Int = 25, productCursor: String? = nil) -> Storefront.QueryRootQuery {
+        let query = "type@\(ofType)"
+        return queryForCollections(limit:limit,queryString:query,after:cursor,productLimit:productLimit,productCursor:productCursor);
+        
+        
+    }
     static func queryForCollections( limit: Int,queryString : String?=nil , after cursor: String? = nil, productLimit: Int = 25, productCursor: String? = nil) -> Storefront.QueryRootQuery {
         return Storefront.buildQuery { $0
             .collections(first: Int32(limit), after: cursor,query: queryString) { $0
@@ -136,7 +148,6 @@ final class ClientQuery {
                         .id()
                         .title()
                         .description()
-                      
                         .image( ) { $0
                             .url()
                         }
