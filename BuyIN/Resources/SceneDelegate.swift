@@ -16,6 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
         
+   
         let homeVC : UITabBarController = UITabBarController.instantiateFromMainStoryboard()
         let navigation = UINavigationController(rootViewController: homeVC)
         window.rootViewController = navigation
@@ -24,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
 //        if let _ = AccountController.shared.accessToken
 //        {
-//
+//            
 //        }
 //        else {
 //            

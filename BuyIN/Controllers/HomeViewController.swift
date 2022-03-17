@@ -214,10 +214,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.identifier, for: indexPath) as? CategoryCollectionViewCell else {
                 return UICollectionViewCell()
             }
-//            cell.contentView.layer.shadowColor = UIColor.black.cgColor
-//            cell.contentView.layer.shadowOffset = CGSize(width: 5, height: 5)
-//            cell.contentView.layer.shadowRadius = 10
-//            cell.contentView.layer.shadowOpacity = 0.5
+
             cell.configure(with: categories[indexPath.row], thumbnail: categoriesThumbnails[indexPath.row])
             return cell
             

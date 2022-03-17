@@ -62,6 +62,7 @@ class HeroHeaderCollectionViewCell: UICollectionViewCell {
 
         bannerCollectionView.delegate = self
         bannerCollectionView.dataSource = self
+        
         contentView.addSubview(pillControl)
 //        contentView.addSubview(heroImageView)
 //        contentView.addSubview(heroTextLabel)

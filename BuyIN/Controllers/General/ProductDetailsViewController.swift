@@ -10,6 +10,47 @@ import UIKit
 
 class ProductDetailsViewController: UIViewController {
     
+    private let thumbnailCollectionWidth: CGFloat = 60
+    
+
+    private let favoriteButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let image = UIImage(systemName: "heart", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .light))
+        button.setImage(image, for: .normal)
+        button.tintColor = .black
+        return button
+    }()
+    
+    private lazy var pageControl: UIPageControl = {
+        let pageControl = UIPageControl()
+        pageControl.numberOfPages = (product?.images.items.count)!
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        pageControl.transform = CGAffineTransform(rotationAngle: Double.pi/2)
+        pageControl.backgroundStyle = .prominent
+        pageControl.currentPageIndicatorTintColor = .black
+        return pageControl
+    }()
+    
+    private let bagButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let image = UIImage(systemName: "bag", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .light))
+        button.setImage(image, for: .normal)
+        button.tintColor = .black
+        return button
+    }()
+
+    private let previewCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(ProductPreviewThumbnailCollectionViewCell.self, forCellWithReuseIdentifier: ProductPreviewThumbnailCollectionViewCell.identifier)
+        collectionView.isPagingEnabled = true
+        collectionView.tag = 1
+        return collectionView
+    }()
+    
     enum CardState {
         case expanded
         case collapsed
@@ -19,7 +60,7 @@ class ProductDetailsViewController: UIViewController {
     var visualEffectView: UIVisualEffectView!
     
     
-    let cardHeight: CGFloat = 600
+    private let cardHeight: CGFloat = 700
     let cardHandleAreaHeight: CGFloat = 65
     var isCardVisible: Bool = false
     
@@ -40,12 +81,19 @@ class ProductDetailsViewController: UIViewController {
         visualEffectView.frame = view.frame
         view.addSubview(visualEffectView)
         productCardViewController = ProductCardViewController()
+        productCardViewController.product = product
         addChild(productCardViewController)
         view.addSubview(productCardViewController.view)
         productCardViewController.didMove(toParent: self)
-        productCardViewController.view.frame = CGRect(x: 0, y: view.frame.height - cardHandleAreaHeight, width: view.bounds.width, height: cardHeight)
+
+        productCardViewController.view.frame = CGRect(x: 0, y: view.frame.height - cardHandleAreaHeight - 120, width: view.bounds.width, height: cardHeight)
         
-        productCardViewController.view.clipsToBounds = true
+
+        productCardViewController.view.shadowColor = .black
+        productCardViewController.view.shadowOpacity = 0.6
+        productCardViewController.view.shadowOffset = .zero
+        productCardViewController.view.shadowRadius = 15
+        productCardViewController.view.layer.cornerRadius = 40
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleProductCardTap(recognizer:)))
         
@@ -89,7 +137,7 @@ class ProductDetailsViewController: UIViewController {
                     case .expanded:
                         self.productCardViewController.view.frame.origin.y = self.view.frame.height - self.cardHeight
                     case .collapsed:
-                        self.productCardViewController.view.frame.origin.y = self.view.frame.height - self.cardHandleAreaHeight
+                        self.productCardViewController.view.frame.origin.y = self.view.frame.height - self.cardHandleAreaHeight - 120
                     }
                 }
             
@@ -104,8 +152,12 @@ class ProductDetailsViewController: UIViewController {
                 switch state {
                 case .expanded:
                     self.productCardViewController.view.layer.cornerRadius = 12
+                    let image = UIImage(systemName: "chevron.compact.down", withConfiguration: UIImage.SymbolConfiguration(pointSize: 60))
+                    self.productCardViewController.handleArea.handleImage.image = image
                 case .collapsed:
-                    self.productCardViewController.view.layer.cornerRadius = 0
+                    self.productCardViewController.view.layer.cornerRadius = 40
+                    let image = UIImage(systemName: "chevron.compact.up", withConfiguration: UIImage.SymbolConfiguration(pointSize: 60))
+                    self.productCardViewController.handleArea.handleImage.image = image
                 }
             }
             cornerRadiusAnimator.startAnimation()
@@ -150,191 +202,57 @@ class ProductDetailsViewController: UIViewController {
     var product: ProductViewModel? = nil {
         didSet {
             productPreviews = (product?.images.items)!
-            DispatchQueue.main.async { [weak self] in
-//                self?.previewCollection.reloadData()
-            }
+
         }
     }
     
     private var productPreviews: [ImageViewModel] = []
 
-    private var selectedIndex: Int = 0 {
-        didSet {
-            DispatchQueue.main.async {
-//                self.previewCollection.reloadData()
-            }
-        }
-    }
-    
-  //  var product: ProductViewModel!
-    
-    
-    
-    
+
     private let dismissButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.tintColor = .white
-        button.clipsToBounds = true
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = 25
-        button.backgroundColor = .lightGray
+        button.tintColor = .black
         return button
     }()
 
 
-//    static func previewLayoutProvider(_ section: Int) -> NSCollectionLayoutSection {
-//
-//        switch section {
-//        case 0:
-//
-//            let supplementaryView = [
-//                NSCollectionLayoutBoundarySupplementaryItem(
-//                    layoutSize: NSCollectionLayoutSize(
-//                        widthDimension: .fractionalWidth(1),
-//                        heightDimension: .fractionalHeight(1/1.8)),
-//                    elementKind: UICollectionView.elementKindSectionHeader,
-//                    alignment: .top)
-//            ]
-//
-//            let item = NSCollectionLayoutItem(
-//                layoutSize: NSCollectionLayoutSize(
-//                    widthDimension: .fractionalWidth(1/3),
-//                    heightDimension: .fractionalHeight(1))
-//            )
-//            item.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4)
-//            let group = NSCollectionLayoutGroup.horizontal(
-//                layoutSize: NSCollectionLayoutSize(
-//                    widthDimension: .fractionalWidth(1),
-//                    heightDimension: .absolute(130)),
-//                subitem: item,
-//                count: 4
-//            )
-//
-//
-//            let section = NSCollectionLayoutSection(group: group)
-//            section.orthogonalScrollingBehavior = .continuous
-//            section.boundarySupplementaryItems = supplementaryView
-//            return section
-//
-//        case 1:
-//
-//            let item = NSCollectionLayoutItem(
-//                layoutSize: NSCollectionLayoutSize(
-//                    widthDimension: .fractionalWidth(1),
-//                    heightDimension: .fractionalHeight(1))
-//            )
-//            item.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4)
-//            let group = NSCollectionLayoutGroup.horizontal(
-//                layoutSize: NSCollectionLayoutSize(
-//                    widthDimension: .fractionalWidth(1),
-//                    heightDimension: .absolute(250)),
-//                subitem: item,
-//                count: 1
-//            )
-//
-//
-//            let section = NSCollectionLayoutSection(group: group)
-//            section.orthogonalScrollingBehavior = .continuous
-//            return section
-//
-//        case 2:
-//
-//            let item = NSCollectionLayoutItem(
-//                layoutSize: NSCollectionLayoutSize(
-//                    widthDimension: .fractionalWidth(1),
-//                    heightDimension: .fractionalHeight(1))
-//            )
-//            item.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 10, bottom: 4, trailing: 10)
-//            let group = NSCollectionLayoutGroup.horizontal(
-//                layoutSize: NSCollectionLayoutSize(
-//                    widthDimension: .fractionalWidth(1),
-//                    heightDimension: .estimated(200)),
-//                subitem: item,
-//                count: 1
-//            )
-//
-//
-//            let section = NSCollectionLayoutSection(group: group)
-//            section.orthogonalScrollingBehavior = .continuous
-//            return section
-//
-//        case 3:
-//
-//            let supplementaryView = [NSCollectionLayoutBoundarySupplementaryItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(60)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)]
-//
-//            let item = NSCollectionLayoutItem(
-//                layoutSize: NSCollectionLayoutSize(
-//                    widthDimension: .fractionalWidth(1),
-//                    heightDimension: .fractionalHeight(1))
-//            )
-//            item.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 10, bottom: 4, trailing: 10)
-//            let group = NSCollectionLayoutGroup.horizontal(
-//                layoutSize: NSCollectionLayoutSize(
-//                    widthDimension: .fractionalWidth(1/3),
-//                    heightDimension: .estimated(160)),
-//                subitem: item,
-//                count: 1
-//            )
-//
-//
-//
-//            let section = NSCollectionLayoutSection(group: group)
-//            section.boundarySupplementaryItems = supplementaryView
-//            section.orthogonalScrollingBehavior = .continuous
-//            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 100, trailing: 0)
-//            return section
-//
-//        default:
-//            let item = NSCollectionLayoutItem(
-//                layoutSize: NSCollectionLayoutSize(
-//                    widthDimension: .fractionalWidth(1),
-//                    heightDimension: .fractionalHeight(1))
-//            )
-//            let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)), subitems: [item])
-//            return NSCollectionLayoutSection(group: group)
-//        }
-//
-//    }
-
-//    private let previewCollection: UICollectionView = {
-//        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout(section: ProductDetailsViewController.previewLayoutProvider()))
-//        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout(sectionProvider: { section, _ in
-//            ProductDetailsViewController.previewLayoutProvider(section)
-//        }))
-//        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-//        collectionView.register(PreviewCollectionHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: PreviewCollectionHeaderCollectionReusableView.identifier)
-//        collectionView.register(PreviewAnglesCollectionViewCell.self, forCellWithReuseIdentifier: PreviewAnglesCollectionViewCell.identifier)
-//        collectionView.register(ProductHeaderCollectionViewCell.self, forCellWithReuseIdentifier: ProductHeaderCollectionViewCell.identifier)
-//        collectionView.register(ProductPreviewDescriptionCollectionViewCell.self, forCellWithReuseIdentifier: ProductPreviewDescriptionCollectionViewCell.identifier)
-//        collectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
-//        collectionView.register(RelevantCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: RelevantCollectionReusableView.identifier)
-//        collectionView.translatesAutoresizingMaskIntoConstraints = false
-//        return collectionView
-//    }()
-
 
     
-
+    // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-//        view.addSubview(previewCollection)
+        view.backgroundColor = .white
+        view.addSubview(previewCollectionView)
+        view.addSubview(bagButton)
+        view.addSubview(favoriteButton)
+        previewCollectionView.delegate = self
+        previewCollectionView.dataSource = self
+
         view.addSubview(dismissButton)
+        view.addSubview(pageControl)
         setupCard()
         configureConstraints()
         tabBarController?.tabBar.isHidden = true
-//        previewCollection.dataSource = self
-//        previewCollection.delegate = self
-//        previewCollection.contentInsetAdjustmentBehavior = .never
+        pageControl.addTarget(self, action: #selector(pageControlDidChange), for: .valueChanged)
         dismissButton.addTarget(self, action: #selector(didTapDismiss), for: .touchUpInside)
-//        addGradient()
-
-        
-//        previewCollection.collectionViewLayout.invalidateLayout()
     }
     
+    @objc private func pageControlDidChange() {
+        previewCollectionView.scrollToItem(
+            at: IndexPath(
+                row: pageControl.currentPage,
+                section: 0),
+            at: .centeredVertically,
+            animated: true)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        previewCollectionView.frame = view.bounds
+
+    }
    
     @objc private func didTapDismiss() {
         dismiss(animated: true)
@@ -346,126 +264,84 @@ class ProductDetailsViewController: UIViewController {
 
     private func configureConstraints() {
         
-       
-
-//        let previewCollectionConstraints = [
-//            previewCollection.topAnchor.constraint(equalTo: view.topAnchor),
-//            previewCollection.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            previewCollection.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            previewCollection.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-//        ]
-
         let dismissButtonConstraints = [
-            dismissButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            dismissButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             dismissButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             dismissButton.heightAnchor.constraint(equalToConstant: 50),
             dismissButton.widthAnchor.constraint(equalToConstant: 50)
         ]
+        
+        let bagButtonConstraints = [
+            bagButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
+            bagButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10)
+        ]
 
-//        NSLayoutConstraint.activate(previewCollectionConstraints)
+        let pageControlConstraints = [
+            pageControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: view.bounds.width-120),
+            pageControl.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ]
+        
+        let favoriteButtonConstraints = [
+            favoriteButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
+            favoriteButton.topAnchor.constraint(equalTo: bagButton.bottomAnchor, constant: 35)
+        ]
+        
         NSLayoutConstraint.activate(dismissButtonConstraints)
+        NSLayoutConstraint.activate(bagButtonConstraints)
+        NSLayoutConstraint.activate(pageControlConstraints)
+        NSLayoutConstraint.activate(favoriteButtonConstraints)
     }
 }
 
-//extension ProductDetailsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-//
-//    func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        return 4
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        switch section {
-//        case 0:
-//            return (product?.images.items.count)!
-//
-//        case 3:
-//            return 10
-//            
-//        default:
-//            return 1
-//        }
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        switch indexPath.section {
-//        case 0:
-//            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PreviewAnglesCollectionViewCell.identifier, for: indexPath) as? PreviewAnglesCollectionViewCell else {
-//                return UICollectionViewCell()
-//            }
-//            cell.isCellSelected = indexPath.row == selectedIndex
-//            cell.configure(with: productPreviews[indexPath.row])
-//            return cell
-//            
-//        case 1:
-//            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductHeaderCollectionViewCell.identifier, for: indexPath) as? ProductHeaderCollectionViewCell else {
-//                return UICollectionViewCell()
-//            }
-//            
-//            cell.configure(with: product!)
-//
-//            return cell
-//            
-////            ProductPreviewDescriptionCollectionViewCell
-//        case 2:
-//            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductPreviewDescriptionCollectionViewCell.identifier, for: indexPath) as? ProductPreviewDescriptionCollectionViewCell else {
-//                return UICollectionViewCell()
-//            }
-//            
-//            cell.configure(with: product!)
-////            cell.backgroundColor = .red
-////            cell.sizeToFit()
-//            return cell
-//            
-//        case 3:
-//            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.identifier, for: indexPath) as? CategoryCollectionViewCell else {
-//                return UICollectionViewCell()
-//            }
-//            
-//            cell.configure(with: "", thumbnail: "")
-////            cell.backgroundColor = .red
-////            cell.sizeToFit()
-//            return cell
-//            
-//        default:
-//            return collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-//        }
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        selectedIndex = indexPath.row
-//    
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-//        
-//        switch indexPath.section {
-//        case 0:
-//            guard let header = collectionView.dequeueReusableSupplementaryView(
-//                ofKind: UICollectionView.elementKindSectionHeader,
-//                withReuseIdentifier: PreviewCollectionHeaderCollectionReusableView.identifier,
-//                for: indexPath) as? PreviewCollectionHeaderCollectionReusableView else {
-//                    return UICollectionReusableView()
-//                }
-//            header.configure(with: (product?.images.items[selectedIndex])!)
-//            return header
-//            
-//        case 3:
-//            guard let header = collectionView.dequeueReusableSupplementaryView(
-//                ofKind: UICollectionView.elementKindSectionHeader,
-//                withReuseIdentifier: RelevantCollectionReusableView.identifier,
-//                for: indexPath) as? RelevantCollectionReusableView else {
-//                    return UICollectionReusableView()
-//                }
-//
-//            return header
-//            
-//        default:
-//            return UICollectionReusableView()
-//        }
-//    }
-//
-//
-//  
-//    
-//
-//}
+
+extension ProductDetailsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return (product?.images.items.count)!
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView.tag == 0 {
+            previewCollectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: true)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if collectionView.tag == 0 {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ThumbnailCollectionViewCell.identifier, for: indexPath) as? ThumbnailCollectionViewCell else {
+                return UICollectionViewCell()
+            }
+            cell.configure(with: product!.images.items[indexPath.row].url)
+            return cell
+            
+            
+        } else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductPreviewThumbnailCollectionViewCell.identifier, for: indexPath) as? ProductPreviewThumbnailCollectionViewCell else {
+                return UICollectionViewCell()
+            }
+            cell.configure(with: product!.images.items[indexPath.row].url)
+            return cell
+        }
+
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        if collectionView.tag == 0 {
+            return CGSize(width: thumbnailCollectionWidth, height: 90)
+        } else {
+            return CGSize(width: view.bounds.width, height: view.bounds.height)
+        }
+    }
+    
+    
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let currentlyShown = scrollView.contentOffset.y / view.frame.height
+        pageControl.currentPage = Int(currentlyShown)
+        if currentlyShown > Double((product?.images.items.count)!-1) {
+            animateTransitionIfNeeded(state: nextState, duration: 0.9)
+        }
+    }
+}
