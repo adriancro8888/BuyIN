@@ -44,6 +44,8 @@ class HomeViewController: UIViewController {
     }
     
     static func layoutProvider(to section: Int) -> NSCollectionLayoutSection {
+        
+        
         switch section {
         case 0:
             let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
@@ -61,7 +63,7 @@ class HomeViewController: UIViewController {
     
             let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/3)))
             item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-            let group = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(700)), subitems: [item])
+            let group = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(420)), subitems: [item])
             let section = NSCollectionLayoutSection(group: group)
             section.orthogonalScrollingBehavior = .continuous
             section.boundarySupplementaryItems = supplementaryViews
@@ -75,7 +77,7 @@ class HomeViewController: UIViewController {
             
             let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
             item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-            let group = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(600)), subitems: [item])
+            let group = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(400)), subitems: [item])
             let section = NSCollectionLayoutSection(group: group)
             section.orthogonalScrollingBehavior = .continuous
             section.boundarySupplementaryItems = supplementaryViews
@@ -141,29 +143,18 @@ class HomeViewController: UIViewController {
     
     private func fetchProductsForHome() {
         
-        Client.shared.fetchCollections(ofType:CollectionType.category ) { collections in
-            if let collections = collections {
-                self.caterories = collections
-                self.collectionView.reloadData()
+        
+        Client.shared.fetchCollections(ofType:.sales) {[weak self] result in
+            guard let result = result else {
+                return
+            }
+            self?.recentlyAddedItems = result.items[1].products.items
+            self?.flashSaleItems = result.items[0].products.items
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
             }
         }
-        
-        Client.shared.fetchCollections(ofType:CollectionType.sales ) { collections in
-            if let collections = collections {
-                self.salesBanners = collections
-                self.collectionView.reloadData()
-            }
-        }
-        
-        
     }
-
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
- 
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -178,14 +169,24 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
         
         else if section == 1{
-            return caterories?.items.count ?? 0
+            return 3
+        }
+        
+        else if section == 2{
+            return 1
+        }
+        else if section == 3 {
+            return 1
+        }
+        else if section == 4 {
+            return recentlyAddedItems.count
         }
         
         return 0
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -206,7 +207,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
             cell.configure(with: categories[indexPath.row], thumbnail: categoriesThumbnails[indexPath.row])
             return cell
-             
             
             
         case 2:
