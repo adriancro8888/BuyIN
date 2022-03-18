@@ -11,8 +11,19 @@ import Pay
 
 final class Client {
     
+    
+    
     static let shopDomain = "itiios.myshopify.com"
     static let apiKey     = "f78f765d212201e09cf5b3d6f8020421"
+
+    
+    
+    
+    
+    
+    
+//    static let shopDomain = "jets-ismailia.myshopify.com"
+//    static let apiKey     = "70adb96961fe55ab1ce308476d536e01"
     static let merchantID = "merchant.com.your.id"
     static let shared = Client()
     
@@ -183,10 +194,11 @@ final class Client {
     // ----------------------------------
     //  MARK: - Collections -
     //
+    
     @discardableResult
-    func fetchCollections(limit: Int = 25, after cursor: String? = nil, productLimit: Int = 25, productCursor: String? = nil , queryString:String?=nil, completion: @escaping (PageableArray<CollectionViewModel>?) -> Void) -> Task {
+    func fetchCollections(ofType:CollectionType,limit: Int = 25, after cursor: String? = nil, productLimit: Int = 25, productCursor: String? = nil , queryString:String?=nil, completion: @escaping (PageableArray<CollectionViewModel>?) -> Void) -> Task {
         
-        let query = ClientQuery.queryForCollections( limit: limit,queryString: queryString, after: cursor, productLimit: productLimit, productCursor: productCursor)
+        let query = ClientQuery.queryForCollections(ofType:ofType, limit: limit,queryString: queryString, after: cursor, productLimit: productLimit, productCursor: productCursor)
         let task  = self.client.queryGraphWith(query) { (query, error) in
             error.debugPrint()
             
@@ -286,19 +298,102 @@ final class Client {
 
     func fetchProductBrands( completion: @escaping ([String : [ProductViewModel]]?) -> Void) -> Task {
 
-        var task = fetchProducts { products in
+        let task = fetchProducts { products in
             
             if let products = products?.items {
                 let groupByBrand = Dictionary(grouping: products) { $0.vendor }
                 completion(groupByBrand)
-               
+            
                 }
             }
         task.resume()
         return task
         }
     
+    @discardableResult
+    func fetchTags(completion: @escaping (Storefront.QueryRoot?) -> Void) -> Task {
+        
+        let query = ClientQuery.queryForTags()
+        let task  = self.client.queryGraphWith(query) { (query, error) in
+            error.debugPrint()
+            
+            if let query = query {
+                completion(query)
+            } else {
+                print("Failed to load Tags  : \(String(describing: error))")
+                completion(nil)
+            }
+        }
+        
+        task.resume()
+        return task
+    }
+    @discardableResult
+    func fetchTypes(completion: @escaping (Storefront.QueryRoot?) -> Void) -> Task {
+        
+        let query = ClientQuery.queryForTypes()
+        let task  = self.client.queryGraphWith(query) { (query, error) in
+            error.debugPrint()
+            
+            if let query = query {
+                completion(query)
+            } else {
+                print("Failed to load Types  : \(String(describing: error))")
+                completion(nil)
+            }
+        }
+        
+        task.resume()
+        return task
+    }
     
+    
+    var Brands = [String]()
+    func loadBrands(){
+        Client.shared.fetchProductBrands(){productDic in
+            if let keys = productDic?.keys{
+                self.Brands.removeAll()
+                self.Brands.append(contentsOf: keys)
+            }
+        }
+    }
+    
+    var Categories = [String]()
+    func loadCategories(){
+        Client.shared.fetchCollections(ofType: .category){collections in
+            if let collections = collections{
+                self.Categories.removeAll()
+                for item in collections.items {
+                    self.Categories.append(item.title)
+                }
+            }
+        }
+    }
+    
+    var Tags = [String]()
+    func loadTags(){
+        Client.shared.fetchTags(){query in
+            if let query = query{
+                self.Tags.removeAll()
+                for item in query.productTags.edges {
+                    self.Tags.append(item.node)
+                }
+            }
+        }
+    }
+    var Types = [String]()
+    func loadTypes(){
+        Client.shared.fetchTypes(){query in
+            if let query = query{
+                self.Types.removeAll()
+                for item in query.productTypes.edges {
+                    self.Types.append(item.node)
+                }
+            }
+        }
+    }
+    
+
  
 
     

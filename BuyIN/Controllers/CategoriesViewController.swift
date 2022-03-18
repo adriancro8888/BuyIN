@@ -44,7 +44,7 @@ class CategoriesViewController: UIViewController {
     fileprivate func fetchCollections(after cursor: String? = nil) {
         
         
-        Client.shared.fetchCollections( after: cursor,queryString: searchString) { collections in
+        Client.shared.fetchCollections(ofType:CollectionType.category, after: cursor ) { collections in
             if let collections = collections {
                 self.collections = collections
                 self.catiogriesCollectionView.reloadData()
@@ -94,7 +94,7 @@ extension CategoriesViewController: StorefrontCollectionViewDelegate {
         if collectionView == catiogriesCollectionView {
             if let collections = self.collections,
                let lastCollection = collections.items.last {
-                Client.shared.fetchCollections(after: lastCollection.cursor) { collections in
+                Client.shared.fetchCollections(ofType: .sales, after: lastCollection.cursor) { collections in
                     if let collections = collections {
                         
                         self.collections.appendPage(from: collections)
@@ -192,10 +192,10 @@ extension CategoriesViewController :UICollectionViewDelegate{
 
         }
         else if collectionView == productsCollectonView{
-            let newViewController = ProductsViewController(nibName: "ProductsViewController", bundle: nil)
-            let collection = self.selectedCollection!
-            newViewController.selectedCollection = collection
-           
+//            let newViewController = ProductsViewController(nibName: "ProductsViewController", bundle: nil)
+//            let collection = self.selectedCollection!
+//            newViewController.selectedCollection = collection
+//           
             
             // Present View "Modally"
          //   self.present(newViewController, animated: true, completion: nil)

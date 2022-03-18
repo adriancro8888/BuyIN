@@ -43,6 +43,16 @@ final class ProductViewModel: ViewModel {
     let images:   PageableArray<ImageViewModel>
     let variants: PageableArray<VariantViewModel>
     
+    
+    // Request on demand only (must be inclouded in query )
+    var collections: PageableArray<CollectionViewModel> { get {
+      return PageableArray(
+                   with:     model.node.collections.edges,
+                   pageInfo: model.node.collections.pageInfo
+               )
+        }
+    }
+    let tags:[String]
     // ----------------------------------
     //  MARK: - Init -
     //
@@ -72,6 +82,13 @@ final class ProductViewModel: ViewModel {
             with:     model.node.variants.edges,
             pageInfo: model.node.variants.pageInfo
         )
+        
+//        self.collections = PageableArray(
+//            with:     model.node.collections.edges,
+//            pageInfo: model.node.collections.pageInfo
+//        )
+        self.tags = model.node.tags
+        
     }
 }
 

@@ -25,7 +25,7 @@ class ProductsCellCollectionViewCell: UICollectionViewCell, ViewModelConfigurabl
         
         self.itemName.text = viewModel.title
         self.itemPrice.text = viewModel.price
-        print(viewModel.title)
+      //  print(viewModel.title)
         self.itemImage.setImageFrom(viewModel.images.items.first?.url)
     }
 

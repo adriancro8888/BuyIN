@@ -71,7 +71,11 @@ class CategoryCollectionViewCell: UICollectionViewCell {
 //        return view
 //    }()
 //
+    func configer(with collection  : CollectionViewModel)  {
     
+        bannerLabel.text = collection.title;
+        bannerImageView.setImageFrom(collection.imageURL);
+    }
     private let bannerLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
