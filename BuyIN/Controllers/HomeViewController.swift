@@ -13,6 +13,7 @@ class HomeViewController: UIViewController {
     private var timer: Timer?
     
     private let categories: [String] = ["Women", "Men", "Jeans"]
+    private let sectionTitles: [String] = ["Shop by category", "New Arrivals"]
     private let categoriesThumbnails: [String] = ["womenBanner", "menBanner", "jeansBanner"]
     private var recentlyAddedItems: [ProductViewModel] = []
     private var flashSaleItems: [ProductViewModel] = []
@@ -39,7 +40,7 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(shouldUpdateBanner), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 3.5, target: self, selector: #selector(shouldUpdateBanner), userInfo: nil, repeats: true)
     }
     
     static func layoutProvider(to section: Int) -> NSCollectionLayoutSection {
@@ -56,41 +57,38 @@ class HomeViewController: UIViewController {
             
         case 1:
             
-            let supplementaryView = NSCollectionLayoutBoundarySupplementaryItem(
-                layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(60)),
-                elementKind: UICollectionView.elementKindSectionHeader,
-                alignment: .top)
-            
+            let supplementaryViews = [
+                NSCollectionLayoutBoundarySupplementaryItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(60)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+            ]
+    
             let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/3)))
             item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
             let group = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(420)), subitems: [item])
             let section = NSCollectionLayoutSection(group: group)
             section.orthogonalScrollingBehavior = .continuous
-            section.boundarySupplementaryItems = [supplementaryView]
+            section.boundarySupplementaryItems = supplementaryViews
             return section
             
         case 2:
 
+            let supplementaryViews = [
+                NSCollectionLayoutBoundarySupplementaryItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(60)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+            ]
             
             let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
             item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
             let group = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(400)), subitems: [item])
             let section = NSCollectionLayoutSection(group: group)
             section.orthogonalScrollingBehavior = .continuous
+            section.boundarySupplementaryItems = supplementaryViews
             return section
             
         case 3:
-            
-            let supplementaryView = NSCollectionLayoutBoundarySupplementaryItem(
-                layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(70)),
-                elementKind: UICollectionView.elementKindSectionHeader,
-                alignment: .top
-            )
+
             let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
             item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(370)), subitem: item, count: 2)
             let section = NSCollectionLayoutSection(group: group)
-            section.boundarySupplementaryItems = [supplementaryView]
             return section
             
             
@@ -109,16 +107,8 @@ class HomeViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout(sectionProvider: { section, _ in
             HomeViewController.layoutProvider(to: section)
         }))
-        collectionView.register(
-            FlashSaleSectionHeaderCollectionReusableView.self,
-            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: FlashSaleSectionHeaderCollectionReusableView.identifier)
-        
-        collectionView.register(
-            RecentlyAddedHeaderCollectionReusableView.self,
-            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: RecentlyAddedHeaderCollectionReusableView.identifier)
-        
+
+        collectionView.register(SectionHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeaderCollectionReusableView.identifier)
         collectionView.register(HeroHeaderCollectionViewCell.self, forCellWithReuseIdentifier: HeroHeaderCollectionViewCell.identifier)
         collectionView.register(HeroCategoriesCollectionViewCell.self, forCellWithReuseIdentifier: HeroCategoriesCollectionViewCell.identifier)
         collectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
@@ -140,7 +130,6 @@ class HomeViewController: UIViewController {
         collectionView.backgroundColor = .white
         navigationController?.navigationBar.barTintColor = UIColor.white
         fetchProductsForHome()
-//                tabBarController?.tabBar.isHidden = true
         navigationController?.navigationBar.isHidden = true
         collectionView.contentInsetAdjustmentBehavior = .never
         
@@ -206,6 +195,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeroHeaderCollectionViewCell.identifier, for: indexPath) as? HeroHeaderCollectionViewCell else {
                 return UICollectionViewCell()
             }
+            // TODO: Pass in the Ads Collections
             
             return cell
 
@@ -217,9 +207,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
             cell.configure(with: categories[indexPath.row], thumbnail: categoriesThumbnails[indexPath.row])
             return cell
-            
-            
-            //            RecentlyAddedCollectionViewCell
             
             
         case 2:
@@ -244,43 +231,31 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
         
     }
-    
-    
+
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if indexPath.section == 1 {
-            guard let header = collectionView.dequeueReusableSupplementaryView(
-                ofKind: UICollectionView.elementKindSectionHeader,
-                withReuseIdentifier: FlashSaleSectionHeaderCollectionReusableView.identifier,
-                for: indexPath) as? FlashSaleSectionHeaderCollectionReusableView else {
-                    return UICollectionReusableView()
-                }
-            header.sectionTitle = "Shop by category"
-            return header
-        }
         
-        if indexPath.section == 2 {
-            guard let header = collectionView.dequeueReusableSupplementaryView(
-                ofKind: UICollectionView.elementKindSectionHeader,
-                withReuseIdentifier: RecentlyAddedHeaderCollectionReusableView.identifier,
-                for: indexPath) as? RecentlyAddedHeaderCollectionReusableView else {
-                    return UICollectionReusableView()
-                }
-            header.sectionTitle = "Recently Added"
-            return header
+        guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeaderCollectionReusableView.identifier, for: indexPath) as? SectionHeaderCollectionReusableView else {
+            return UICollectionReusableView()
         }
+        if indexPath.section == 0 {return header}
+        header.configure(with: sectionTitles[indexPath.section-1])
         
-        return UICollectionReusableView()
+        
+        return header
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = ProductDetailsViewController()
-        vc.modalPresentationStyle = .fullScreen
-        vc.modalTransitionStyle = .crossDissolve
-        vc.product = flashSaleItems[indexPath.row]
-        present(vc, animated: true)
-        
-//        let vc = ProductCardViewController()
+//        let vc = ProductDetailsViewController()
+//        vc.modalPresentationStyle = .fullScreen
+//        vc.modalTransitionStyle = .crossDissolve
+//        vc.product = flashSaleItems[indexPath.row]
 //        present(vc, animated: true)
+        let vc = ProductCollectionViewController()
+        vc.collection = recentlyAddedItems
+        vc.navigationController?.navigationBar.isHidden = false
+        navigationController?.pushViewController(vc, animated: true)
+
     }
 }

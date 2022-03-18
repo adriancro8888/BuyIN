@@ -17,23 +17,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         
    
-        let homeVC : UITabBarController = UITabBarController.instantiateFromMainStoryboard()
-        let navigation = UINavigationController(rootViewController: homeVC)
-        window.rootViewController = navigation
-        self.window = window
-        window.makeKeyAndVisible()
         
-//        if let _ = AccountController.shared.accessToken
-//        {
-//            
-//        }
-//        else {
-//            
-//            let onboardingVC : WelcomingViewController =
-//            WelcomingViewController()
-//            self.window?.rootViewController = onboardingVC
-//            self.window?.makeKeyAndVisible()
-//        }
+        
+        if let _ = AccountController.shared.accessToken
+        {
+            let homeVC : UITabBarController = UITabBarController.instantiateFromMainStoryboard()
+            let navigation = UINavigationController(rootViewController: homeVC)
+            window.rootViewController = navigation
+            self.window = window
+            window.makeKeyAndVisible()
+        }
+        else {
+            
+            let onboardingVC : WelcomingViewController =
+            WelcomingViewController()
+            self.window?.rootViewController = onboardingVC
+            self.window?.makeKeyAndVisible()
+        }
         
         return
         

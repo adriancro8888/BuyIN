@@ -16,6 +16,7 @@ class CardDescriptionTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 14)
         label.numberOfLines = 0
+        label.textColor = .black
         return label
     }()
     
@@ -24,6 +25,7 @@ class CardDescriptionTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Summary"
         label.font = .systemFont(ofSize: 24, weight: .bold)
+        label.textColor = .black
         return label
     }()
     
@@ -37,6 +39,7 @@ class CardDescriptionTableViewCell: UITableViewCell {
         contentView.addSubview(summaryLabel)
         contentView.addSubview(summaryDetailsLabel)
         configureConstraints()
+        
     }
     
     

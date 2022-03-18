@@ -24,6 +24,7 @@ class ProductPreviewCollectionViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 1
         label.font = .systemFont(ofSize: 16, weight: .light)
+        label.textColor = .black
         return label
     }()
     
@@ -31,12 +32,14 @@ class ProductPreviewCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 1
+        label.textColor = .black
         label.font = .systemFont(ofSize: 16, weight: .bold)
         return label
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        contentView.backgroundColor = .white
         contentView.addSubview(productImageView)
         contentView.addSubview(productTitleLabel)
         contentView.addSubview(productPriceLabel)
@@ -47,7 +50,7 @@ class ProductPreviewCollectionViewCell: UICollectionViewCell {
         let url = model.images.items.first?.url
         productImageView.setImageFrom(url)
         productTitleLabel.text = model.title
-        productPriceLabel.text = "EGP \(model.price.dropFirst())"
+        productPriceLabel.text = "\(model.price)"
         
     }
     
@@ -55,9 +58,9 @@ class ProductPreviewCollectionViewCell: UICollectionViewCell {
         
         let productImageViewConstraints = [
             productImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            productImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            productImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             productImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            productImageView.heightAnchor.constraint(equalToConstant: 220)
+            productImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -60)
         ]
         
         let productTitleLabelConstraints = [

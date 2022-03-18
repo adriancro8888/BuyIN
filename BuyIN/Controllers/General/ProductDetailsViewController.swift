@@ -255,7 +255,7 @@ class ProductDetailsViewController: UIViewController {
     }
    
     @objc private func didTapDismiss() {
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
 
     override var prefersStatusBarHidden: Bool {
