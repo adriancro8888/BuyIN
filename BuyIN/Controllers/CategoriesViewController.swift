@@ -192,10 +192,10 @@ extension CategoriesViewController :UICollectionViewDelegate{
 
         }
         else if collectionView == productsCollectonView{
-            let newViewController = ProductsViewController(nibName: "ProductsViewController", bundle: nil)
-            let collection = self.selectedCollection!
-            newViewController.selectedCollection = collection
-           
+//            let newViewController = ProductsViewController(nibName: "ProductsViewController", bundle: nil)
+//            let collection = self.selectedCollection!
+//            newViewController.selectedCollection = collection
+//           
             
             // Present View "Modally"
          //   self.present(newViewController, animated: true, completion: nil)

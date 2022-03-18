@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProductsViewController: UIViewController {
+class ProductsViewController_back: UIViewController {
 
     var searchString : String? = nil;
     
@@ -44,7 +44,7 @@ class ProductsViewController: UIViewController {
                 }
     }
 }
-    extension ProductsViewController: StorefrontCollectionViewDelegate {
+    extension ProductsViewController_back: StorefrontCollectionViewDelegate {
     func collectionViewShouldBeginPaging(_ collectionView: StorefrontCollectionView) -> Bool {
         
        
@@ -80,7 +80,7 @@ class ProductsViewController: UIViewController {
  
 }
 
-extension ProductsViewController : UICollectionViewDataSource{
+extension ProductsViewController_back : UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
        return self.products?.items.count ?? 0
     }
@@ -95,7 +95,7 @@ extension ProductsViewController : UICollectionViewDataSource{
     
 }
 
-extension ProductsViewController : UICollectionViewDelegateFlowLayout {
+extension ProductsViewController_back : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var width =  collectionView.frame.width
         var height =  collectionView.frame.height

@@ -12,6 +12,7 @@ import Pay
 enum CollectionType: String {
     case sales
     case category
+    case all
 }
 final class ClientQuery {
 
@@ -160,6 +161,30 @@ final class ClientQuery {
         }
     }
     
+    static func queryForTypes() -> Storefront.QueryRootQuery {
+        return Storefront.buildQuery { $0
+                .productTypes( first: 250) { $0
+                .edges{$0
+                .node()
+                }
+                }
+        }
+    }
+    
+    static func queryForTags() -> Storefront.QueryRootQuery {
+        return Storefront.buildQuery { $0
+                .productTags( first: 250) { $0
+                .edges{$0
+                .node()
+                }
+                }
+        }
+    }
+    
+    
+    
+    
+    
     
     static func queryForProducts(in collection: CollectionViewModel, limit: Int, after cursor: String? = nil) -> Storefront.QueryRootQuery {
         
@@ -180,20 +205,10 @@ final class ClientQuery {
         
         return Storefront.buildQuery { $0
                 .products( first: Int32(limit), after: cursor,query: withQuery){$0
-                    
-                .pageInfo { $0
-                .hasNextPage()
-                }
-                .edges { $0
-                .node{$0
-                .fragmentForStandardProduct()
-                }
-                    
-                    
-                }
-                    
-                }
+                .fragmentForStandardProductWithCollection()
         }
+        }
+        
     }
     
     static func queryForProductRecommendation(in product: ProductViewModel ) -> Storefront.QueryRootQuery {

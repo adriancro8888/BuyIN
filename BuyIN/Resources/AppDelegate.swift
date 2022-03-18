@@ -24,7 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          ** load any cached cart items.
          */
         _ = CartController.shared
-        
+        Client.shared.loadBrands()
+        Client.shared.loadTags()
+        Client.shared.loadTypes()
+        Client.shared.loadCategories()
         return true
     }
 
