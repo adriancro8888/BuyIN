@@ -140,6 +140,12 @@ class WishlistController {
         self.itemsChanged()
     }
     
+    func moveToCart(at index: Int) {
+        CartController.shared.add(self.items[index])
+        self.items.remove(at: index)
+        self.itemsChanged()
+    }
+    
     func emptyWishlist() {
         self.items.removeAll()
         self.itemsChanged()

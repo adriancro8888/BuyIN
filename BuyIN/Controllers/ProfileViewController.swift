@@ -12,11 +12,18 @@ class ProfileViewController: UIViewController {
     //@IBOutlet var itemsTableView: UITableView!
     var userInfo : CustomerViewModel?
     var ordersArray: PageableArray<OrderViewModel>?
+    var items : [CartItem] = []
     
     @IBOutlet weak var ordersCollectionViews: StorefrontCollectionView!
     @IBOutlet var wishList: UICollectionView!
+    
+    @IBOutlet weak var customerName: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.updateWishList()
+        self.registerNotifications()
+//        print("items\(items)")
+        
 
 //        let nib1 = UINib(nibName: "OrdersTableViewCell", bundle: nil)
 //        itemsTableView.register(nib1, forCellReuseIdentifier: "OrdersTableViewCell")
@@ -24,6 +31,10 @@ class ProfileViewController: UIViewController {
         
 //        let nib2 = UINib(nibName: "WishListCollectionViewCell", bundle: nil)
 //        self.wishList.register(nib2, forCellWithReuseIdentifier: "WishListCollectionViewCell")
+        
+
+        
+        
         
         let wishListNib = UINib(nibName: "UpdatedWishListCollectionViewCell", bundle: nil)
         self.wishList.register(wishListNib, forCellWithReuseIdentifier: "UpdatedWishListCollectionViewCell")
@@ -35,7 +46,43 @@ class ProfileViewController: UIViewController {
         
         
         
+        
     }
+
+
+    
+   @IBAction func bagButton(_ sender: Any) {
+    let cartController : CartViewController = CartViewController.instantiateFromNib()
+    cartController.modalPresentationStyle = .fullScreen
+
+    
+    self.present(cartController, animated: true, completion: nil)
+    
+    }
+
+    // ----------------------------------
+    //  MARK: - Notifications -
+    //
+    private func registerNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(WishlistControllerItemsDidChange(_:)), name: Notification.Name.WishlistControllerItemsDidChange, object: nil)
+    }
+    
+    private func unregisterNotifications() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc private func WishlistControllerItemsDidChange(_ notification: Notification) {
+        self.updateWishList()
+    }
+    
+    // ----------------------------------
+    //  MARK: - Update -
+    //
+    func updateWishList() {
+        self.items = WishlistController.shared.items
+        wishList.reloadData()
+    }
+    
     func fetchOrders(after cursuer:String? = nil) {
         if let accessToken = AccountController.shared.accessToken{
             print("acesstoken :\(accessToken)")
@@ -44,9 +91,8 @@ class ProfileViewController: UIViewController {
                 if let container = container{
                     
                     self.userInfo = container.customer
+                    self.customerName.text = "Welcome \(self.userInfo?.firstName ?? "User")"
                     self.ordersArray = container.orders
-                    
-                   // print(self.ordersArray?.items)
                     self.ordersCollectionViews.reloadData()
                     
                     
@@ -60,16 +106,18 @@ class ProfileViewController: UIViewController {
     
 
     @IBAction func settingButton(_ sender: Any) {
-        let newViewController = OrdersDetailsViewController(nibName: "OrdersDetailsViewController", bundle: nil)
+        let newViewController : SettingViewController = SettingViewController.instantiateFromNib()
+        self.navigationController?.pushViewController(newViewController, animated: true)
+        self.navigationController?.navigationItem.backBarButtonItem?.tintColor = UIColor.black
 
-        // Present View "Modally"
-        self.present(newViewController, animated: true, completion: nil)
     }
     
     @IBAction func moreButton(_ sender: Any) {
         
         let orderController : OrdersViewController = OrdersViewController.instantiateFromNib()
         orderController.modalPresentationStyle = .fullScreen
+        orderController.AllordersArray = ordersArray
+        
         self.present(orderController, animated: true, completion: nil)
         
         
@@ -81,6 +129,8 @@ class ProfileViewController: UIViewController {
     @IBAction func moreButtonForWishList(_ sender: Any) {
         let wishController : WishListViewController = WishListViewController.instantiateFromNib()
         wishController.modalPresentationStyle = .fullScreen
+        wishController.wishlistItems = items
+        
         self.present(wishController, animated: true, completion: nil)
     }
 }
@@ -169,10 +219,27 @@ extension ProfileViewController : UICollectionViewDelegateFlowLayout {
 extension ProfileViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == ordersCollectionViews {
-            return ordersArray?.items.count ?? 0
-            
+           // return ordersArray?.items.count ?? 0
+            if let orderCount = ordersArray?.items.count {
+                if orderCount >= 2 {
+                return 2
+                    
+                }else{
+                return 1
+            }
+
+            }
+            else
+            {
+                return 0
+            }
         } else {
-            return 5
+            if items.count >= 5{
+                return 6
+            }
+            else {
+            return items.count + 1
+            }
         }
     }
     
@@ -195,22 +262,91 @@ extension ProfileViewController : UICollectionViewDataSource {
         
         if collectionView == ordersCollectionViews {
             let orderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "OrderCollectionViewCell", for: indexPath) as! OrderCollectionViewCell
-            if let order1 = self.ordersArray?.items[0].model.node.orderNumber{
-                
-            orderCell.dateOfOrder.text = String(order1)
-                
             
+            if let orderCount = ordersArray?.items.count {
+                if orderCount >= 1 {
+                    if indexPath.row == 0 {
+                    if let order = self.ordersArray?.items[0]{
+                        
+                        orderCell.orderNumber.text = "Order #\(String(order.model.node.orderNumber))"
+                        let imageURL = order.model.node.lineItems.edges[0].node.variant?.image?.url
+                        orderCell.orderImage.setImageFrom(imageURL)
+                        //print(order1.model.node.lineItems.edges[0].node.variant?.image)
+                        //orderCell.NameOfItem.text = order1.model.node.name
+                        let dateOfCreation = DateFormatterClass.dateFormatter(date: order.model.node.processedAt)
+                        orderCell.dateOfOrder.text = dateOfCreation
+
+                        let totalPriceMoney = order.model.node.currentTotalPrice
+                        orderCell.totalPrice.text = Currency.stringFrom(totalPriceMoney.amount, totalPriceMoney.currencyCode.rawValue)
+
+                    }
+                    }
+                    if indexPath.row == 1 {
+                        if let order = self.ordersArray?.items[1]{
+                            
+                            orderCell.orderNumber.text = "Order #\(String(order.model.node.orderNumber))"
+                            let imageURL = order.model.node.lineItems.edges[0].node.variant?.image?.url
+                            orderCell.orderImage.setImageFrom(imageURL)
+                            //print(order1.model.node.lineItems.edges[0].node.variant?.image)
+                            //orderCell.NameOfItem.text = order1.model.node.name
+                            let dateOfCreation = DateFormatterClass.dateFormatter(date: order.model.node.processedAt)
+                            orderCell.dateOfOrder.text = dateOfCreation
+
+                            let totalPriceMoney = order.model.node.currentTotalPrice
+                            orderCell.totalPrice.text = Currency.stringFrom(totalPriceMoney.amount, totalPriceMoney.currencyCode.rawValue)
+                    }
+                    }
+                    
+                }
             }
+            else
+            {
+                //return no orders cell
+            }
+            
             return orderCell
             
         }else {
+            if (indexPath.row > items.count-1) || (indexPath.row == 5) {
+                let updatedWishListCell = collectionView.dequeueReusableCell(withReuseIdentifier: "UpdatedWishListCollectionViewCell", for: indexPath) as! UpdatedWishListCollectionViewCell
+                updatedWishListCell.itemPrice.text  = "More"
+                updatedWishListCell.wishListItemImage.image = UIImage(named: "More")
+                updatedWishListCell.wishListItemImage.contentMode = .scaleAspectFill
+               
+                return updatedWishListCell
+            }
+            else{
             let updatedWishListCell = collectionView.dequeueReusableCell(withReuseIdentifier: "UpdatedWishListCollectionViewCell", for: indexPath) as! UpdatedWishListCollectionViewCell
+//            items = WishlistController.shared.items
+            updatedWishListCell.itemPrice.text  = items[indexPath.row].product.price
+            let imgURL = items[indexPath.row].product.images.items[0].url
+            updatedWishListCell.wishListItemImage.setImageFrom(imgURL)
+           
             return updatedWishListCell
+            }
+            }
         }
     }
-    
-    
-    
-    
+
+extension ProfileViewController : UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == ordersCollectionViews {
+            
+        }else{
+            if (indexPath.row > items.count-1) || (indexPath.row == 5){
+                let wishController : WishListViewController = WishListViewController.instantiateFromNib()
+                wishController.modalPresentationStyle = .fullScreen
+                wishController.wishlistItems = items
+                self.present(wishController, animated: true, completion: nil)
+            }
+            
+        }
+    }
 }
+    
+    
+    
+    
+
+
 

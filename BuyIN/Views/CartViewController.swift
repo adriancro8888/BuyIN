@@ -153,6 +153,10 @@ class CartViewController: UIViewController {
         
     }
     
+    @IBAction func ClearButton(_ sender: Any) {
+        CartController.shared.emptyCart()
+    }
+    
     // ----------------------------------
     //  MARK: - Discount Codes -
     //

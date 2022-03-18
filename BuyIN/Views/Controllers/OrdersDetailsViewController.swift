@@ -10,16 +10,26 @@ import UIKit
 class OrdersDetailsViewController: UIViewController {
 //    var userInfo : CustomerViewModel?
 //    var ordersArray: PageableArray<OrderViewModel>?
+    var ordersDetails: OrderViewModel?
     
+    @IBOutlet weak var orderNumber: UILabel!
+    
+    @IBOutlet weak var timeOfProcess: UILabel!
     @IBOutlet weak var orderDetailsCollectionView: StorefrontCollectionView!
     override func viewDidLoad() {
         
         super.viewDidLoad()
         let orderDetailsNib = UINib(nibName: "OrderDetailsCollectionViewCell", bundle: nil)
         orderDetailsCollectionView.register(orderDetailsNib, forCellWithReuseIdentifier: "OrderDetailsCollectionViewCell")
-        let cartNib = UINib(nibName: "CartCell", bundle: nil)
-        orderDetailsCollectionView.register(cartNib, forCellWithReuseIdentifier: "CartCell")
+        let cartNib = UINib(nibName: "OrderCollectionViewCell", bundle: nil)
+        orderDetailsCollectionView.register(cartNib, forCellWithReuseIdentifier: "OrderCollectionViewCell")
+       let orderID = ordersDetails?.model.node.orderNumber ?? 0
+        orderNumber.text = String("OrderID - #\(orderID)")
+        if let dateOfOrder = ordersDetails?.model.node.processedAt{
+            let dateString = DateFormatterClass.dateFormatter(date: dateOfOrder)
+        timeOfProcess.text = "Placed on \(dateString)"
         
+    }
     }
     
 //    func fetchOrders(after cursuer:String? = nil) {
@@ -90,7 +100,7 @@ extension OrdersDetailsViewController : UICollectionViewDelegateFlowLayout {
         if indexPath.row == 0 {
         return CGSize(width: 414, height: 336)
         }else {
-            return CGSize(width: 414, height: 144)
+            return CGSize(width: 302, height: 236)
         }
 //        let width = collectionView.frame.width - 15
 //        let height = width / 2.5
@@ -121,19 +131,41 @@ extension OrdersDetailsViewController : CartCellDelegate {
 extension OrdersDetailsViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     
-        return CartController.shared.orders.count
+        return (ordersDetails?.model.node.lineItems.edges.count ?? 0)+1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.row == 0 {
             let orderDetailCell = collectionView.dequeueReusableCell(withReuseIdentifier: "OrderDetailsCollectionViewCell", for: indexPath) as! OrderDetailsCollectionViewCell
+            orderDetailCell.myView.layer.borderWidth = 0.5
+            orderDetailCell.myView.layer.borderColor = UIColor.black.cgColor
+            let country = ordersDetails?.model.node.shippingAddress?.country ?? ""
+            let city = ordersDetails?.model.node.shippingAddress?.city ?? ""
+            let address = ordersDetails?.model.node.shippingAddress?.address1 ?? ""
+            let addressFormat = country + ", " + city + ", " + address
+            
+            orderDetailCell.shippingAdress.text = addressFormat
+            orderDetailCell.phoneNumbers.text = ordersDetails?.model.node.phone
+        
             return orderDetailCell
         }else {
-            let orderCell = collectionView.dequeueReusableCell(withReuseIdentifier: CartCell.className, for: indexPath) as! CartCell
-            let orderItem = CartController.shared.orders[indexPath.row]
-            orderCell.cartDelegate = self
-            orderCell.configureFrom(orderItem.viewModel)
-            orderCell.countStepper.isHidden = true
+            let orderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "OrderCollectionViewCell", for: indexPath) as! OrderCollectionViewCell
+            //let orderItem = CartController.shared.orders[indexPath.row]
+//            orderCell.cartDelegate = self
+//            orderCell.configureFrom(orderItem.viewModel)
+//            orderCell.countStepper.isHidden = true
+            let orderItem = ordersDetails?.model.node.lineItems.edges[indexPath.row-1].node
+            orderCell.orderNumber.text = orderItem?.title
+            let imageURL = orderItem?.variant?.image?.url
+            orderCell.orderImage.setImageFrom(imageURL)
+            //print(order1.model.node.lineItems.edges[0].node.variant?.image)
+            //orderCell.NameOfItem.text = order1.model.node.name
+            orderCell.dateOfOrder.text = "Quantity: \(String(orderItem?.currentQuantity ?? 0))"
+
+            if let totalPriceMoney = orderItem?.discountedTotalPrice {
+            orderCell.totalPrice.text = Currency.stringFrom(totalPriceMoney.amount, totalPriceMoney.currencyCode.rawValue)
+            }
+            
 
         return orderCell
        }
@@ -142,3 +174,4 @@ extension OrdersDetailsViewController : UICollectionViewDataSource {
     
     
 }
+

@@ -9,9 +9,16 @@ import UIKit
 
 class OrderDetailsCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet weak var myView: UIView!
+    @IBOutlet weak var shippingAdress: UITextView!
+    
+    @IBOutlet weak var phoneNumbers: UILabel!
+    
+    @IBOutlet weak var stateOfOrder: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+      
+        
     }
 
 }

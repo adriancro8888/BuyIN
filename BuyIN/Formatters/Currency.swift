@@ -31,10 +31,21 @@ struct Currency {
     private static let formatter: NumberFormatter = {
         let formatter         = NumberFormatter()
         formatter.numberStyle = .currency
+        
         return formatter
     }()
     
-    static func stringFrom(_ decimal: Decimal, currency: String? = nil) -> String {
+    static func stringFrom(_ decimal: Decimal, _ currency: String? = nil) -> String {
+        switch currency {
+        case "EGP":
+            self.formatter.locale = Locale(identifier: "en_EG")
+        case "USD":
+            self.formatter.locale = Locale(identifier: "en_US")
+        case "SAR":
+            self.formatter.locale = Locale(identifier: "en_SA")
+        default:
+            self.formatter.locale = Locale(identifier: "eg_EG")
+        }
         return self.formatter.string(from: decimal as NSDecimalNumber)!
     }
 }

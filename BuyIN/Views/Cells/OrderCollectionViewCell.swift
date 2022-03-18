@@ -9,6 +9,7 @@ import UIKit
 
 class OrderCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet weak var orderNumber: UILabel!
     @IBOutlet weak var orderImage: UIImageView!
     
     @IBOutlet weak var NameOfItem: UILabel!

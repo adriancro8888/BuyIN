@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -41,86 +42,49 @@
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fZ6-1b-JQJ">
-                                <rect key="frame" x="133" y="80" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="M">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DrU-og-lvL">
-                                <rect key="frame" x="171" y="80" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="S">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Teh-w9-lba">
-                                <rect key="frame" x="209" y="80" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="L">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zmA-SU-3gz">
-                                <rect key="frame" x="247" y="80" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="XL">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7m-gd-Tkg">
-                                <rect key="frame" x="139" y="130" width="41" height="24"/>
+                                <rect key="frame" x="139" y="86" width="41" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hvR-Fa-gcf">
+                                <rect key="frame" x="242" y="144" width="24" height="26"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="trash" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                </state>
+                                <connections>
+                                    <action selector="removeButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="rOI-Sq-hpg"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JIp-LW-4Nu">
+                                <rect key="frame" x="201" y="144" width="31" height="26"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="cart.badge.plus" catalog="system" symbolScale="large"/>
+                                </state>
+                                <connections>
+                                    <action selector="addToCart:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="r49-VL-pQV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Esr-SG-alz" firstAttribute="height" secondItem="Ui7-Wu-610" secondAttribute="height" multiplier="0.883333" id="1Ov-hm-92f"/>
                             <constraint firstAttribute="trailing" secondItem="51m-eV-AoG" secondAttribute="trailing" constant="8" id="Cb0-up-uO2"/>
-                            <constraint firstAttribute="bottom" secondItem="o7m-gd-Tkg" secondAttribute="bottom" constant="26" id="Cq0-hE-7al"/>
+                            <constraint firstAttribute="bottom" secondItem="o7m-gd-Tkg" secondAttribute="bottom" constant="70" id="Cq0-hE-7al"/>
+                            <constraint firstAttribute="bottom" secondItem="JIp-LW-4Nu" secondAttribute="bottom" constant="10" id="G51-YC-UrM"/>
+                            <constraint firstAttribute="trailing" secondItem="hvR-Fa-gcf" secondAttribute="trailing" constant="8" id="Ny5-RG-QYG"/>
+                            <constraint firstItem="hvR-Fa-gcf" firstAttribute="leading" secondItem="JIp-LW-4Nu" secondAttribute="trailing" constant="10" id="g7c-3h-Ic0"/>
                             <constraint firstItem="o7m-gd-Tkg" firstAttribute="leading" secondItem="Esr-SG-alz" secondAttribute="trailing" constant="14" id="kcN-ZR-7JR"/>
                             <constraint firstItem="51m-eV-AoG" firstAttribute="top" secondItem="Ui7-Wu-610" secondAttribute="top" constant="15" id="lvz-nW-WW4"/>
+                            <constraint firstItem="JIp-LW-4Nu" firstAttribute="centerY" secondItem="hvR-Fa-gcf" secondAttribute="centerY" id="t1a-Im-rdk"/>
                             <constraint firstItem="51m-eV-AoG" firstAttribute="leading" secondItem="Esr-SG-alz" secondAttribute="trailing" constant="14" id="t3r-b6-X6e"/>
+                            <constraint firstAttribute="bottom" secondItem="hvR-Fa-gcf" secondAttribute="bottom" constant="10" id="wo4-5f-U1R"/>
                             <constraint firstItem="Esr-SG-alz" firstAttribute="top" secondItem="Ui7-Wu-610" secondAttribute="top" id="z5u-mX-7Vh"/>
                             <constraint firstItem="Esr-SG-alz" firstAttribute="leading" secondItem="Ui7-Wu-610" secondAttribute="leading" id="zj0-VM-LXp"/>
                         </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                <real key="value" value="20"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                <real key="value" value="2"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
-                                <size key="value" width="2" height="2"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
                 <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
@@ -138,18 +102,17 @@
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
-                <outlet property="largeSize" destination="Teh-w9-lba" id="bGM-uU-V9U"/>
-                <outlet property="mediumSizeBtn" destination="fZ6-1b-JQJ" id="x3F-qk-KVc"/>
-                <outlet property="orderImage" destination="Esr-SG-alz" id="edY-dM-Eow"/>
+                <outlet property="itemPrice" destination="o7m-gd-Tkg" id="3xZ-Zo-ghE"/>
                 <outlet property="productName" destination="51m-eV-AoG" id="FVh-IE-nPE"/>
-                <outlet property="smallSize" destination="DrU-og-lvL" id="xaE-wn-MCT"/>
-                <outlet property="xLSize" destination="zmA-SU-3gz" id="CQi-YA-7Z1"/>
+                <outlet property="wishItemImage" destination="Esr-SG-alz" id="qHq-AV-3Si"/>
             </connections>
             <point key="canvasLocation" x="-168.11594202898553" y="74.330357142857139"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="b2" width="1374" height="2061"/>
+        <image name="cart.badge.plus" catalog="system" width="128" height="106"/>
+        <image name="trash" catalog="system" width="121" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

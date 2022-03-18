@@ -11,6 +11,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OrdersDetailsViewController" customModule="BuyIN" customModuleProvider="target">
             <connections>
                 <outlet property="orderDetailsCollectionView" destination="dFj-9Z-JdP" id="Zzx-Lm-Kdk"/>
+                <outlet property="orderNumber" destination="AfX-o1-7kq" id="J2S-sM-zkq"/>
+                <outlet property="timeOfProcess" destination="xs1-Dd-va0" id="GFa-Vj-oLA"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -33,22 +35,16 @@
                         <outlet property="delegate" destination="-1" id="oGa-BN-KRf"/>
                     </connections>
                 </collectionView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OrderID - " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ud-AB-GE7">
-                    <rect key="frame" x="90" y="69" width="89" height="23"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
-                    <nil key="textColor"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Placed on Feb 24,2022 , 1:30 pm  " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xs1-Dd-va0">
+                    <rect key="frame" x="77.5" y="100" width="259.5" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NEGE200620897" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AfX-o1-7kq">
-                    <rect key="frame" x="179" y="69" width="160" height="23"/>
+                    <rect key="frame" x="127" y="69" width="160" height="23"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                     <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Placed on Feb 24,2022 , 1:30 pm  " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xs1-Dd-va0">
-                    <rect key="frame" x="70" y="100" width="294" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
@@ -56,15 +52,13 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="dFj-9Z-JdP" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="0Lw-Ao-PnT"/>
-                <constraint firstItem="xs1-Dd-va0" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="70" id="1Qi-iI-eaB"/>
-                <constraint firstItem="xs1-Dd-va0" firstAttribute="top" secondItem="9ud-AB-GE7" secondAttribute="bottom" constant="8" id="1xw-Ro-peC"/>
+                <constraint firstItem="AfX-o1-7kq" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="127" id="1Np-rK-BE2"/>
                 <constraint firstItem="dFj-9Z-JdP" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="AhH-36-A8Z"/>
-                <constraint firstItem="9ud-AB-GE7" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="90" id="Lyc-hW-DQK"/>
-                <constraint firstItem="AfX-o1-7kq" firstAttribute="centerY" secondItem="9ud-AB-GE7" secondAttribute="centerY" id="XHE-hu-VjE"/>
-                <constraint firstItem="AfX-o1-7kq" firstAttribute="leading" secondItem="9ud-AB-GE7" secondAttribute="trailing" id="Xff-fk-pZs"/>
+                <constraint firstItem="xs1-Dd-va0" firstAttribute="top" secondItem="AfX-o1-7kq" secondAttribute="bottom" constant="8" id="I0L-1V-t1l"/>
+                <constraint firstItem="AfX-o1-7kq" firstAttribute="centerX" secondItem="xs1-Dd-va0" secondAttribute="centerX" id="ZOJ-JB-dpM"/>
+                <constraint firstItem="AfX-o1-7kq" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="25" id="Zom-cN-BAU"/>
                 <constraint firstAttribute="bottom" secondItem="dFj-9Z-JdP" secondAttribute="bottom" id="hWC-w6-Nta"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="xs1-Dd-va0" secondAttribute="trailing" constant="50" id="kIp-Io-qxd"/>
-                <constraint firstItem="9ud-AB-GE7" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="25" id="mMK-Xh-mX8"/>
+                <constraint firstItem="AfX-o1-7kq" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="lLY-Ah-I2f"/>
                 <constraint firstItem="dFj-9Z-JdP" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="nh4-oX-L1M"/>
                 <constraint firstItem="dFj-9Z-JdP" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.847098" id="q2X-Lg-FXf"/>
             </constraints>

@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2py-43-zPy">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="336"/>
+                        <rect key="frame" x="10" y="10" width="394" height="316"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mappin.and.ellipse" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="3Z4-vQ-OWX">
                                 <rect key="frame" x="10" y="14.5" width="30" height="30.5"/>
@@ -63,7 +63,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="أحمد علي عبد الله, القاهرة, مدينة نصر , مكرم عبيد , شارع العشرين, مبنى ١٥, الدور العاشر, شقة ٢. " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="MfL-Vf-FMN">
-                                <rect key="frame" x="50" y="50" width="354" height="63"/>
+                                <rect key="frame" x="50" y="50" width="334" height="63"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -113,12 +113,18 @@
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstItem="2py-43-zPy" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="0cz-TI-AAw"/>
-                <constraint firstAttribute="bottom" secondItem="2py-43-zPy" secondAttribute="bottom" id="qEs-wk-YQA"/>
-                <constraint firstItem="2py-43-zPy" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="s66-I8-8XK"/>
-                <constraint firstAttribute="trailing" secondItem="2py-43-zPy" secondAttribute="trailing" id="tXi-R2-ZDN"/>
+                <constraint firstItem="2py-43-zPy" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="0cz-TI-AAw"/>
+                <constraint firstAttribute="bottom" secondItem="2py-43-zPy" secondAttribute="bottom" constant="10" id="qEs-wk-YQA"/>
+                <constraint firstItem="2py-43-zPy" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="s66-I8-8XK"/>
+                <constraint firstAttribute="trailing" secondItem="2py-43-zPy" secondAttribute="trailing" constant="10" id="tXi-R2-ZDN"/>
             </constraints>
             <size key="customSize" width="309" height="336"/>
+            <connections>
+                <outlet property="myView" destination="2py-43-zPy" id="Lcu-GP-k4s"/>
+                <outlet property="phoneNumbers" destination="Xxx-5C-pRE" id="son-2D-aqa"/>
+                <outlet property="shippingAdress" destination="MfL-Vf-FMN" id="kdM-le-E8e"/>
+                <outlet property="stateOfOrder" destination="tiE-w0-Ivv" id="GlP-ie-5yb"/>
+            </connections>
             <point key="canvasLocation" x="62.318840579710148" y="119.19642857142857"/>
         </collectionViewCell>
     </objects>

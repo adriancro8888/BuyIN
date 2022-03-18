@@ -203,9 +203,14 @@ extension CategoriesViewController :UICollectionViewDelegate{
            
             //Test Add product to cart
             
+//            let product = self.products.items[indexPath.item]
+//            let item = CartItem(product: product, variant: product.variants.items[0])
+//            CartController.shared.add(item)
+            
+            
             let product = self.products.items[indexPath.item]
             let item = CartItem(product: product, variant: product.variants.items[0])
-            CartController.shared.add(item)
+            WishlistController.shared.add(item)
             
             
         }

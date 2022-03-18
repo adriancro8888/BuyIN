@@ -42,10 +42,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="79G-8F-DVa">
-                                <rect key="frame" x="150" y="50" width="114" height="38"/>
+                                <rect key="frame" x="149" y="50" width="116" height="38.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xrs-UB-e7z">
-                                        <rect key="frame" x="0.0" y="0.0" width="76" height="38"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="77.5" height="38.5"/>
                                         <attributedString key="attributedText">
                                             <fragment content="Cart">
                                                 <attributes>
@@ -57,7 +57,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o6k-Eg-Iqv">
-                                        <rect key="frame" x="76" y="0.0" width="38" height="38"/>
+                                        <rect key="frame" x="77.5" y="0.0" width="38.5" height="38.5"/>
                                         <color key="backgroundColor" red="0.81374020920586343" green="0.47620092211417236" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <attributedString key="attributedText">
                                             <fragment content="3">
@@ -84,21 +84,28 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nkq-hc-4AX" customClass="RoundedButton" customModule="BuyIN" customModuleProvider="target">
-                                <rect key="frame" x="15" y="51.5" width="35" height="35"/>
+                                <rect key="frame" x="15" y="52" width="35" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="4mi-tv-IHy"/>
                                     <constraint firstAttribute="width" secondItem="Nkq-hc-4AX" secondAttribute="height" multiplier="1:1" id="ZPn-HR-jEU"/>
                                 </constraints>
                                 <color key="tintColor" systemColor="systemGray2Color"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="cancelAction:" destination="-1" eventType="touchUpInside" id="HeW-PQ-eR5"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bnT-nD-FJR" customClass="RoundedButton" customModule="BuyIN" customModuleProvider="target">
-                                <rect key="frame" x="364" y="51.5" width="35" height="35"/>
+                                <rect key="frame" x="364" y="52" width="35" height="35"/>
                                 <color key="tintColor" systemColor="systemGray2Color"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Clear">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="ClearButton:" destination="-1" eventType="touchUpInside" id="F4H-AJ-rDv"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>
@@ -190,7 +197,7 @@
             <size key="intrinsicContentSize" width="54" height="34"/>
         </designable>
         <designable name="bnT-nD-FJR">
-            <size key="intrinsicContentSize" width="54" height="34"/>
+            <size key="intrinsicContentSize" width="43" height="34"/>
         </designable>
         <designable name="pq4-vt-dRb">
             <size key="intrinsicContentSize" width="46" height="30"/>

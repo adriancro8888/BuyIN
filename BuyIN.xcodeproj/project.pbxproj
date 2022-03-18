@@ -49,6 +49,12 @@
 		187F86AD27DFE2B50053C82B /* OrdersDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187F86AB27DFE2B50053C82B /* OrdersDetailsViewController.xib */; };
 		187F86B327DFF4560053C82B /* OrderDetailsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187F86B127DFF4560053C82B /* OrderDetailsCollectionViewCell.swift */; };
 		187F86B427DFF4560053C82B /* OrderDetailsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187F86B227DFF4560053C82B /* OrderDetailsCollectionViewCell.xib */; };
+		187F86C227E1CEC90053C82B /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187F86C127E1CEC90053C82B /* Date.swift */; };
+		187F86CA27E383C00053C82B /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187F86C927E383C00053C82B /* CALayer.swift */; };
+		187F86D727E400C20053C82B /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187F86D527E400C20053C82B /* SettingTableViewCell.swift */; };
+		187F86D827E400C20053C82B /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187F86D627E400C20053C82B /* SettingTableViewCell.xib */; };
+		187F86E127E408BE0053C82B /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187F86DF27E408BE0053C82B /* SettingViewController.swift */; };
+		187F86E227E408BE0053C82B /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187F86E027E408BE0053C82B /* SettingViewController.xib */; };
 		18DF297227D97198006FE3C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF297127D97198006FE3C6 /* AppDelegate.swift */; };
 		18DF297427D97198006FE3C6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF297327D97198006FE3C6 /* SceneDelegate.swift */; };
 		18DF297627D97198006FE3C6 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF297527D97198006FE3C6 /* HomeViewController.swift */; };
@@ -208,6 +214,12 @@
 		187F86AB27DFE2B50053C82B /* OrdersDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrdersDetailsViewController.xib; sourceTree = "<group>"; };
 		187F86B127DFF4560053C82B /* OrderDetailsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailsCollectionViewCell.swift; sourceTree = "<group>"; };
 		187F86B227DFF4560053C82B /* OrderDetailsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderDetailsCollectionViewCell.xib; sourceTree = "<group>"; };
+		187F86C127E1CEC90053C82B /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		187F86C927E383C00053C82B /* CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
+		187F86D527E400C20053C82B /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
+		187F86D627E400C20053C82B /* SettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewCell.xib; sourceTree = "<group>"; };
+		187F86DF27E408BE0053C82B /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		187F86E027E408BE0053C82B /* SettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
 		18DF296E27D97198006FE3C6 /* BuyIN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BuyIN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18DF297127D97198006FE3C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18DF297327D97198006FE3C6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -546,9 +558,10 @@
 			children = (
 				3293EC9627DD274100B97997 /* WebViewController.swift */,
 				3293EC7727DC020D00B97997 /* CustomerCoordinator.swift */,
-				18619A2A27DD3B5700470847 /* CustomerCoordinatorStoryBViewController.swift */,
 				187F86AA27DFE2B50053C82B /* OrdersDetailsViewController.swift */,
 				187F86AB27DFE2B50053C82B /* OrdersDetailsViewController.xib */,
+				187F86DF27E408BE0053C82B /* SettingViewController.swift */,
+				187F86E027E408BE0053C82B /* SettingViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -628,6 +641,7 @@
 			isa = PBXGroup;
 			children = (
 				32EEEF7727DA13EE00188547 /* Currency.swift */,
+				187F86C127E1CEC90053C82B /* Date.swift */,
 			);
 			path = Formatters;
 			sourceTree = "<group>";
@@ -661,8 +675,8 @@
 				328C24BB27DA548200979917 /* ProductCollectionViewCell.swift */,
 				328C24BC27DA548300979917 /* ProductCollectionViewCell.xib */,
 				186199F727DBEF6E00470847 /* ProductsViewController.swift */,
-				18619A0627DC094500470847 /* ProductsCellCollectionViewCell.swift */,
 				186199F827DBEF6E00470847 /* ProductsViewController.xib */,
+				18619A0627DC094500470847 /* ProductsCellCollectionViewCell.swift */,
 				18619A0727DC094500470847 /* ProductsCellCollectionViewCell.xib */,
 				328FE99027DD758300FE22B2 /* CartCell.swift */,
 				328FE99127DD758300FE22B2 /* CartCell.xib */,
@@ -678,6 +692,8 @@
 				18619A4827DE221300470847 /* UpdatedWishListCollectionViewCell.xib */,
 				187F86B127DFF4560053C82B /* OrderDetailsCollectionViewCell.swift */,
 				187F86B227DFF4560053C82B /* OrderDetailsCollectionViewCell.xib */,
+				187F86D527E400C20053C82B /* SettingTableViewCell.swift */,
+				187F86D627E400C20053C82B /* SettingTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -691,6 +707,7 @@
 				32EEEF8F27DA398200188547 /* UIImageView+Remote.swift */,
 				32EEEF8C27DA314900188547 /* Extensions.swift */,
 				328FE99427DD825C00FE22B2 /* GMStepper.swift */,
+				187F86C927E383C00053C82B /* CALayer.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -817,8 +834,9 @@
 				18619A0927DC094500470847 /* ProductsCellCollectionViewCell.xib in Resources */,
 				328C24BE27DA548300979917 /* ProductCollectionViewCell.xib in Resources */,
 				18696DF027DE75BC00EB59C9 /* OrderCollectionViewCell.xib in Resources */,
-				3293EC7127DBD0F100B97997 /* CreateNewCustomerViewController.xib in Resources */,
 				187F86AD27DFE2B50053C82B /* OrdersDetailsViewController.xib in Resources */,
+				187F86D827E400C20053C82B /* SettingTableViewCell.xib in Resources */,
+				187F86E227E408BE0053C82B /* SettingViewController.xib in Resources */,
 				18DF297E27D9719C006FE3C6 /* Assets.xcassets in Resources */,
 				328FE99327DD758300FE22B2 /* CartCell.xib in Resources */,
 				3293EC8627DCF76900B97997 /* CartViewController.xib in Resources */,
@@ -891,6 +909,7 @@
 				3293EC8227DC12D600B97997 /* CustomerHeaderViewController.swift in Sources */,
 				18619A4227DDF63600470847 /* WishListTableViewCell.swift in Sources */,
 				32EEEF5E27DA131D00188547 /* Fragment+VariantConnectionQuery.swift in Sources */,
+				187F86D727E400C20053C82B /* SettingTableViewCell.swift in Sources */,
 				32EEEF8027DA142500188547 /* Serializable.swift in Sources */,
 				18696DEF27DE75BC00EB59C9 /* OrderCollectionViewCell.swift in Sources */,
 				3293EC7C27DC02FA00B97997 /* Storyboard+ViewController.swift in Sources */,
@@ -899,6 +918,7 @@
 				328FE98A27DD39BF00FE22B2 /* ScriptCodeViewModel.swift in Sources */,
 				32EEEF7827DA13EF00188547 /* Currency.swift in Sources */,
 				3293ECA727DD27BD00B97997 /* AddressViewModel.swift in Sources */,
+				187F86C227E1CEC90053C82B /* Date.swift in Sources */,
 				0A73474A27E0BADA00F0D5C0 /* GifLoad.swift in Sources */,
 				328FE9AB27DE42D000FE22B2 /* SwipeableCollectionViewCell.swift in Sources */,
 				328FE99527DD825C00FE22B2 /* GMStepper.swift in Sources */,
@@ -910,6 +930,7 @@
 				3293ECA427DD27BD00B97997 /* GiftCardViewModel.swift in Sources */,
 				3293ECA327DD27BD00B97997 /* CreditCardViewModel.swift in Sources */,
 				328FE99227DD758300FE22B2 /* CartCell.swift in Sources */,
+				187F86E127E408BE0053C82B /* SettingViewController.swift in Sources */,
 				0A73472727DCE64600F0D5C0 /* PreviewAnglesCollectionViewCell.swift in Sources */,
 				32EEEF8127DA142500188547 /* ViewModeling.swift in Sources */,
 				32EEEF5F27DA131D00188547 /* Fragment+ProductConnectionQuery.swift in Sources */,
@@ -917,6 +938,7 @@
 				0A73474827E0B0F000F0D5C0 /* CarousselView.swift in Sources */,
 				186199F927DBEF6E00470847 /* ProductsViewController.swift in Sources */,
 				328FE9A227DE326900FE22B2 /* SwipableCellLayouter.swift in Sources */,
+				187F86CA27E383C00053C82B /* CALayer.swift in Sources */,
 				0A73472927DCF7FB00F0D5C0 /* ProductHeaderCollectionViewCell.swift in Sources */,
 				0A73472D27DD366E00F0D5C0 /* RelevantCollectionReusableView.swift in Sources */,
 				32EEEF7F27DA142500188547 /* ViewModelConfigurable.swift in Sources */,

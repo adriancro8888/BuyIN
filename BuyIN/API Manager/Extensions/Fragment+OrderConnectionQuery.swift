@@ -16,7 +16,17 @@ extension Storefront.OrderConnectionQuery {
                     .edges(){$0
                         .node(){$0
                             .currentQuantity()
+                            .discountedTotalPrice{$0
+                                .amount()
+                                .currencyCode()
+                                
+                            }
                             .title()
+                            .variant{$0
+                                .image{$0
+                                    .url()
+                                }
+                            }
                         }
                     }
                 }
@@ -40,6 +50,25 @@ extension Storefront.OrderConnectionQuery {
                     .amount()
                     .currencyCode()
                 }
+                .currentTotalPrice { $0
+                    .amount()
+                    .currencyCode()
+                }
+                .originalTotalPrice { $0
+                    .amount()
+                    .currencyCode()
+                }
+                .processedAt()
+                .shippingAddress{$0
+                    .address1()
+                    .city()
+                    .country()
+                    .formatted()
+                    .formattedArea()
+                    .phone()
+                    .province()
+                }
+                .phone()
             }
         }
     }
