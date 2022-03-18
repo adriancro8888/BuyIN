@@ -33,7 +33,7 @@ class GifCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         contentView.addSubview(gifImageView)
         contentView.addSubview(label)
-        contentView.backgroundColor = .red
+        gifImageView.loadGif(name: "bannerGif")
         configureConstraints()
     }
     
@@ -51,7 +51,6 @@ class GifCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         gifImageView.frame = contentView.bounds
-        gifImageView.loadGif(name: "bannerGif")
     }
     
     required init?(coder: NSCoder) {
