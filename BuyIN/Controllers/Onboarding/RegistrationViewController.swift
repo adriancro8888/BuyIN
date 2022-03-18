@@ -13,7 +13,7 @@ class RegistrationViewController: UIViewController {
     weak var onBoarding: OnboardingParentViewController?
     
     private lazy var blurredVisualEffect: UIVisualEffectView = {
-        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
+        let blurEffect = UIBlurEffect(style: .dark)
         let view = UIVisualEffectView(effect: blurEffect)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.clipsToBounds = true

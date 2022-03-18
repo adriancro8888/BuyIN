@@ -24,6 +24,7 @@ class ProductPreviewCollectionViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 1
         label.font = .systemFont(ofSize: 16, weight: .light)
+        label.textColor = .black
         return label
     }()
     
@@ -31,6 +32,7 @@ class ProductPreviewCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 1
+        label.textColor = .black
         label.font = .systemFont(ofSize: 16, weight: .bold)
         return label
     }()
@@ -48,7 +50,7 @@ class ProductPreviewCollectionViewCell: UICollectionViewCell {
         let url = model.images.items.first?.url
         productImageView.setImageFrom(url)
         productTitleLabel.text = model.title
-        productPriceLabel.text = "EGP \(model.price.dropFirst())"
+        productPriceLabel.text = "\(model.price)"
         
     }
     

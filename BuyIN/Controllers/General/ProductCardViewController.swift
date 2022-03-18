@@ -47,6 +47,7 @@ class ProductCardViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Size"
+        label.textColor = .black
         label.font = .systemFont(ofSize: 16, weight: .light)
         return label
     }()
@@ -65,6 +66,7 @@ class ProductCardViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 20, weight: .light)
+        label.textColor = .black
         return label
     }()
     
@@ -72,6 +74,7 @@ class ProductCardViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 22, weight: .bold)
+        label.textColor = .black
         return label
     }()
     
@@ -80,7 +83,7 @@ class ProductCardViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Color"
         label.font = .systemFont(ofSize: 16, weight: .light)
-        
+        label.textColor = .black
         return label
     }()
     
@@ -152,7 +155,7 @@ class ProductCardViewController: UIViewController {
         
         willSet {
             productTitle.text = newValue?.title
-            productPrice.text = "EGP \(newValue?.price.dropFirst() ?? "")"
+            productPrice.text = "\(newValue?.price.dropFirst() ?? "")"
         }
     }
     
@@ -344,6 +347,7 @@ extension ProductCardViewController: UITableViewDelegate, UITableViewDataSource 
             guard let summary = product?.summary else {
                 return UITableViewCell()
             }
+            cell.backgroundColor = .white
             cell.configure(with: summary)
             return cell
             
@@ -352,6 +356,8 @@ extension ProductCardViewController: UITableViewDelegate, UITableViewDataSource 
                 return UITableViewCell()
             }
             cell.configure(with: product!)
+            cell.backgroundColor = .white
+
             return cell
         }
     }

@@ -60,6 +60,7 @@ class ProductCollectionViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(collectionView)
         collectionView.delegate = self
+        collectionView.backgroundColor = .white
         collectionView.dataSource = self
     }
     

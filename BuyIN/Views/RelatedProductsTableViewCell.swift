@@ -35,6 +35,7 @@ class RelatedProductsTableViewCell: UITableViewCell {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.register(ProductPreviewCollectionViewCell.self, forCellWithReuseIdentifier: ProductPreviewCollectionViewCell.identifier)
+        collectionView.backgroundColor = .white
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -85,6 +86,7 @@ extension RelatedProductsTableViewCell: UICollectionViewDelegate, UICollectionVi
             return UICollectionViewCell()
         }
         
+        cell.backgroundColor = .white
         cell.configure(with: currentProduct!)
         return cell
     }
