@@ -84,6 +84,7 @@ extension RelatedProductsTableViewCell: UICollectionViewDelegate, UICollectionVi
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductPreviewCollectionViewCell.identifier, for: indexPath) as? ProductPreviewCollectionViewCell else {
             return UICollectionViewCell()
         }
+        
         cell.configure(with: currentProduct!)
         return cell
     }

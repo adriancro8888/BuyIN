@@ -37,6 +37,7 @@ class ProductPreviewCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        contentView.backgroundColor = .white
         contentView.addSubview(productImageView)
         contentView.addSubview(productTitleLabel)
         contentView.addSubview(productPriceLabel)
@@ -55,9 +56,9 @@ class ProductPreviewCollectionViewCell: UICollectionViewCell {
         
         let productImageViewConstraints = [
             productImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            productImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            productImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             productImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            productImageView.heightAnchor.constraint(equalToConstant: 220)
+            productImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -60)
         ]
         
         let productTitleLabelConstraints = [
