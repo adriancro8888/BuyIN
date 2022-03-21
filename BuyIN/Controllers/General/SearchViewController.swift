@@ -28,6 +28,12 @@ class SearchViewController: UIViewController {
     var filteredProducts = [ProductViewModel]()
 
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
+    
+    
     private var products: [ProductViewModel] = []
     private var filterViewHeight: CGFloat = 0
     private var heightConstraint: NSLayoutConstraint?
