@@ -21,6 +21,12 @@ extension Storefront.OrderConnectionQuery {
                                 .currencyCode()
                                 
                             }
+                            .originalTotalPrice{$0
+                                .amount()
+                                .currencyCode()
+                                
+                            }
+
                             .title()
                             .variant{$0
                                 .image{$0
@@ -32,6 +38,7 @@ extension Storefront.OrderConnectionQuery {
                 }
             .edited()
             .cancelReason()
+                .fulfillmentStatus()
                 
                 
                 
@@ -54,7 +61,27 @@ extension Storefront.OrderConnectionQuery {
                     .amount()
                     .currencyCode()
                 }
+                .currentSubtotalPrice { $0
+                    .amount()
+                    .currencyCode()
+                }
                 .originalTotalPrice { $0
+                    .amount()
+                    .currencyCode()
+                }
+                .subtotalPriceV2{ $0
+                    .amount()
+                    .currencyCode()
+                }
+                .totalPriceV2{ $0
+                    .amount()
+                    .currencyCode()
+                }
+                .totalShippingPriceV2{ $0
+                    .amount()
+                    .currencyCode()
+                }
+                .totalTaxV2{ $0
                     .amount()
                     .currencyCode()
                 }

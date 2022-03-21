@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Reachability
 private let reuseIdentifier = "cell"
 class CategoriesViewController: UIViewController {
 
@@ -23,6 +24,7 @@ class CategoriesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         self.configureCollectionView()
         self.fetchCollections()
     }

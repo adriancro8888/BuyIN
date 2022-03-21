@@ -146,6 +146,7 @@
                 <outlet property="dateOfOrder" destination="Tta-16-Z6N" id="34p-KB-80J"/>
                 <outlet property="firstItemInOrderImage" destination="jVX-jy-7YT" id="N1o-23-Zvv"/>
                 <outlet property="moreButton" destination="xR8-gN-FRs" id="4Ry-AR-ZC4"/>
+                <outlet property="myView" destination="C6I-7K-soh" id="MpF-PW-tsf"/>
                 <outlet property="orderImage" destination="50w-Uk-nTl" id="mmh-Ub-IKd"/>
                 <outlet property="orderNumber" destination="5qc-eH-t5s" id="X9U-An-xVy"/>
                 <outlet property="secondItemInOrderImage" destination="t5X-pP-7JW" id="1Ce-DY-dQc"/>

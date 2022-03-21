@@ -6,8 +6,10 @@
 //
 
 import UIKit
+import Reachability
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    let reachability = try! Reachability()
     
     var window: UIWindow?
     
@@ -15,6 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
+
+
         
    
         
@@ -34,12 +38,40 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window?.rootViewController = onboardingVC
             self.window?.makeKeyAndVisible()
         }
-        
+
         return
         
         
  
     }
+//    @objc func reachabilityStatusChanged(_ notification:Notification){
+//        reachability.whenReachable = { reachability in
+//            let homeViewController : HomeViewController = HomeViewController.instantiateFromMainStoryboard()
+//            self.window?.rootViewController = homeViewController
+//            self.window?.makeKeyAndVisible()
+//            print("yousra")
+//        }
+//        reachability.whenUnreachable = { _ in
+//            let noInternetViewController : NoInternetViewController = NoInternetViewController.instantiateFromNib()
+//            self.window?.rootViewController =  noInternetViewController
+//            self.window?.makeKeyAndVisible()
+//            let alert = UIAlertController(title: "Disconnected", message: "Mobile is disconnected, please make sure it's connected", preferredStyle: .alert)
+//
+//            // Create OK button with action handler
+//            let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+//                print("Ok button tapped")
+//             })
+//
+//            //Add OK button to a dialog message
+//            alert.addAction(ok)
+//            // Present Alert to
+//           // self.present(alert, animated: true, completion: nil)
+//            print("essoo")
+//
+//
+//
+//        }
+//     }
 }
 
 func sceneDidDisconnect(_ scene: UIScene) {
@@ -72,6 +104,7 @@ func sceneDidEnterBackground(_ scene: UIScene) {
     // Save changes in the application's managed object context when the application transitions to the background.
     (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
 }
+
 
 
 

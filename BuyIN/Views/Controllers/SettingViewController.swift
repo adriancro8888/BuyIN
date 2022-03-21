@@ -128,3 +128,25 @@ extension SettingViewController : UITableViewDataSource {
     
     
 }
+
+extension SettingViewController : UITableViewDelegate{
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 4 {
+            let loginController: OnboardingParentViewController = OnboardingParentViewController()
+            if let accessToken = AccountController.shared.accessToken{
+            Client.shared.logout(accessToken: accessToken) { (AccessToken) in
+                AccountController.shared.deleteAccessToken()
+                print(AccessToken)
+                print("LoggedOut")
+              //  coordinator.renderUI()
+                self.navigationController?.navigationBar.isHidden = true
+                loginController.dismissButton .isHidden = true;
+                
+                self.view.addSubview(loginController.view)
+                self.addChild(loginController)
+                
+            }
+            }
+        }
+    }
+}

@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import Reachability
 
 
 class HomeViewController: UIViewController {
+    let reachability = try! Reachability()
     
     private var timer: Timer?
     
@@ -122,17 +124,56 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        view.addSubview(collectionView)
-        navigationItem.searchController = searchController
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.backgroundColor = .white
-        navigationController?.navigationBar.barTintColor = UIColor.white
-        fetchProductsForHome()
-        navigationController?.navigationBar.isHidden = true
-        collectionView.contentInsetAdjustmentBehavior = .never
-        
+        reachability.whenReachable = { reachability in
+            self.view.backgroundColor = .white
+            self.view.addSubview(self.collectionView)
+            self.navigationItem.searchController = self.searchController
+            self.collectionView.delegate = self
+            self.collectionView.dataSource = self
+            self.collectionView.backgroundColor = .white
+            self.navigationController?.navigationBar.barTintColor = UIColor.white
+            self.fetchProductsForHome()
+            self.navigationController?.navigationBar.isHidden = true
+            self.collectionView.contentInsetAdjustmentBehavior = .never
+
+        }
+        reachability.whenUnreachable = { _ in
+            let noInternetViewController: NoInternetViewController = NoInternetViewController.instantiateFromNib()
+            self.view.addSubview( noInternetViewController.view)
+            self.addChild( noInternetViewController)
+            noInternetViewController.activityIndicator.startAnimating()
+            let alert = UIAlertController(title: "Disconnected", message: "Mobile is disconnected, please make sure it's connected", preferredStyle: .alert)
+
+            // Create OK button with action handler
+            let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+                print("Ok button tapped")
+             })
+
+            //Add OK button to a dialog message
+            alert.addAction(ok)
+            // Present Alert to
+            self.present(alert, animated: true, completion: nil)
+
+
+            print("Not reachable")
+        }
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
+
+       // view.backgroundColor = .white
+//        view.addSubview(collectionView)
+//        navigationItem.searchController = searchController
+//        collectionView.delegate = self
+//        collectionView.dataSource = self
+//        collectionView.backgroundColor = .white
+//        navigationController?.navigationBar.barTintColor = UIColor.white
+//        fetchProductsForHome()
+//        navigationController?.navigationBar.isHidden = true
+//        collectionView.contentInsetAdjustmentBehavior = .never
+
         
     }
 

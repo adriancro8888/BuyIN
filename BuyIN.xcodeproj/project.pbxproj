@@ -60,6 +60,13 @@
 		187F86D827E400C20053C82B /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187F86D627E400C20053C82B /* SettingTableViewCell.xib */; };
 		187F86E127E408BE0053C82B /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187F86DF27E408BE0053C82B /* SettingViewController.swift */; };
 		187F86E227E408BE0053C82B /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187F86E027E408BE0053C82B /* SettingViewController.xib */; };
+		1886743127E6147A00C86C8F /* OrderDetailsSummaryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1886742F27E6147A00C86C8F /* OrderDetailsSummaryCollectionViewCell.swift */; };
+		1886743227E6147A00C86C8F /* OrderDetailsSummaryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1886743027E6147A00C86C8F /* OrderDetailsSummaryCollectionViewCell.xib */; };
+		1886743827E7A77400C86C8F /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 1886743727E7A77400C86C8F /* Reachability */; };
+		1886743E27E7B91600C86C8F /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1886743D27E7B91600C86C8F /* File.swift */; };
+		1886744427E7EAA300C86C8F /* NoInternetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1886744227E7EAA300C86C8F /* NoInternetViewController.swift */; };
+		1886744527E7EAA300C86C8F /* NoInternetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1886744327E7EAA300C86C8F /* NoInternetViewController.xib */; };
+		1886744A27E8A02700C86C8F /* CartCoordinatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1886744927E8A02500C86C8F /* CartCoordinatorViewController.swift */; };
 		18DF297227D97198006FE3C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF297127D97198006FE3C6 /* AppDelegate.swift */; };
 		18DF297427D97198006FE3C6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF297327D97198006FE3C6 /* SceneDelegate.swift */; };
 		18DF297627D97198006FE3C6 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF297527D97198006FE3C6 /* HomeViewController.swift */; };
@@ -254,6 +261,12 @@
 		187F86D627E400C20053C82B /* SettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewCell.xib; sourceTree = "<group>"; };
 		187F86DF27E408BE0053C82B /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		187F86E027E408BE0053C82B /* SettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
+		1886742F27E6147A00C86C8F /* OrderDetailsSummaryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailsSummaryCollectionViewCell.swift; sourceTree = "<group>"; };
+		1886743027E6147A00C86C8F /* OrderDetailsSummaryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderDetailsSummaryCollectionViewCell.xib; sourceTree = "<group>"; };
+		1886743D27E7B91600C86C8F /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		1886744227E7EAA300C86C8F /* NoInternetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoInternetViewController.swift; sourceTree = "<group>"; };
+		1886744327E7EAA300C86C8F /* NoInternetViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoInternetViewController.xib; sourceTree = "<group>"; };
+		1886744927E8A02500C86C8F /* CartCoordinatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartCoordinatorViewController.swift; sourceTree = "<group>"; };
 		18DF296E27D97198006FE3C6 /* BuyIN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BuyIN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18DF297127D97198006FE3C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18DF297327D97198006FE3C6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -386,6 +399,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				329F260727D98882006A2897 /* Buy in Frameworks */,
+				1886743827E7A77400C86C8F /* Reachability in Frameworks */,
 				328FE9AE27DE484B00FE22B2 /* SwipeCellKit in Frameworks */,
 				329F260927D98882006A2897 /* Pay in Frameworks */,
 			);
@@ -441,6 +455,14 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		1886743C27E7B8ED00C86C8F /* Network Manager */ = {
+			isa = PBXGroup;
+			children = (
+				1886743D27E7B91600C86C8F /* File.swift */,
+			);
+			path = "Network Manager";
+			sourceTree = "<group>";
+		};
 		18DF296527D97198006FE3C6 = {
 			isa = PBXGroup;
 			children = (
@@ -473,6 +495,7 @@
 				32EEEF7627DA13DE00188547 /* Formatters */,
 				18DF29AB27D975D1006FE3C6 /* Resources */,
 				18DF29AA27D975BA006FE3C6 /* API Manager */,
+				1886743C27E7B8ED00C86C8F /* Network Manager */,
 				18DF29A727D9752D006FE3C6 /* Controllers */,
 				18DF29CC27DA13EC006FE3C6 /* Extentions */,
 				18DF297D27D9719C006FE3C6 /* Assets.xcassets */,
@@ -630,6 +653,9 @@
 				187F86AB27DFE2B50053C82B /* OrdersDetailsViewController.xib */,
 				187F86DF27E408BE0053C82B /* SettingViewController.swift */,
 				187F86E027E408BE0053C82B /* SettingViewController.xib */,
+				1886744227E7EAA300C86C8F /* NoInternetViewController.swift */,
+				1886744327E7EAA300C86C8F /* NoInternetViewController.xib */,
+				1886744927E8A02500C86C8F /* CartCoordinatorViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -833,6 +859,8 @@
 				18619A4827DE221300470847 /* UpdatedWishListCollectionViewCell.xib */,
 				187F86B127DFF4560053C82B /* OrderDetailsCollectionViewCell.swift */,
 				187F86B227DFF4560053C82B /* OrderDetailsCollectionViewCell.xib */,
+				1886742F27E6147A00C86C8F /* OrderDetailsSummaryCollectionViewCell.swift */,
+				1886743027E6147A00C86C8F /* OrderDetailsSummaryCollectionViewCell.xib */,
 				322E59AC27E251CB00F57DFB /* LoadingCollectionViewCell.swift */,
 				322E59AD27E251CB00F57DFB /* LoadingCollectionViewCell.xib */,
 				187F86D527E400C20053C82B /* SettingTableViewCell.swift */,
@@ -875,6 +903,7 @@
 				329F260627D98882006A2897 /* Buy */,
 				329F260827D98882006A2897 /* Pay */,
 				328FE9AD27DE484B00FE22B2 /* SwipeCellKit */,
+				1886743727E7A77400C86C8F /* Reachability */,
 			);
 			productName = BuyIN;
 			productReference = 18DF296E27D97198006FE3C6 /* BuyIN.app */;
@@ -950,6 +979,7 @@
 			packageReferences = (
 				329F260527D98882006A2897 /* XCRemoteSwiftPackageReference "mobile-buy-sdk-ios" */,
 				328FE9AC27DE484B00FE22B2 /* XCRemoteSwiftPackageReference "SwipeCellKit" */,
+				1886743627E7A77300C86C8F /* XCRemoteSwiftPackageReference "Reachability" */,
 			);
 			productRefGroup = 18DF296F27D97198006FE3C6 /* Products */;
 			projectDirPath = "";
@@ -968,6 +998,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				187F86B427DFF4560053C82B /* OrderDetailsCollectionViewCell.xib in Resources */,
+				1886743227E6147A00C86C8F /* OrderDetailsSummaryCollectionViewCell.xib in Resources */,
 				32EEEF8B27DA303F00188547 /* CategoriesCollectionViewCell.xib in Resources */,
 				32BC4BAB27E3509600E5FB94 /* red_ic_unchecked.png in Resources */,
 				18619A3927DD4A2200470847 /* WishListViewController.xib in Resources */,
@@ -1004,6 +1035,7 @@
 				18619A4A27DE221300470847 /* UpdatedWishListCollectionViewCell.xib in Resources */,
 				186199FA27DBEF6E00470847 /* ProductsViewController.back.xib in Resources */,
 				18DF297927D97198006FE3C6 /* Main.storyboard in Resources */,
+				1886744527E7EAA300C86C8F /* NoInternetViewController.xib in Resources */,
 				32BC4BAD27E3509600E5FB94 /* YBTextPicker_Logo.png in Resources */,
 				3293EC7A27DC020D00B97997 /* CustomerCoordinator.xib in Resources */,
 			);
@@ -1033,6 +1065,7 @@
 				3293EC9727DD274100B97997 /* WebViewController.swift in Sources */,
 				18619A3827DD4A2200470847 /* WishListViewController.swift in Sources */,
 				322E59AE27E251CB00F57DFB /* LoadingCollectionViewCell.swift in Sources */,
+				1886744427E7EAA300C86C8F /* NoInternetViewController.swift in Sources */,
 				3293EC7E27DC039C00B97997 /* NSObject+Name.swift in Sources */,
 				18DF29DF27DA42B9006FE3C6 /* UIViewExtension.swift in Sources */,
 				18DF297627D97198006FE3C6 /* HomeViewController.swift in Sources */,
@@ -1061,6 +1094,7 @@
 				328FE9A027DE323800FE22B2 /* CollectionSwipableCellHandler.swift in Sources */,
 				3293EC8D27DD1A8100B97997 /* CartItem.swift in Sources */,
 				32EEEF6527DA131D00188547 /* Fragment+OrderLineItemConnectionQuery.swift in Sources */,
+				1886743E27E7B91600C86C8F /* File.swift in Sources */,
 				3293EC8C27DD1A8100B97997 /* CartController.swift in Sources */,
 				3293EC8F27DD1BA300B97997 /* ParallaxViewController.swift in Sources */,
 				0A7346F527DC894900F0D5C0 /* ProductDetailsViewController.swift in Sources */,
@@ -1081,6 +1115,7 @@
 				32EEEF7127DA138D00188547 /* CustomerViewModel.swift in Sources */,
 				328FE98A27DD39BF00FE22B2 /* ScriptCodeViewModel.swift in Sources */,
 				32EEEF7827DA13EF00188547 /* Currency.swift in Sources */,
+				1886743127E6147A00C86C8F /* OrderDetailsSummaryCollectionViewCell.swift in Sources */,
 				32B9202727E4C036003DFDC6 /* FilterViewController.swift in Sources */,
 				3293ECA727DD27BD00B97997 /* AddressViewModel.swift in Sources */,
 				187F86C227E1CEC90053C82B /* Date.swift in Sources */,
@@ -1102,6 +1137,7 @@
 				32EEEF8127DA142500188547 /* ViewModeling.swift in Sources */,
 				32EEEF5F27DA131D00188547 /* Fragment+ProductConnectionQuery.swift in Sources */,
 				32EEEF8D27DA314900188547 /* Extensions.swift in Sources */,
+				1886744A27E8A02700C86C8F /* CartCoordinatorViewController.swift in Sources */,
 				186199F927DBEF6E00470847 /* ProductsViewController.back.swift in Sources */,
 				186199F927DBEF6E00470847 /* ProductsViewController.back.swift in Sources */,
 				328FE9A227DE326900FE22B2 /* SwipableCellLayouter.swift in Sources */,
@@ -1348,7 +1384,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.elhayani.BuyIN;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "BuyIN Push Development";
+				PROVISIONING_PROFILE_SPECIFIER = "BuyIN Team Provisioning Profile";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1360,7 +1396,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8J6CP5DTV3;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BuyIN/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1495,6 +1531,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1886743627E7A77300C86C8F /* XCRemoteSwiftPackageReference "Reachability" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
 		328FE9AC27DE484B00FE22B2 /* XCRemoteSwiftPackageReference "SwipeCellKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwipeCellKit/SwipeCellKit";
@@ -1514,6 +1558,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1886743727E7A77400C86C8F /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1886743627E7A77300C86C8F /* XCRemoteSwiftPackageReference "Reachability" */;
+			productName = Reachability;
+		};
 		328FE9AD27DE484B00FE22B2 /* SwipeCellKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 328FE9AC27DE484B00FE22B2 /* XCRemoteSwiftPackageReference "SwipeCellKit" */;

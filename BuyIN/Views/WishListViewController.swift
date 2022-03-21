@@ -71,6 +71,7 @@ extension WishListViewController : UITableViewDataSource{
                     WishlistController.shared.removeAllQuantities(at: indexPath.row)
                     self.wishlistItems.remove(at: indexPath.row)
                     self.wishListTableView.deleteRows(at: [indexPath], with: .fade)
+                    self.wishListTableView.reloadData()
 
                     completionHandler(true)
                 }

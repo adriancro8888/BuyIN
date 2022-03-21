@@ -13,7 +13,7 @@
         <!--Profile-->
         <scene sceneID="cE8-GI-IOi">
             <objects>
-                <viewController id="cEf-xq-u4j" customClass="CustomerCoordinator" customModule="BuyIN" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CustomerCoordinator" id="cEf-xq-u4j" customClass="CustomerCoordinator" customModule="BuyIN" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Vrf-bL-2Sh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
