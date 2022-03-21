@@ -16,12 +16,6 @@ final class Client {
     static let shopDomain = "itiios.myshopify.com"
     static let apiKey     = "f78f765d212201e09cf5b3d6f8020421"
 
-    
-    
-    
-    
-    
-    
 //    static let shopDomain = "jets-ismailia.myshopify.com"
 //    static let apiKey     = "70adb96961fe55ab1ce308476d536e01"
     static let merchantID = "merchant.com.your.id"
@@ -285,7 +279,7 @@ final class Client {
             
             if let query = query,
                let products = query.productRecommendations {
-                completion(products) 
+                completion(products)
             } else {
                 print("Failed to load product recommendations : \(String(describing: error))")
                 completion(nil)

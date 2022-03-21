@@ -17,6 +17,15 @@ class BannerCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
+    private let heroTitle: UILabel = {
+       
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 52, weight: .bold)
+        label.textColor = .white
+        label.numberOfLines = 0
+        return label
+    }()
     
     private let bannerImageView: UIImageView = {
         let imageView = UIImageView()
@@ -29,8 +38,24 @@ class BannerCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         contentView.addSubview(bannerImageView)
         contentView.addSubview(overlayView)
-        guard let url = URL(string: "https://images.unsplash.com/photo-1568196004494-b1ee34f3b436?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80") else {return}
+        contentView.addSubview(heroTitle)
+        configureConstraints()
+    }
+    
+    private func configureConstraints() {
+        
+        let heroTitleConstraints = [
+            heroTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            heroTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -60),
+            heroTitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
+        ]
+        NSLayoutConstraint.activate(heroTitleConstraints)
+    }
+    
+    func configure(with model: CollectionViewModel) {
+        guard let url = model.imageURL else {return}
         bannerImageView.setImageFrom(url)
+        heroTitle.text = model.title
     }
     
     override func layoutSubviews() {

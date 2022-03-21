@@ -150,12 +150,17 @@ class ProductCardViewController: UIViewController {
         return view
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
+    
     var product: ProductViewModel? {
 
         
         willSet {
             productTitle.text = newValue?.title
-            productPrice.text = "\(newValue?.price.dropFirst() ?? "")"
+            productPrice.text = "\(newValue?.price ?? "")"
         }
     }
     
@@ -170,6 +175,7 @@ class ProductCardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         view.addSubview(handleArea)
         view.addSubview(productTitle)
         view.addSubview(productPrice)
@@ -195,19 +201,8 @@ class ProductCardViewController: UIViewController {
         colorNameButton.addTarget(self, action: #selector(didTapMenu), for: .touchUpInside)
         sizeNameButton.addTarget(self, action: #selector(didTapMenu), for: .touchUpInside)
         configureMenus()
-//        sizesDropdownImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(sendSizesTapAction)))
-//        colorDropdownImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(sendColorTapAction)))
+        cardTableView.backgroundColor = .white
     }
-    
-//    @objc private func sendSizesTapAction() {
-//        sizeNameButton.context
-//        sizeNameButton.sendActions(for: .touchUpInside)
-//    }
-//
-//    @objc private func sendColorTapAction() {
-//        colorNameButton.sendActions(for: .touchUpInside)
-//
-//    }
     
     private var colors: [String] = ["Black", "White", "Blue", "Yellow"]
     private var sizes: [String] = ["XXL", "XL", "L", "M", "S", "XS"]
@@ -374,3 +369,4 @@ extension ProductCardViewController: UITableViewDelegate, UITableViewDataSource 
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
+

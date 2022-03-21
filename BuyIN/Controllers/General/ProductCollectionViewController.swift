@@ -10,7 +10,7 @@ import UIKit
 class ProductCollectionViewController: UIViewController {
 
     
-    var collection: [ProductViewModel]? {
+    var collectionProducts: [ProductViewModel]? {
         didSet {
             collectionView.reloadData()
         }
@@ -74,7 +74,7 @@ class ProductCollectionViewController: UIViewController {
 
 extension ProductCollectionViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let collection = collection else {
+        guard let collection = collectionProducts else {
             return 0
         }
         return collection.count
@@ -83,7 +83,7 @@ extension ProductCollectionViewController: UICollectionViewDataSource, UICollect
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductPreviewCollectionViewCell.identifier, for: indexPath) as? ProductPreviewCollectionViewCell,
-              let collection = collection else {
+              let collection = collectionProducts else {
             return UICollectionViewCell()
         }
 
@@ -94,7 +94,7 @@ extension ProductCollectionViewController: UICollectionViewDataSource, UICollect
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         let vc = ProductDetailsViewController()
-        guard let collection = collection else {
+        guard let collection = collectionProducts else {
             return
         }
         vc.product = collection[indexPath.row]
