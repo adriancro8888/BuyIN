@@ -6,12 +6,15 @@
 //
 
 import UIKit
+import Buy
+
+
+
 
 class RelatedProductsTableViewCell: UITableViewCell {
-
     static let identifier = className
     
-    
+    private var relatedProducts:[Storefront.Product] = []
     private var currentProduct: ProductViewModel? {
         didSet {
             DispatchQueue.main.async {
@@ -24,7 +27,7 @@ class RelatedProductsTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 24, weight: .bold)
-        label.text = "Related Products"
+        label.text = "Recommended for you"
         label.textColor = .black
         return label
     }()
@@ -51,6 +54,15 @@ class RelatedProductsTableViewCell: UITableViewCell {
     
     func configure(with product: ProductViewModel) {
         currentProduct = product
+        Client.shared.fetchProductRecommendation(in: product) { [weak self] result in
+            guard let result = result else {
+                return
+            }
+            self?.relatedProducts = result
+            DispatchQueue.main.async {
+                self?.relatedProductsCollectionView.reloadData()
+            }
+        }
     }
     
     private func configureConstraints() {
@@ -78,7 +90,7 @@ class RelatedProductsTableViewCell: UITableViewCell {
 
 extension RelatedProductsTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return relatedProducts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -87,8 +99,12 @@ extension RelatedProductsTableViewCell: UICollectionViewDelegate, UICollectionVi
         }
         
         cell.backgroundColor = .white
-        cell.configure(with: currentProduct!)
+        cell.configure(with: relatedProducts[indexPath.row])
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

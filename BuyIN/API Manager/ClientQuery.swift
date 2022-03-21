@@ -9,10 +9,13 @@
 import UIKit
 import Buy
 import Pay
+
 enum CollectionType: String {
     case sales
     case category
     case all
+    case sub
+    case specials
 }
 final class ClientQuery {
 
@@ -132,7 +135,7 @@ final class ClientQuery {
     //  MARK: - Storefront -
     //
     static func queryForCollections(ofType : CollectionType ,  limit: Int,queryString : String?=nil , after cursor: String? = nil, productLimit: Int = 25, productCursor: String? = nil) -> Storefront.QueryRootQuery {
-        let query = "type@\(ofType)"
+        let query = "type@\(ofType.rawValue)"
         return queryForCollections(limit:limit,queryString:query,after:cursor,productLimit:productLimit,productCursor:productCursor);
         
         
@@ -216,7 +219,7 @@ final class ClientQuery {
         return Storefront.buildQuery { $0
                 .productRecommendations( productId: product.model.node.id)
             {$0
-                    .fragmentForStandardProduct()
+                .fragmentForStandardProduct()
             }
             
         }

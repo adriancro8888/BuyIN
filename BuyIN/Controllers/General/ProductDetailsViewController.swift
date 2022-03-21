@@ -229,7 +229,7 @@ class ProductDetailsViewController: UIViewController {
         view.addSubview(favoriteButton)
         previewCollectionView.delegate = self
         previewCollectionView.dataSource = self
-
+        previewCollectionView.contentInsetAdjustmentBehavior = .never
         view.addSubview(dismissButton)
         view.addSubview(pageControl)
         setupCard()
@@ -277,7 +277,7 @@ class ProductDetailsViewController: UIViewController {
         ]
 
         let pageControlConstraints = [
-            pageControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: view.bounds.width-120),
+            pageControl.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 55),
             pageControl.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ]
         

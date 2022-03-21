@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Buy
 
 class ProductPreviewCollectionViewCell: UICollectionViewCell {
     
@@ -52,6 +53,12 @@ class ProductPreviewCollectionViewCell: UICollectionViewCell {
         productTitleLabel.text = model.title
         productPriceLabel.text = "\(model.price)"
         
+    }
+    
+    func configure(with model: Storefront.Product) {
+        productTitleLabel.text = model.title
+        guard let url = model.images.edges.first?.node.url else {return}
+        productImageView.setImageFrom(url)
     }
     
     private func configureConstraints() {

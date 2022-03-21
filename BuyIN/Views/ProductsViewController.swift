@@ -109,7 +109,6 @@ class ProductsViewController: UIViewController {
     func getFilterdArray(_ datasource:[ProductViewModel]) -> [ProductViewModel]{
         
         return datasource.filter({ p in
-            
             // title and descreption Search ========================================
             if let searchString = searchString {
                 if p.title.range(of: searchString , options: .caseInsensitive) == nil &&  p.model.node.description.range(of: searchString , options: .caseInsensitive) == nil{
