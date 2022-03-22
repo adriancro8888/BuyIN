@@ -228,8 +228,12 @@ class ProductCardViewController: UIViewController {
 
         for varr in product!.variants.items {
             let option = varr.title.split(separator: Character("/"))
-            colors.insert(option[1].trimmingCharacters(in: CharacterSet(charactersIn: " ")))
+            if 1 > option.count {
+                colors.insert(option[1].trimmingCharacters(in: CharacterSet(charactersIn: " ")))
+            }
             sizes.insert(option[0].trimmingCharacters(in: CharacterSet(charactersIn: " ")))
+        
+
         }
         
         for color in colors {
@@ -243,8 +247,8 @@ class ProductCardViewController: UIViewController {
                 self?.sizeNameButton.setTitle("\(action.title)", for: .normal)
             })
         }
-        colorNameButton.setTitle("\(colors.first!)", for: .normal)
-        sizeNameButton.setTitle("\(sizes.first!)", for: .normal)
+        colorNameButton.setTitle("\(colors.first ?? "N/A")", for: .normal)
+        sizeNameButton.setTitle("\(sizes.first ?? "N/A")", for: .normal)
         colorNameButton.menu = UIMenu(title: "", children: colorActions)
         sizeNameButton.menu = UIMenu(title: "", children: sizeActions)
     }

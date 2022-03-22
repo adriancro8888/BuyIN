@@ -14,11 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-       
-        
-        
-        
+
         /* ----------------------------------------
          ** Initialize the cart controller and pre-
          ** load any cached cart items.
