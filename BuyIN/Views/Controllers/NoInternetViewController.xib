@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NoInternetViewController" customModule="BuyIN" customModuleProvider="target">
+            <connections>
+                <outlet property="activityIndicator" destination="n2q-HX-lGb" id="u4K-IC-j0K"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noInternet" translatesAutoresizingMaskIntoConstraints="NO" id="Gsk-Xc-J4F">
+                    <rect key="frame" x="71.5" y="120" width="271" height="339"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="please Connect to a network" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xyz-lX-q1m">
+                    <rect key="frame" x="82" y="509" width="250" height="24"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="n2q-HX-lGb">
+                    <rect key="frame" x="182" y="633" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="9xa-Vf-VPH"/>
+                        <constraint firstAttribute="height" constant="50" id="lxS-mo-Lnz"/>
+                    </constraints>
+                    <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </activityIndicatorView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="n2q-HX-lGb" firstAttribute="top" secondItem="xyz-lX-q1m" secondAttribute="bottom" constant="100" id="2xr-uK-yQU"/>
+                <constraint firstItem="Gsk-Xc-J4F" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.654589" id="7r4-g4-llK"/>
+                <constraint firstItem="Gsk-Xc-J4F" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.378348" id="H2e-hD-5hQ"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Gsk-Xc-J4F" secondAttribute="trailing" constant="71.5" id="I1W-b1-NV5"/>
+                <constraint firstItem="Gsk-Xc-J4F" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="76" id="MRe-xx-X76"/>
+                <constraint firstItem="n2q-HX-lGb" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="WgO-9W-hiM"/>
+                <constraint firstItem="Gsk-Xc-J4F" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="71.5" id="Zme-gr-7Aq"/>
+                <constraint firstItem="xyz-lX-q1m" firstAttribute="top" secondItem="Gsk-Xc-J4F" secondAttribute="bottom" constant="50" id="j5h-Sa-Pgk"/>
+                <constraint firstItem="xyz-lX-q1m" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="kD4-LM-9tE"/>
+                <constraint firstItem="xyz-lX-q1m" firstAttribute="centerX" secondItem="Gsk-Xc-J4F" secondAttribute="centerX" id="nxk-yF-98o"/>
+                <constraint firstItem="Gsk-Xc-J4F" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="zPr-Kp-r73"/>
+            </constraints>
+            <point key="canvasLocation" x="100.00000000000001" y="77.678571428571431"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="noInternet" width="271" height="186"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

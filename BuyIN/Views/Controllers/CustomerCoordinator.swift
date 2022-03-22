@@ -43,7 +43,12 @@ class CustomerCoordinator: UIViewController {
 
       
       //  self.updateState()
+        self.renderUI()
         
+        
+        
+    }
+    func renderUI(){
         if let _ = AccountController.shared.accessToken {
             print("View orders")
             self.showOrders(animated: false)
@@ -51,9 +56,6 @@ class CustomerCoordinator: UIViewController {
             self.showLogin(animated: false)
             print("View login")
         }
-        
-        
-        
     }
     private func showOrders(animated: Bool) {
         let profileController: ProfileViewController = ProfileViewController.instantiateFromMainStoryboard()

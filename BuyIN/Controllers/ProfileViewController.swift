@@ -107,9 +107,14 @@ class ProfileViewController: UIViewController {
     
 
     @IBAction func settingButton(_ sender: Any) {
-        let newViewController : SettingViewController = SettingViewController.instantiateFromNib()
-        self.navigationController?.pushViewController(newViewController, animated: true)
+        print("Settings Pressed")
+        let settingsController : SettingViewController = SettingViewController.instantiateFromNib()
+        self.navigationController?.pushViewController(settingsController, animated: true)
         self.navigationController?.navigationItem.backBarButtonItem?.tintColor = UIColor.black
+//        settingsController.modalPresentationStyle = .fullScreen
+//        self.present(settingsController, animated: true, completion: nil)
+//
+        
 
     }
     
@@ -118,6 +123,8 @@ class ProfileViewController: UIViewController {
         let orderController : OrdersViewController = OrdersViewController.instantiateFromNib()
         orderController.modalPresentationStyle = .fullScreen
         orderController.AllordersArray = ordersArray
+        orderController.userInfo = userInfo
+        
         
         self.present(orderController, animated: true, completion: nil)
         
@@ -266,8 +273,9 @@ extension ProfileViewController : UICollectionViewDataSource {
             
             if let orderCount = ordersArray?.items.count {
                 if orderCount >= 1 {
-                    if indexPath.row == 0 {
-                    if let order = self.ordersArray?.items[0]{
+//                    if indexPath.row == 0 {
+                    let orderIndex = (self.ordersArray?.items.count ?? 1) - (indexPath.row + 1)
+                        if let order = self.ordersArray?.items[orderIndex]{
                         
                         orderCell.orderNumber.text = "Order #\(String(order.model.node.orderNumber))"
                         let imageURL = order.model.node.lineItems.edges[0].node.variant?.image?.url
@@ -279,27 +287,50 @@ extension ProfileViewController : UICollectionViewDataSource {
 
                         let totalPriceMoney = order.model.node.currentTotalPrice
                         orderCell.totalPrice.text = Currency.stringFrom(totalPriceMoney.amount, totalPriceMoney.currencyCode.rawValue)
-
-                    }
-                    }
-                    if indexPath.row == 1 {
-                        if let order = self.ordersArray?.items[1]{
+                            let fulfillmentStatus = order.model.node.fulfillmentStatus.rawValue.replacingOccurrences(of: "_", with: " ")
+                            orderCell.NameOfItem.text = fulfillmentStatus
+                        switch (order.model.node.lineItems.edges.count) {
+                        
+                        case 1:
+                            orderCell.secondItemInOrderImage.isHidden = true
+                            let firstImageURL = order.model.node.lineItems.edges[0].node.variant?.image?.url
+                            orderCell.firstItemInOrderImage.setImageFrom(firstImageURL)
+                            orderCell.moreButton.isHidden = true
+                        case 2:
+                            let firstImageURL = order.model.node.lineItems.edges[0].node.variant?.image?.url
+                            orderCell.firstItemInOrderImage.setImageFrom(firstImageURL)
+                            let secondImageURL = order.model.node.lineItems.edges[1].node.variant?.image?.url
+                            orderCell.secondItemInOrderImage.setImageFrom(secondImageURL)
+                            orderCell.moreButton.isHidden = true
                             
-                            orderCell.orderNumber.text = "Order #\(String(order.model.node.orderNumber))"
-                            let imageURL = order.model.node.lineItems.edges[0].node.variant?.image?.url
-                            orderCell.orderImage.setImageFrom(imageURL)
-                            //print(order1.model.node.lineItems.edges[0].node.variant?.image)
-                            //orderCell.NameOfItem.text = order1.model.node.name
-                            let dateOfCreation = DateFormatterClass.dateFormatter(date: order.model.node.processedAt)
-                            orderCell.dateOfOrder.text = dateOfCreation
+                            
+                        default:
+                            let firstImageURL = order.model.node.lineItems.edges[0].node.variant?.image?.url
+                            orderCell.firstItemInOrderImage.setImageFrom(firstImageURL)
+                            let secondImageURL = order.model.node.lineItems.edges[1].node.variant?.image?.url
+                            orderCell.secondItemInOrderImage.setImageFrom(secondImageURL)
+                        }
 
-                            let totalPriceMoney = order.model.node.currentTotalPrice
-                            orderCell.totalPrice.text = Currency.stringFrom(totalPriceMoney.amount, totalPriceMoney.currencyCode.rawValue)
                     }
                     }
+//                    if indexPath.row == 1 {
+//                        if let order = self.ordersArray?.items[1]{
+//
+//                            orderCell.orderNumber.text = "Order #\(String(order.model.node.orderNumber))"
+//                            let imageURL = order.model.node.lineItems.edges[0].node.variant?.image?.url
+//                            orderCell.orderImage.setImageFrom(imageURL)
+//                            //print(order1.model.node.lineItems.edges[0].node.variant?.image)
+//                            //orderCell.NameOfItem.text = order1.model.node.name
+//                            let dateOfCreation = DateFormatterClass.dateFormatter(date: order.model.node.processedAt)
+//                            orderCell.dateOfOrder.text = dateOfCreation
+//
+//                            let totalPriceMoney = order.model.node.currentTotalPrice
+//                            orderCell.totalPrice.text = Currency.stringFrom(totalPriceMoney.amount, totalPriceMoney.currencyCode.rawValue)
+//                    }
+//                    }
                     
                 }
-            }
+//            }
             else
             {
                 //return no orders cell

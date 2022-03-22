@@ -195,11 +195,14 @@
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
+                <outlet property="firstItemInOrderImage" destination="duL-vv-bd1" id="fft-wf-6Ma"/>
                 <outlet property="itemImage" destination="bJm-YG-vTw" id="gnZ-Eg-RAG"/>
+                <outlet property="moreButton" destination="lr4-bP-iax" id="JFX-cO-KgE"/>
                 <outlet property="orderId" destination="Rpq-mH-ep0" id="mLy-Nw-H7A"/>
                 <outlet property="orderPrice" destination="Fag-7z-n8j" id="KH9-iQ-1hp"/>
                 <outlet property="orderTime" destination="PD7-DB-dY4" id="rll-yl-Ttq"/>
                 <outlet property="orderType" destination="hGT-Xj-maP" id="dEg-8Z-NeK"/>
+                <outlet property="secondItemInOrderImage" destination="F6m-73-88h" id="uLO-VR-syt"/>
             </connections>
             <point key="canvasLocation" x="-31.884057971014496" y="87.388392857142847"/>
         </tableViewCell>
