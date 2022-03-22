@@ -11,6 +11,7 @@ import MessageUI
 
 class HomeViewController: UIViewController {
     
+    
     private var timer: Timer?
     private var mainCategories: [CollectionViewModel] = []
     private let categories: [String] = ["Women", "Men", "Jeans"]
@@ -60,7 +61,7 @@ class HomeViewController: UIViewController {
         case 1:
             
             let supplementaryViews = [
-                NSCollectionLayoutBoundarySupplementaryItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(60)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+                NSCollectionLayoutBoundarySupplementaryItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(40)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
             ]
     
             let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/3)))
@@ -74,7 +75,7 @@ class HomeViewController: UIViewController {
         case 2:
 
             let supplementaryViews = [
-                NSCollectionLayoutBoundarySupplementaryItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(60)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+                NSCollectionLayoutBoundarySupplementaryItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(40)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
             ]
             
             let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
@@ -88,7 +89,7 @@ class HomeViewController: UIViewController {
         case 3:
 
             let supplementaryViews = [
-                NSCollectionLayoutBoundarySupplementaryItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(60)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .top),
+                NSCollectionLayoutBoundarySupplementaryItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(40)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .top),
                 NSCollectionLayoutBoundarySupplementaryItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(250)), elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
             ]
             
@@ -155,7 +156,7 @@ class HomeViewController: UIViewController {
         navigationBar.layer.zPosition = 2
         let searchButtonConstraints = [
             searchButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
-            searchButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -20)
+            searchButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -5)
         ]
         NSLayoutConstraint.activate(navigationBarConstraints)
         NSLayoutConstraint.activate(searchButtonConstraints)
@@ -266,7 +267,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeroHeaderCollectionViewCell.identifier, for: indexPath) as? HeroHeaderCollectionViewCell else {
                 return UICollectionViewCell()
             }
-            
+            cell.indexerDelegate = self
             cell.salesCollections = salesCollections
             return cell
 
@@ -275,7 +276,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.identifier, for: indexPath) as? CategoryCollectionViewCell else {
                 return UICollectionViewCell()
             }
-
             cell.configure(with: mainCategories[indexPath.row])
             return cell
             
@@ -334,9 +334,14 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
+        
         let section = indexPath.section
-        if section == 1 {
+        if section == 0 {
+            let vc = ProductCollectionViewController()
+            vc.collectionProducts = salesCollections[currentlyShown].products.items
+            navigationController?.pushViewController(vc, animated: true)
+        }
+        else if section == 1 {
             let vc = ProductCollectionViewController()
             vc.collectionProducts = mainCategories[indexPath.row].products.items
             vc.navigationController?.navigationBar.isHidden = false
@@ -359,6 +364,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
 
     }
+    
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let contentOffset = scrollView.contentOffset.y
@@ -392,6 +398,16 @@ extension HomeViewController: HomeFooterCollectionReusableViewDelegate, MFMailCo
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true)
+    }
+    
+    
+}
+
+extension HomeViewController: HeroHeaderCollectionViewCellDelegate {
+    func HeroHeaderCollectionViewCellDelegateDidSelectCollection(_ productCollection: [ProductViewModel]) {
+        let vc = ProductCollectionViewController()
+        vc.collectionProducts = productCollection
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     

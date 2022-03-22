@@ -16,6 +16,11 @@ class ProductCollectionViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = false
+    }
+    
     static func sectionLayoutProvider() -> NSCollectionLayoutSection {
         
         let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(

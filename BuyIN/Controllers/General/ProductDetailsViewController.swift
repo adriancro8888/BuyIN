@@ -55,6 +55,12 @@ class ProductDetailsViewController: UIViewController {
         case expanded
         case collapsed
     }
+    
+    private var isWished: Bool = false {
+        willSet {
+            configureButtons()
+        }
+    }
 
     var productCardViewController: ProductCardViewController!
     var visualEffectView: UIVisualEffectView!
@@ -202,8 +208,29 @@ class ProductDetailsViewController: UIViewController {
     var product: ProductViewModel? = nil {
         didSet {
             productPreviews = (product?.images.items)!
+            configureButtons()
 
         }
+    }
+    
+    private func configureButtons() {
+        let wished = WishlistController.shared.items.contains { cartItem in
+            cartItem.product.id == product?.id
+        }
+        
+        wished ? configureAsWished() : configureAsNotWished()
+    }
+    
+    private func configureAsNotWished() {
+        let image = UIImage(systemName: "heart")
+        favoriteButton.setImage(image, for: .normal)
+        favoriteButton.tintColor = .black
+    }
+    
+    private func configureAsWished() {
+        let image = UIImage(systemName: "heart.fill")
+        favoriteButton.setImage(image, for: .normal)
+        favoriteButton.tintColor = .systemPink
     }
     
     private var productPreviews: [ImageViewModel] = []
@@ -237,6 +264,21 @@ class ProductDetailsViewController: UIViewController {
         tabBarController?.tabBar.isHidden = true
         pageControl.addTarget(self, action: #selector(pageControlDidChange), for: .valueChanged)
         dismissButton.addTarget(self, action: #selector(didTapDismiss), for: .touchUpInside)
+        favoriteButton.addTarget(self, action: #selector(didTapFav), for: .touchUpInside)
+    }
+    
+    private func addToWishList() {
+        WishlistController.shared.add(CartItem(product: product!, variant: (product?.variants.items.first)!))
+        isWished = true
+    }
+    
+    private func removeFromWishList() {
+        WishlistController.shared.removeAllQuantitiesFor(CartItem(product: product!, variant: (product?.variants.items.first)!))
+        isWished = false
+    }
+    
+    @objc private func didTapFav() {
+        isWished ? removeFromWishList() : addToWishList()
     }
     
     @objc private func pageControlDidChange() {

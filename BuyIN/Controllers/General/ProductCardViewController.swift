@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Buy
 
 
 class HandleArea: UIView {
@@ -42,6 +43,9 @@ class HandleArea: UIView {
 }
 
 class ProductCardViewController: UIViewController {
+    
+    private var colorActions:[UIAction] = [UIAction]()
+    private var sizeActions:[UIAction] = [UIAction]()
     
     private let sizeLabel: UILabel = {
         let label = UILabel()
@@ -202,30 +206,47 @@ class ProductCardViewController: UIViewController {
         sizeNameButton.addTarget(self, action: #selector(didTapMenu), for: .touchUpInside)
         configureMenus()
         cardTableView.backgroundColor = .white
+        addToCartButton.addTarget(self, action: #selector(didTapAddToCart), for: .touchUpInside)
     }
     
-    private var colors: [String] = ["Black", "White", "Blue", "Yellow"]
-    private var sizes: [String] = ["XXL", "XL", "L", "M", "S", "XS"]
+    @objc private func didTapAddToCart() {
+        let index = sizeActions.firstIndex { action in
+            action.title == sizeNameButton.titleLabel!.text
+        }!
+        CartController.shared.add(CartItem(product: product!, variant: product!.variants.items[index]))
+    }
     
-
+  
     @objc private func didTapMenu() {}
     
     private func configureMenus() {
-        var actions:[UIAction] = [UIAction]()
+
+
+        var colors: Set<String> = []
+        var sizes: Set<String> = []
+        
+
+        for varr in product!.variants.items {
+            let option = varr.title.split(separator: Character("/"))
+            colors.insert(option[1].trimmingCharacters(in: CharacterSet(charactersIn: " ")))
+            sizes.insert(option[0].trimmingCharacters(in: CharacterSet(charactersIn: " ")))
+        }
+        
         for color in colors {
-            actions.append(UIAction(title: color, state: .off) { [weak self] action in
+            colorActions.append(UIAction(title: color, state: .off) { [weak self] action in
                 self?.colorNameButton.setTitle("\(action.title)", for: .normal)
             })
         }
-        
-        var sizesActions: [UIAction] = [UIAction]()
+
         for size in sizes {
-            sizesActions.append(UIAction(title: size, state: .off) { [weak self] action in
+            sizeActions.append(UIAction(title: size, state: .off) { [weak self] action in
                 self?.sizeNameButton.setTitle("\(action.title)", for: .normal)
             })
         }
-        colorNameButton.menu = UIMenu(title: "", children: actions)
-        sizeNameButton.menu = UIMenu(title: "", children: sizesActions)
+        colorNameButton.setTitle("\(colors.first!)", for: .normal)
+        sizeNameButton.setTitle("\(sizes.first!)", for: .normal)
+        colorNameButton.menu = UIMenu(title: "", children: colorActions)
+        sizeNameButton.menu = UIMenu(title: "", children: sizeActions)
     }
 
     

@@ -20,7 +20,9 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 38, weight: .bold)
-        
+        label.layer.shadowColor = UIColor.black.cgColor
+        label.layer.shadowRadius = 10
+        label.layer.shadowOpacity = 0.5
         label.textColor = .white
         return label
     }()
@@ -28,7 +30,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     private let overlayView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
-        view.alpha = 0.35
+        view.alpha = 0
         return view
     }()
     

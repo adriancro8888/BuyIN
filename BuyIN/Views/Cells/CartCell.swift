@@ -7,6 +7,8 @@
 
 import UIKit
 import SwipeCellKit
+
+
 protocol CartCellDelegate: AnyObject {
     func cartCell(_ cell: CartCell, didUpdateQuantity quantity: Int)
 }
@@ -34,11 +36,7 @@ class CartCell: SwipeCollectionViewCell ,ViewModelConfigurable{
         
         self.backView.cornerRadius = 8
         self.productImage.cornerRadius = 8
-        
-        
-        
-        
-        
+
     }
     
 

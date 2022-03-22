@@ -160,6 +160,7 @@ class CartController {
     func removeAllQuantitiesFor(_ cartItem: CartItem) {
         if let index = self.items.firstIndex(of: cartItem) {
             self.removeAllQuantities(at: index)
+            self.itemsChanged()
         }
     }
     

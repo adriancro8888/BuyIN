@@ -13,7 +13,7 @@ class BannerCollectionViewCell: UICollectionViewCell {
     
     private let overlayView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
+        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1)
         return view
     }()
     
@@ -23,6 +23,9 @@ class BannerCollectionViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 52, weight: .bold)
         label.textColor = .white
+        label.layer.shadowColor = UIColor.black.cgColor
+        label.layer.shadowRadius = 10
+        label.layer.shadowOpacity = 0.7
         label.numberOfLines = 0
         return label
     }()
@@ -47,7 +50,7 @@ class BannerCollectionViewCell: UICollectionViewCell {
         let heroTitleConstraints = [
             heroTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             heroTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -60),
-            heroTitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
+            heroTitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
         ]
         NSLayoutConstraint.activate(heroTitleConstraints)
     }

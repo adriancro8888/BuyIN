@@ -17,7 +17,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         
    
-        
+//        let homeVC : UITabBarController = UITabBarController.instantiateFromMainStoryboard()
+//        let navigation = UINavigationController(rootViewController: homeVC)
+//        window.rootViewController = navigation
+//        self.window = window
+//        window.makeKeyAndVisible()
+//        
         if let _ = AccountController.shared.accessToken
         {
              let homeVC : UITabBarController = UITabBarController.instantiateFromMainStoryboard()
