@@ -159,9 +159,22 @@ class ShoppingBagViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.backgroundColor = .white
         configureConstraints()
+        newArrivalsButton.addTarget(self, action: #selector(didTapNewArrival), for: .touchUpInside)
+        wishListButton.addTarget(self, action: #selector(didTapWishList), for: .touchUpInside)
         self.registerNotifications()
     }
     
+    @objc private func didTapWishList() {
+        let wishController : WishListViewController = WishListViewController.instantiateFromNib()
+        wishController.modalPresentationStyle = .fullScreen
+        wishController.wishlistItems = WishlistController.shared.items
+        
+        self.present(wishController, animated: true, completion: nil)
+    }
+    
+    @objc private func didTapNewArrival() {
+        
+    }
  
     
     private func configureAsEmpty() {

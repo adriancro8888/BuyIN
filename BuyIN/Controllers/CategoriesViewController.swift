@@ -17,35 +17,35 @@
 import UIKit
 import Reachability
 private let reuseIdentifier = "cell"
-class CategoriesViewController: UIViewController {
-
-    
-    var searchString : String? = nil;
-    @IBOutlet weak var categoryNameLable: UILabel!
-    
-    @IBOutlet weak var productsCollectonView: StorefrontCollectionView!
-    
-    @IBOutlet weak var catiogriesCollectionView: StorefrontCollectionView!
-    
-    fileprivate var collections: PageableArray<CollectionViewModel>!
-    fileprivate var selectedCollection:  CollectionViewModel?
-    fileprivate var products: PageableArray<ProductViewModel>!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        self.configureCollectionView()
-        self.fetchCollections()
-    }
-    private func configureCollectionView() {
-        
-        self.productsCollectonView.paginationDelegate = self
-        self.catiogriesCollectionView.paginationDelegate = self
-        catiogriesCollectionView.register(UINib(nibName: "CategoriesCollectionViewCell", bundle: nil),
-                                          forCellWithReuseIdentifier:reuseIdentifier)
-        productsCollectonView.register(UINib(nibName: "ProductCollectionViewCell", bundle: nil),
-                                          forCellWithReuseIdentifier:reuseIdentifier)
-                                           
+//class CategoriesViewController: UIViewController {
+//
+//    
+//    var searchString : String? = nil;
+//    @IBOutlet weak var categoryNameLable: UILabel!
+//    
+//    @IBOutlet weak var productsCollectonView: StorefrontCollectionView!
+//    
+//    @IBOutlet weak var catiogriesCollectionView: StorefrontCollectionView!
+//    
+//    fileprivate var collections: PageableArray<CollectionViewModel>!
+//    fileprivate var selectedCollection:  CollectionViewModel?
+//    fileprivate var products: PageableArray<ProductViewModel>!
+//    
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//
+//        self.configureCollectionView()
+//        self.fetchCollections()
+//    }
+//    private func configureCollectionView() {
+//        
+//        self.productsCollectonView.paginationDelegate = self
+//        self.catiogriesCollectionView.paginationDelegate = self
+//        catiogriesCollectionView.register(UINib(nibName: "CategoriesCollectionViewCell", bundle: nil),
+//                                          forCellWithReuseIdentifier:reuseIdentifier)
+//        productsCollectonView.register(UINib(nibName: "ProductCollectionViewCell", bundle: nil),
+//                                          forCellWithReuseIdentifier:reuseIdentifier)
+//                                           
                                               
 //        if self.traitCollection.forceTouchCapability == .available {
 //            self.registerForPreviewing(with: self, sourceView: self.catiogriesCollectionView)
