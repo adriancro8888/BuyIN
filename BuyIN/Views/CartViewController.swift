@@ -17,6 +17,10 @@ class CartViewController: UIViewController {
     
     @IBOutlet weak var totalPrice: UILabel!
     
+    @IBOutlet weak var CkeckOutBtnLayout: RoundedButton!
+    
+    @IBOutlet weak var cancelBtn: RoundedButton!
+    
     fileprivate var paySession: PaySession?
     
     var itemCount: Int = 0 {
@@ -44,6 +48,14 @@ class CartViewController: UIViewController {
         self.updateSubtotal()
         
         self.registerNotifications()
+        if CartController.shared.items.count ==  0 {
+            CkeckOutBtnLayout.isEnabled = false
+            CkeckOutBtnLayout.alpha = 0.1
+            
+        }else {
+            CkeckOutBtnLayout.isEnabled = true
+            CkeckOutBtnLayout.alpha = 1
+        }
         
 //        let  swipableExtension = CollectionSwipableCellExtension(with: collectionView)
 //        swipableExtension.delegate = self
@@ -151,6 +163,7 @@ class CartViewController: UIViewController {
     
 
     @IBAction func checkOutClicked(_ sender: Any) {
+
         
         totalsController( didRequestPaymentWith: .webCheckout)
         
@@ -441,8 +454,11 @@ extension CartViewController: SwipeCollectionViewCellDelegate {
         if orientation == .left {
             return nil
         } else {
-            let flag = SwipeAction(style: .default, title: "favorite"){ action, indexPath in
-               
+            let flag = SwipeAction(style: .default, title: "Wishlist"){ action, indexPath in
+                WishlistController.shared.add(CartController.shared.items[indexPath.row])
+                CartController.shared.removeAllQuantities(at: indexPath.item)
+                
+                // Add to favorite 
             }
             flag.hidesWhenSelected = true
             configure(action: flag, with: .flag)
@@ -501,8 +517,8 @@ extension CartViewController: SwipeCollectionViewCellDelegate {
   
         let buttonStyle: ButtonStyle = .circular
         let buttonDisplayMode: ButtonDisplayMode = .titleAndImage
-        
-        action.title = descriptor.title(forDisplayMode: buttonDisplayMode)
+//
+        action.title = action.title ?? descriptor.title(forDisplayMode: buttonDisplayMode)
         action.image = descriptor.image(forStyle: buttonStyle, displayMode: buttonDisplayMode)
         
         switch buttonStyle {

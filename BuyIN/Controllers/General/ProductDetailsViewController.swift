@@ -26,7 +26,8 @@ class ProductDetailsViewController: UIViewController {
         let pageControl = UIPageControl()
         pageControl.numberOfPages = (product?.images.items.count)!
         pageControl.translatesAutoresizingMaskIntoConstraints = false
-        pageControl.transform = CGAffineTransform(rotationAngle: Double.pi/2)
+        let TransformAngle = Double.pi/2
+        pageControl.transform = CGAffineTransform(rotationAngle: CGFloat(TransformAngle))
         pageControl.backgroundStyle = .prominent
         pageControl.currentPageIndicatorTintColor = .black
         return pageControl
@@ -428,7 +429,7 @@ extension ProductDetailsViewController: UICollectionViewDelegate, UICollectionVi
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentlyShown = scrollView.contentOffset.y / view.frame.height
         pageControl.currentPage = Int(currentlyShown)
-        if currentlyShown > Double((product?.images.items.count)!-1) {
+        if Double(currentlyShown) > Double((product?.images.items.count)!-1) {
             animateTransitionIfNeeded(state: nextState, duration: 0.9)
         }
     }

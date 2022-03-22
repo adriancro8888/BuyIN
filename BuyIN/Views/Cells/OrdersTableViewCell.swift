@@ -18,6 +18,12 @@ class OrdersTableViewCell: UITableViewCell {
     @IBOutlet var orderTime: UILabel!
     
     @IBOutlet var orderPrice: UILabel!
+    
+    @IBOutlet weak var firstItemInOrderImage: UIImageView!
+    
+    @IBOutlet weak var secondItemInOrderImage: UIImageView!
+    
+    @IBOutlet weak var moreButton: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
         self.layer.masksToBounds = true

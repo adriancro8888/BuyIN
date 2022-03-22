@@ -9,6 +9,7 @@ import UIKit
 
 class OrdersViewController: UIViewController {
     var AllordersArray: PageableArray<OrderViewModel>?
+    var userInfo : CustomerViewModel?
 
     @IBOutlet weak var ordersTableView: UITableView!
     override func viewDidLoad() {
@@ -58,9 +59,32 @@ extension OrdersViewController : UITableViewDataSource {
                 //orderCell.NameOfItem.text = order1.model.node.name
                 let dateOfCreation = DateFormatterClass.dateFormatter(date: order.model.node.processedAt)
                 orderCell.orderTime.text = dateOfCreation
+                let fulfillmentStatus = order.model.node.fulfillmentStatus.rawValue.replacingOccurrences(of: "_", with: " ")
+                orderCell.orderType.text = fulfillmentStatus
 
                 let totalPriceMoney = order.model.node.currentTotalPrice
                 orderCell.orderPrice.text = Currency.stringFrom(totalPriceMoney.amount, totalPriceMoney.currencyCode.rawValue)
+                switch (order.model.node.lineItems.edges.count) {
+                
+                case 1:
+                    orderCell.secondItemInOrderImage.isHidden = true
+                    let firstImageURL = order.model.node.lineItems.edges[0].node.variant?.image?.url
+                    orderCell.firstItemInOrderImage.setImageFrom(firstImageURL)
+                    orderCell.moreButton.isHidden = true
+                case 2:
+                    let firstImageURL = order.model.node.lineItems.edges[0].node.variant?.image?.url
+                    orderCell.firstItemInOrderImage.setImageFrom(firstImageURL)
+                    let secondImageURL = order.model.node.lineItems.edges[1].node.variant?.image?.url
+                    orderCell.secondItemInOrderImage.setImageFrom(secondImageURL)
+                    orderCell.moreButton.isHidden = true
+                    
+                    
+                default:
+                    let firstImageURL = order.model.node.lineItems.edges[0].node.variant?.image?.url
+                    orderCell.firstItemInOrderImage.setImageFrom(firstImageURL)
+                    let secondImageURL = order.model.node.lineItems.edges[1].node.variant?.image?.url
+                    orderCell.secondItemInOrderImage.setImageFrom(secondImageURL)
+                }
             }
         }
         else
@@ -76,6 +100,7 @@ extension OrdersViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let orderDetailsViewController = OrdersDetailsViewController(nibName: "OrdersDetailsViewController", bundle: nil)
         orderDetailsViewController.ordersDetails = AllordersArray?.items[indexPath.row]
+        orderDetailsViewController.userInfo = userInfo
         
 
         // Present View "Modally"

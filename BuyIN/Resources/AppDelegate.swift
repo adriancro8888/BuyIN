@@ -8,17 +8,17 @@
 import UIKit
 import CoreData
 
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    let window: UIWindow? = nil
+  
 
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-        /* ----------------------------------------
-         ** Initialize the cart controller and pre-
-         ** load any cached cart items.
-         */
+
         _ = CartController.shared
         Client.shared.loadBrands()
         Client.shared.loadTags()
@@ -26,6 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Client.shared.loadCategories()
         return true
     }
+    
+    
+    
 
     // MARK: UISceneSession Lifecycle
 
@@ -85,6 +88,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+//    @objc func reachabilityStatusChanged(_ notification:Notification){
+//        reachability.whenReachable = { reachability in
+//            let homeViewController : HomeViewController = HomeViewController.instantiateFromMainStoryboard()
+//            self.window?.rootViewController = homeViewController
+//            self.window?.makeKeyAndVisible()
+//        }
+//        reachability.whenUnreachable = { _ in
+//            let noInternetViewController : NoInternetViewController = NoInternetViewController.instantiateFromNib()
+//            self.window?.rootViewController =  noInternetViewController
+//            self.window?.makeKeyAndVisible()
+//            let alert = UIAlertController(title: "Disconnected", message: "Mobile is disconnected, please make sure it's connected", preferredStyle: .alert)
+//            
+//            // Create OK button with action handler
+//            let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+//                print("Ok button tapped")
+//             })
+//            
+//            //Add OK button to a dialog message
+//            alert.addAction(ok)
+//            // Present Alert to
+//            
+//           
+//            
+//        }
+//     }
+    
 
 }
 

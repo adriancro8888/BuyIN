@@ -6,7 +6,6 @@
 //
 
 import UIKit
-
  
 class RegistrationViewController: UIViewController {
     
@@ -274,8 +273,7 @@ class RegistrationViewController: UIViewController {
     }
     @objc private func didTapRegister() {
         
-        
-        Client.shared.CreateCustomer(firstName: self.firstNameField.text!, lastName: self.lasNameField.text!, phone: self.phoneField.text!, email: self.emailField.text!, password: self.passwordField.text!) { [self] customer, errors in
+        Client.shared.CreateCustomer(firstName: self.firstNameField.text!, lastName: self.lasNameField.text!, phone: validNumber(phone: self.phoneField.text!), email: self.emailField.text!, password: self.passwordField.text!) { [self] customer, errors in
             
             if let customer = customer {
                 
@@ -326,6 +324,12 @@ class RegistrationViewController: UIViewController {
         }
         
     }
+    
+    func validNumber(phone: String) -> String {
+        let validNumber = "+201" + String(phone.suffix(9))
+        return validNumber
+    }
+    
     @objc private func didTapContinue() {
         guard let email = emailField.text,
               let validEmail = isValidEmail(email) else {
@@ -505,12 +509,14 @@ class RegistrationViewController: UIViewController {
         NSLayoutConstraint.activate(tacPromptLabelConstraints)
         NSLayoutConstraint.activate(tacButtonConstraints)
     }
+
 }
 
 extension RegistrationViewController: UITextFieldDelegate {
 
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
+        
         guard let firstName = firstNameField.text,
               let lastName = lasNameField.text,
               let email = emailField.text,
@@ -523,16 +529,54 @@ extension RegistrationViewController: UITextFieldDelegate {
               }
         continueButton.alpha = 1
         continueButton.isEnabled = true
-        
-        
+
         guard let phone = phoneField.text,
+              phonevalidation(phone: phone).0,
               let password = passwordField.text,
               password.count > 8 else {
+            
                   registerButton.alpha = 0.9
                   registerButton.isEnabled = false
                   return
               }
         registerButton.alpha = 1
         registerButton.isEnabled = true
+        print(phonevalidation(phone: phone).1)
+    }
+    
+    func phonevalidation(phone : String) -> (Bool, String) {
+        let phoneArray = Array(phone)
+        var validNumber = phone
+        let count = phoneArray.count
+        var isValid = false
+        if count == 11 {
+            if (phoneArray[0] == "0") && (phoneArray[1] == "1") {
+                isValid = true
+            }
+        }
+        else if count == 12 {
+            if (phoneArray[0] == "2") && (phoneArray[1] == "0") && (phoneArray[2] == "1") {
+                isValid = true
+            }
+        }
+        else if count == 13 {
+            if (phoneArray[0] == "+") && (phoneArray[1] == "2") && (phoneArray[2] == "0") && (phoneArray[3] == "1") {
+                isValid = true
+            }
+        }
+        else if count == 14 {
+            if (phoneArray[0] == "0") && (phoneArray[1] == "0") && (phoneArray[2] == "2") && (phoneArray[3] == "0" && (phoneArray[4] == "1")) {
+                isValid = true
+            }
+        }
+
+        if isValid{
+            validNumber = "+201" + String(phone.suffix(9))
+        }
+
+        return (isValid, validNumber)
     }
 }
+
+
+

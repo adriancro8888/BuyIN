@@ -10,6 +10,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CartViewController" customModule="BuyIN" customModuleProvider="target">
             <connections>
+                <outlet property="CkeckOutBtnLayout" destination="pq4-vt-dRb" id="rNq-JY-quL"/>
+                <outlet property="cancelBtn" destination="Nkq-hc-4AX" id="2U6-Sm-86K"/>
                 <outlet property="cartItemCount" destination="o6k-Eg-Iqv" id="ccK-Du-GzY"/>
                 <outlet property="collectionView" destination="O02-aw-eRg" id="g0Y-bY-hpg"/>
                 <outlet property="totalPrice" destination="EPS-QB-gdG" id="Cd2-eJ-34n"/>
@@ -23,7 +25,7 @@
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="O02-aw-eRg">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                    <color key="backgroundColor" systemColor="systemGray6Color"/>
+                    <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="CjE-I7-ul3">
                         <size key="itemSize" width="128" height="128"/>
                         <size key="headerReferenceSize" width="100" height="75"/>
@@ -85,20 +87,26 @@
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nkq-hc-4AX" customClass="RoundedButton" customModule="BuyIN" customModuleProvider="target">
                                 <rect key="frame" x="15" y="52" width="35" height="35"/>
+                                <color key="backgroundColor" systemColor="systemGray4Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="4mi-tv-IHy"/>
                                     <constraint firstAttribute="width" secondItem="Nkq-hc-4AX" secondAttribute="height" multiplier="1:1" id="ZPn-HR-jEU"/>
                                 </constraints>
                                 <color key="tintColor" systemColor="systemGray2Color"/>
-                                <state key="normal" title="Button">
+                                <state key="normal" image="xmark" catalog="system">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="cancelAction:" destination="-1" eventType="touchUpInside" id="HeW-PQ-eR5"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bnT-nD-FJR" customClass="RoundedButton" customModule="BuyIN" customModuleProvider="target">
-                                <rect key="frame" x="364" y="52" width="35" height="35"/>
+                                <rect key="frame" x="356" y="52" width="43" height="35"/>
                                 <color key="tintColor" systemColor="systemGray2Color"/>
                                 <state key="normal" title="Clear">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -109,7 +117,6 @@
                             </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="bnT-nD-FJR" firstAttribute="width" secondItem="Nkq-hc-4AX" secondAttribute="width" id="2UI-Qe-43k"/>
                             <constraint firstItem="bnT-nD-FJR" firstAttribute="height" secondItem="Nkq-hc-4AX" secondAttribute="height" id="8vd-iW-gAW"/>
                             <constraint firstItem="Nkq-hc-4AX" firstAttribute="centerY" secondItem="79G-8F-DVa" secondAttribute="centerY" id="LLa-Fu-o7m"/>
                             <constraint firstItem="79G-8F-DVa" firstAttribute="centerX" secondItem="eHb-9w-q8i" secondAttribute="centerX" id="MWq-Gs-hpP"/>
@@ -130,11 +137,20 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pq4-vt-dRb" customClass="RoundedButton" customModule="BuyIN" customModuleProvider="target">
                                 <rect key="frame" x="40" y="74" width="334" height="55"/>
+                                <color key="backgroundColor" red="0.57414853570000002" green="0.57416242360000003" blue="0.57415497299999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="Foo-KA-4yM"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <color key="tintColor" red="0.7623712598663015" green="0.4461398033851271" blue="0.0" alpha="0.79818953948767002" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Checkout">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="checkOutClicked:" destination="-1" eventType="touchUpInside" id="9D1-iM-fGz"/>
                                 </connections>
@@ -194,16 +210,17 @@
     </objects>
     <designables>
         <designable name="Nkq-hc-4AX">
-            <size key="intrinsicContentSize" width="54" height="34"/>
+            <size key="intrinsicContentSize" width="17.5" height="22"/>
         </designable>
         <designable name="bnT-nD-FJR">
             <size key="intrinsicContentSize" width="43" height="34"/>
         </designable>
         <designable name="pq4-vt-dRb">
-            <size key="intrinsicContentSize" width="46" height="30"/>
+            <size key="intrinsicContentSize" width="91" height="36"/>
         </designable>
     </designables>
     <resources>
+        <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
@@ -213,8 +230,8 @@
         <systemColor name="systemGray2Color">
             <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
-        <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
