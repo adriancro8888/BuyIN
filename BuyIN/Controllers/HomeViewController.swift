@@ -336,12 +336,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let section = indexPath.section
-        if section == 0 {
-            let vc = ProductCollectionViewController()
-            vc.collectionProducts = salesCollections[currentlyShown].products.items
-            navigationController?.pushViewController(vc, animated: true)
-        }
-        else if section == 1 {
+
+         if section == 1 {
             let vc = ProductCollectionViewController()
             vc.collectionProducts = mainCategories[indexPath.row].products.items
             vc.navigationController?.navigationBar.isHidden = false
