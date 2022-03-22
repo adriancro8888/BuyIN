@@ -85,6 +85,9 @@ class CartViewController: UIViewController {
     
     @objc private func cartControllerItemsDidChange(_ notification: Notification) {
         self.updateSubtotal()
+        DispatchQueue.main.async { [weak self] in
+            self?.collectionView.reloadData()
+        }
     }
     
     // ----------------------------------
@@ -354,17 +357,7 @@ extension CartViewController: TotalsControllerDelegate {
 extension CartViewController: UIViewControllerPreviewingDelegate {
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        
-//        let tableView = previewingContext.sourceView as! UITableView
-//        if let indexPath = tableView.indexPathForRow(at: location) {
-//            
-//            previewingContext.sourceRect = tableView.rectForRow(at: indexPath)
-//            
-//            let cell    = tableView.cellForRow(at: indexPath) as! CartCell
-//            let product = cell.viewModel!.model.product
-//            
-//            return self.productDetailsViewControllerWith(product)
-//        }
+
         return nil
     }
     
@@ -438,24 +431,7 @@ extension CartViewController: UICollectionViewDelegate,UICollectionViewDelegateF
         return CGSize(width: width, height: height)
         
     }
- 
-//
-//
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        switch editingStyle {
-//        case .delete:
-//
-//            tableView.beginUpdates()
-//
-//            CartController.shared.removeAllQuantities(at: indexPath.row)
-//
-//            tableView.deleteRows(at: [indexPath], with: .automatic)
-//            tableView.endUpdates()
-//
-//        default:
-//            break
-//        }
-//    }
+
 }
 import SwipeCellKit
 extension CartViewController: SwipeCollectionViewCellDelegate {
@@ -463,12 +439,10 @@ extension CartViewController: SwipeCollectionViewCellDelegate {
     func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
     
         if orientation == .left {
-          //  guard isSwipeRightEnabled else { return nil }
             return nil
         } else {
             let flag = SwipeAction(style: .default, title: "favorite"){ action, indexPath in
                
-                // Add to favorite 
             }
             flag.hidesWhenSelected = true
             configure(action: flag, with: .flag)
@@ -476,24 +450,9 @@ extension CartViewController: SwipeCollectionViewCellDelegate {
             let delete = SwipeAction(style: .destructive, title: nil) { action, indexPath in
                 CartController.shared.removeAllQuantities(at: indexPath.item)
               
-              //  collectionView.deleteItems(at: [indexPath])
             }
             configure(action: delete, with: .trash)
-            
-//            let cell = collectionView.cellForItem(at: indexPath) as! CartCell
-//            let closure: (UIAlertAction) -> Void = { _ in cell.hideSwipe(animated: true) }
-//            let more = SwipeAction(style: .default, title: nil) { action, indexPath in
-//                let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-//                controller.addAction(UIAlertAction(title: "Reply", style: .default, handler: closure))
-//                controller.addAction(UIAlertAction(title: "Forward", style: .default, handler: closure))
-//                controller.addAction(UIAlertAction(title: "Mark...", style: .default, handler: closure))
-//                controller.addAction(UIAlertAction(title: "Notify Me...", style: .default, handler: closure))
-//                controller.addAction(UIAlertAction(title: "Move Message...", style: .default, handler: closure))
-//                controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: closure))
-//                self.present(controller, animated: true, completion: nil)
-//            }
-//            configure(action: more, with: .more)
-            
+
             return [delete, flag] // ,more
         }
     }

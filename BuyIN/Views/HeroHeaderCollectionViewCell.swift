@@ -7,10 +7,14 @@
 
 import UIKit
 
+protocol HeroHeaderCollectionViewCellDelegate: AnyObject {
+    func HeroHeaderCollectionViewCellDelegateDidSelectCollection(_ productCollection: [ProductViewModel])
+}
+
 class HeroHeaderCollectionViewCell: UICollectionViewCell {
     
     private var currentlyShownIndex = 0
-    
+    weak var indexerDelegate: HeroHeaderCollectionViewCellDelegate?
     private let bannerCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -82,6 +86,13 @@ extension HeroHeaderCollectionViewCell: UICollectionViewDelegate, UICollectionVi
         return salesCollections.count
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let salesCollections = salesCollections else {
+            return
+        }
+        let collection = salesCollections[indexPath.row].products.items
+        indexerDelegate?.HeroHeaderCollectionViewCellDelegateDidSelectCollection(collection)
+    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BannerCollectionViewCell.identifier, for: indexPath) as? BannerCollectionViewCell else {

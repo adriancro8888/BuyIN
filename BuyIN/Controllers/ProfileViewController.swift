@@ -22,6 +22,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         self.updateWishList()
         self.registerNotifications()
+
 //        print("items\(items)")
         
 

@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Categories-->
+        <!--Category View Controller-->
         <scene sceneID="wBc-gI-JiU">
             <objects>
                 <viewController id="xem-1L-R1X" customClass="CategoryViewController" customModule="BuyIN" customModuleProvider="target" sceneMemberID="viewController">
@@ -21,11 +21,11 @@
                         <viewLayoutGuide key="safeArea" id="9f3-WQ-HuR"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Categories" image="square.grid.2x2" catalog="system" selectedImage="square.grid.2x2.fill" id="L77-3H-F8j"/>
+                    <navigationItem key="navigationItem" id="qWz-An-dbA"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hOY-hJ-S2O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-706" y="-801"/>
+            <point key="canvasLocation" x="202.89855072463769" y="-801.5625"/>
         </scene>
         <!--Profile-->
         <scene sceneID="cE8-GI-IOi">
@@ -462,8 +462,9 @@
                     </tabBar>
                     <connections>
                         <segue destination="Zwn-yp-2Jl" kind="relationship" relationship="viewControllers" id="Beo-Yd-T1h"/>
-                        <segue destination="xem-1L-R1X" kind="relationship" relationship="viewControllers" id="wm3-Ro-HwD"/>
-                        <segue destination="cEf-xq-u4j" kind="relationship" relationship="viewControllers" id="Pds-GA-Xcf"/>
+                        <segue destination="D9J-Vw-Z9A" kind="relationship" relationship="viewControllers" id="wm3-Ro-HwD"/>
+                        <segue destination="t9j-5u-eb0" kind="relationship" relationship="viewControllers" id="oti-XE-2A1"/>
+                        <segue destination="cEf-xq-u4j" kind="relationship" relationship="viewControllers" id="CvC-V5-mXp"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eAs-Gz-WWY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -505,9 +506,64 @@
             </objects>
             <point key="canvasLocation" x="-707" y="959"/>
         </scene>
+        <!--Shopping Bag View Controller-->
+        <scene sceneID="hW6-cj-rgM">
+            <objects>
+                <viewController id="GDd-vN-YNG" customClass="ShoppingBagViewController" customModule="BuyIN" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Clg-zk-D1p">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="KMz-nM-KK4"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="FJV-9G-ZG5"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GdQ-c3-ZdL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="202.89855072463769" y="-1560.2678571428571"/>
+        </scene>
+        <!--Categories-->
+        <scene sceneID="ZYj-EV-JM1">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="D9J-Vw-Z9A" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Categories" image="square.grid.2x2" catalog="system" selectedImage="square.grid.2x2.fill" id="L77-3H-F8j"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="LZW-o8-Le3">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="xem-1L-R1X" kind="relationship" relationship="rootViewController" id="Mwf-WX-xrn"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RW7-ka-QIn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-707.24637681159425" y="-801.5625"/>
+        </scene>
+        <!--Shopping Bag-->
+        <scene sceneID="Bun-TX-QGB">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="t9j-5u-eb0" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Shopping Bag" image="bag" catalog="system" selectedImage="bag.fill" id="vEm-jJ-jiM"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="jHn-XA-YGh">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="GDd-vN-YNG" kind="relationship" relationship="rootViewController" id="n7X-Ta-pIJ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jPd-Hs-kI2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-707.24637681159425" y="-1560.2678571428571"/>
+        </scene>
     </scenes>
     <resources>
         <image name="bag" catalog="system" width="128" height="128"/>
+        <image name="bag.fill" catalog="system" width="128" height="128"/>
         <image name="gearshape.fill" catalog="system" width="128" height="121"/>
         <image name="house" catalog="system" width="128" height="106"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
