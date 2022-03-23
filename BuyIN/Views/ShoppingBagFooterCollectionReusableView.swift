@@ -7,6 +7,7 @@
 
 import UIKit
 import SwipeCellKit
+import PassKit
 
 
 protocol ShoppingBagFooterCollectionReusableViewDelegate: AnyObject {
@@ -36,6 +37,16 @@ class ShoppingBagFooterCollectionReusableView: UICollectionReusableView {
         button.tintColor = .white
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .semibold)
         button.setTitle("Procceed to checkout", for: .normal)
+        return button
+    }()
+    
+    
+    private let applePayButton: PKPaymentButton = {
+        let button = PKPaymentButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .systemGreen
+        button.tintColor = .white
+        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .semibold)
         return button
     }()
     
@@ -101,6 +112,7 @@ class ShoppingBagFooterCollectionReusableView: UICollectionReusableView {
         addSubview(vatLabel)
         addSubview(priceLabel)
         addSubview(checkoutButton)
+        addSubview(applePayButton)
         promotionButton.addTarget(self, action: #selector(didTapAdd), for: .touchUpInside)
         checkoutButton.addTarget(self, action: #selector(didTapCheckout), for: .touchUpInside)
         configureConstraints()
@@ -173,9 +185,15 @@ class ShoppingBagFooterCollectionReusableView: UICollectionReusableView {
             checkoutButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             checkoutButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             checkoutButton.topAnchor.constraint(equalTo: totalPriceLabel.bottomAnchor, constant: 20),
-            checkoutButton.heightAnchor.constraint(equalToConstant: 60)
+            checkoutButton.heightAnchor.constraint(equalToConstant: 50)
         ]
         
+        let applePayButtonConstraints = [
+            applePayButton.leadingAnchor.constraint(equalTo: checkoutButton.leadingAnchor),
+            applePayButton.trailingAnchor.constraint(equalTo: checkoutButton.trailingAnchor),
+            applePayButton.topAnchor.constraint(equalTo: checkoutButton.bottomAnchor, constant: 10),
+            applePayButton.heightAnchor.constraint(equalToConstant: 50)
+        ]
         
         NSLayoutConstraint.activate(promotionalCodeConstraints)
         NSLayoutConstraint.activate(promotionButtonConstraints)
@@ -184,6 +202,7 @@ class ShoppingBagFooterCollectionReusableView: UICollectionReusableView {
         NSLayoutConstraint.activate(vatLabelConstraints)
         NSLayoutConstraint.activate(priceLabelConstraints)
         NSLayoutConstraint.activate(checkoutButtonConstraints)
+        NSLayoutConstraint.activate(applePayButtonConstraints)
     }
     
     required init?(coder: NSCoder) {

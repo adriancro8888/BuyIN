@@ -151,8 +151,6 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
         view.addSubview(blurredVisualEffect)
         view.addSubview(loginLabel)
         view.addSubview(guestButton)

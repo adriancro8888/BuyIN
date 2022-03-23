@@ -42,10 +42,17 @@ class HandleArea: UIView {
     }
 }
 
+protocol ProductCardViewControllerDelegate: AnyObject {
+    func productCardViewControllerDidRecieveAction()
+}
+
 class ProductCardViewController: UIViewController {
     
     private var colorActions:[UIAction] = [UIAction]()
     private var sizeActions:[UIAction] = [UIAction]()
+    weak var delegate: ProductCardViewControllerDelegate?
+    
+    private var reviews: [Review] = []
     
     private let sizeLabel: UILabel = {
         let label = UILabel()
@@ -157,6 +164,7 @@ class ProductCardViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
+        fetchReviews()
     }
     
     var product: ProductViewModel? {
@@ -173,6 +181,7 @@ class ProductCardViewController: UIViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.register(CardDescriptionTableViewCell.self, forCellReuseIdentifier: CardDescriptionTableViewCell.identifier)
         tableView.register(RelatedProductsTableViewCell.self, forCellReuseIdentifier: RelatedProductsTableViewCell.identifier)
+        tableView.register(ProductReviewTableViewCell.self, forCellReuseIdentifier: ProductReviewTableViewCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -207,6 +216,22 @@ class ProductCardViewController: UIViewController {
         configureMenus()
         cardTableView.backgroundColor = .white
         addToCartButton.addTarget(self, action: #selector(didTapAddToCart), for: .touchUpInside)
+    }
+    
+    
+    
+    private func fetchReviews() {
+        FirestoreManager.shared.fetchReviews(for: product!) { [weak self] result in
+            switch result {
+            case .success(let reviews):
+                self?.reviews = reviews
+                DispatchQueue.main.async {
+                    self?.cardTableView.reloadData()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     @objc private func didTapAddToCart() {
@@ -355,7 +380,7 @@ class ProductCardViewController: UIViewController {
 
 extension ProductCardViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -371,13 +396,24 @@ extension ProductCardViewController: UITableViewDelegate, UITableViewDataSource 
             cell.configure(with: summary)
             return cell
             
-        default:
+            
+        case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: RelatedProductsTableViewCell.identifier, for: indexPath) as? RelatedProductsTableViewCell else {
                 return UITableViewCell()
             }
             cell.configure(with: product!)
             cell.backgroundColor = .white
-
+            
+            return cell
+            
+        default:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ProductReviewTableViewCell.identifier, for: indexPath) as? ProductReviewTableViewCell else {
+                return UITableViewCell()
+            }
+            
+            cell.reviews = reviews
+            cell.delegate = self
+            cell.backgroundColor = .white
             return cell
         }
     }
@@ -395,3 +431,8 @@ extension ProductCardViewController: UITableViewDelegate, UITableViewDataSource 
     }
 }
 
+extension ProductCardViewController: ProductReviewTableViewCellDelegate {
+    func productReviewTableViewCellDelegateDidTapAddReview() {
+        delegate?.productCardViewControllerDidRecieveAction()
+    }
+}

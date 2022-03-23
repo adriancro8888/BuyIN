@@ -117,6 +117,7 @@ class ProductDetailsViewController: UIViewController {
         productCardViewController = ProductCardViewController()
         productCardViewController.product = product
         addChild(productCardViewController)
+        productCardViewController.delegate = self
         view.addSubview(productCardViewController.view)
         productCardViewController.didMove(toParent: self)
 
@@ -432,5 +433,14 @@ extension ProductDetailsViewController: UICollectionViewDelegate, UICollectionVi
         if Double(currentlyShown) > Double((product?.images.items.count)!-1) {
             animateTransitionIfNeeded(state: nextState, duration: 0.9)
         }
+    }
+}
+
+
+extension ProductDetailsViewController: ProductCardViewControllerDelegate {
+    func productCardViewControllerDidRecieveAction() {
+        let vc = AddReviewViewController()
+        vc.product = product
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
