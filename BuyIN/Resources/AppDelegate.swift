@@ -7,23 +7,20 @@
 
 import UIKit
 import CoreData
+import Firebase
 
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     let window: UIWindow? = nil
   
-
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
-
         _ = CartController.shared
         Client.shared.loadBrands()
         Client.shared.loadTags()
         Client.shared.loadTypes()
         Client.shared.loadCategories()
+        FirebaseApp.configure()
         return true
     }
     
