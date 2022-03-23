@@ -197,8 +197,11 @@ class SearchViewController: UIViewController {
     }
     func applyFiltring(){
         self.filteredProducts.removeAll()
-        self.filteredProducts.append(contentsOf: self.getFilterdArray(self.products.items))
-        self.collectionView.reloadData()
+        if let products = self.products{
+            self.filteredProducts.append(contentsOf: self.getFilterdArray(self.products.items))
+            self.collectionView.reloadData()
+        }
+        
     }
     
     func getFilterdArray(_ datasource:[ProductViewModel]) -> [ProductViewModel]{
