@@ -75,6 +75,7 @@ class SearchHeaderCollectionReusableView: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(searchView)
+        backgroundColor = .white
         searchView.addSubview(searchTextField)
         searchView.addSubview(filterButton)
         configureConstraints()

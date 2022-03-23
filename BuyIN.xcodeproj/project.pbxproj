@@ -1482,8 +1482,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = BuyIN/BuyIN.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8J6CP5DTV3;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = DJCKM4F4RZ;
 				INFOPLIST_FILE = BuyIN/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
