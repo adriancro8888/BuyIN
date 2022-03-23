@@ -15,10 +15,10 @@ final class Client {
     
     static let shopDomain = "itiios.myshopify.com"
     static let apiKey     = "f78f765d212201e09cf5b3d6f8020421"
-
+    static let merchantID = "merchant.elhayani.com"
 //    static let shopDomain = "jets-ismailia.myshopify.com"
 //    static let apiKey     = "70adb96961fe55ab1ce308476d536e01"
-    static let merchantID = "merchant.com.your.id"
+
     static let shared = Client()
     
     private let client: Graph.Client = Graph.Client(shopDomain: Client.shopDomain, apiKey: Client.apiKey, locale:nil)

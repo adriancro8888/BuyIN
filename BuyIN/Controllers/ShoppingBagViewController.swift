@@ -434,7 +434,8 @@ extension ShoppingBagViewController: ShoppingBagFooterCollectionReusableViewDele
     }
     
     func shoppingBagFooterCollectionReusableViewDidTapCheckoutButton() {
-        requstPayment()
+      //  requstPayment()
+        RequstWithApplePay()
     }
 }
 
@@ -510,9 +511,6 @@ extension ShoppingBagViewController: TotalsControllerDelegate {
     
     func requstPayment() {
        
-        
-
-        
         if checkout == nil {
             
             let cartItems = CartController.shared.items
@@ -526,8 +524,6 @@ extension ShoppingBagViewController: TotalsControllerDelegate {
                 return
             }
         }
-        
-        
         guard let checkout = checkout else {
                         print("Failed to create checkout.")
                         return
@@ -546,5 +542,192 @@ extension ShoppingBagViewController: TotalsControllerDelegate {
            // }
         }
     }
+    
+    func authorizePaymentFor(_ shopName: String, in checkout: CheckoutViewModel) {
+        let payCurrency = PayCurrency(currencyCode: "EGP", countryCode: "EG")
+        let paySession  = PaySession(
+            shopName: shopName,
+            checkout: checkout.payCheckout,
+            currency: payCurrency,
+            merchantID: Client.merchantID
+        )
+        
+        paySession.delegate = self
+        self.paySession     = paySession
+       // paySession.
+        paySession.authorize()
+    }
+    
+    func RequstWithApplePay(){
+        
+        if checkout == nil {
+            
+            let cartItems = CartController.shared.items
+            Client.shared.createCheckout(with: cartItems) { checkout in
+                guard let checkout = checkout else {
+                    print("Failed to create checkout.")
+                    return
+                }
+                self.checkout = checkout
+                self.RequstWithApplePay()
+                return
+            }
+        }
+        guard let checkout = checkout else {
+                        print("Failed to create checkout.")
+                        return
+                    }
+            var updatedCheckout = checkout
+            if let accessToken = AccountController.shared.accessToken {
+                print("Associating checkout with customer: \(accessToken)")
+                Client.shared.updateCheckout(checkout.id, associatingCustomer: accessToken) { associatedCheckout in
+                    if let associatedCheckout = associatedCheckout {
+                        updatedCheckout = associatedCheckout
+                       
+                    //case .applePay:
+                        Client.shared.fetchShopName { shopName in
+                            guard let shopName = shopName else {
+                                print("Failed to fetch shop name.")
+                                return
+                            }
+                            self.authorizePaymentFor(shopName, in: checkout)
+                        }
+                        
+                        
+                    } else {
+                        print("Failed to associate checkout with customer.")
+                    }
+                }
+           // }
+        }
+    }
 }
 
+// ----------------------------------
+//  MARK: - PaySessionDelegate -
+//
+extension ShoppingBagViewController: PaySessionDelegate {
+    
+    func paySession(_ paySession: PaySession, didRequestShippingRatesFor address: PayPostalAddress, checkout: PayCheckout, provide: @escaping  (PayCheckout?, [PayShippingRate]) -> Void) {
+       // var rates :[PayShippingRate]=[PayShippingRate]()
+        let rate = PayShippingRate(handle: "domistec", title: "domistec", price: 15)
+        provide(checkout,[rate])
+        return;
+        print("Updating checkout with address...")
+        Client.shared.updateCheckout(checkout.id, updatingPartialShippingAddress: address) { checkout in
+            
+            guard let checkout = checkout else {
+                print("Update for checkout failed.")
+                provide(nil, [])
+                return
+            }
+            
+            print("Getting shipping rates...")
+            Client.shared.fetchShippingRatesForCheckout(checkout.id) { result in
+                if let result = result {
+                    print("Fetched shipping rates.")
+                    provide(result.checkout.payCheckout, result.rates.payShippingRates)
+                } else {
+                    provide(nil, [])
+                }
+            }
+        }
+    }
+    
+    func paySession(_ paySession: PaySession, didUpdateShippingAddress address: PayPostalAddress, checkout: PayCheckout, provide: @escaping (PayCheckout?) -> Void) {
+      
+        
+        provide(checkout)
+        return;
+        print("Updating checkout with shipping address for tax estimate...")
+        Client.shared.updateCheckout(checkout.id, updatingPartialShippingAddress: address) { checkout in
+            guard let checkout = checkout else {
+                print("Update for checkout failed.")
+                provide(nil)
+                return
+            }
+
+            if checkout.ready {
+                provide(checkout.payCheckout)
+            } else {
+                Client.shared.pollForReadyCheckout(checkout.id) { checkout in
+                    provide(checkout?.payCheckout)
+                }
+            }
+            
+        }
+    }
+    
+    func paySession(_ paySession: PaySession, didSelectShippingRate shippingRate: PayShippingRate, checkout: PayCheckout, provide: @escaping  (PayCheckout?) -> Void) {
+        provide(checkout)
+        return;
+        print("Selecting shipping rate...")
+        Client.shared.updateCheckout(checkout.id, updatingShippingRate: shippingRate) { updatedCheckout in
+            print("Selected shipping rate.")
+            guard let updatedCheckout = updatedCheckout else { return provide(nil) }
+            if updatedCheckout.ready {
+                provide(updatedCheckout.payCheckout)
+            } else {
+                Client.shared.pollForReadyCheckout(checkout.id) { checkout in
+                    provide(checkout?.payCheckout)
+                }
+            }
+        }
+    }
+    
+    func paySession(_ paySession: PaySession, didAuthorizePayment authorization: PayAuthorization, checkout: PayCheckout, completeTransaction: @escaping (PaySession.TransactionStatus) -> Void) {
+        
+        
+        Client.shared.pollForReadyCheckout(checkout.id) { readyCheckout in
+            guard let checkout = readyCheckout?.payCheckout else {
+                print("Checkout failed to get ready...")
+                completeTransaction(.failure)
+                return
+            }
+            
+            print("Checkout is ready...")
+            print("Completing checkout...")
+            Client.shared.completeCheckout(checkout, billingAddress: authorization.billingAddress, applePayToken: authorization.token, idempotencyToken: paySession.identifier) { payment in
+                if let payment = payment, checkout.paymentDue == payment.amount {
+                    print("Checkout completed successfully.")
+                    completeTransaction(.success)
+                } else {
+                    print("Checkout failed to complete.")
+                    completeTransaction(.failure)
+                }
+            }
+        }
+        
+        
+        
+//        guard let email = authorization.shippingAddress.email else {
+//            print("Unable to update checkout email. Aborting transaction.")
+//            completeTransaction(.failure)
+//            return
+//        }
+//
+//        print("Updating checkout shipping address...")
+//        Client.shared.updateCheckout(checkout.id, updatingCompleteShippingAddress: authorization.shippingAddress) { _updatedCheckout in
+////            guard let _ = updatedCheckout else {
+////                completeTransaction(.failure)
+////               return
+////            }
+//           var  updatedCheckout = checkout
+//            print("Updating checkout email...")
+//            Client.shared.updateCheckout(checkout.id, updatingEmail: email) { updatedCheckout in
+//                guard let _ = updatedCheckout else {
+//                    completeTransaction(.failure)
+//                    return
+//                }
+//
+//                print("Checkout email updated: \(email)")
+//
+//
+//            }
+//        }
+    }
+    
+    func paySessionDidFinish(_ paySession: PaySession) {
+        
+    }
+}

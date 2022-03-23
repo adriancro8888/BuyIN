@@ -33,7 +33,7 @@ class SearchViewController: UIViewController {
     }
     
     
-  //  private var products: [ProductViewModel] = []
+    //private var products: [ProductViewModel] = []
     var products: PageableArray<ProductViewModel>!
     private var filterViewHeight: CGFloat = 0
     private var heightConstraint: NSLayoutConstraint?
