@@ -434,8 +434,8 @@ extension ShoppingBagViewController: ShoppingBagFooterCollectionReusableViewDele
     }
     
     func shoppingBagFooterCollectionReusableViewDidTapCheckoutButton() {
-      //  requstPayment()
-        RequstWithApplePay()
+        requstPayment()
+       // RequstWithApplePay()
     }
 }
 
