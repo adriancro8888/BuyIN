@@ -509,25 +509,41 @@ extension ShoppingBagViewController: TotalsControllerDelegate {
     
     
     func requstPayment() {
-        let cartItems = CartController.shared.items
-        Client.shared.createCheckout(with: cartItems) { checkout in
-            guard let checkout = checkout else {
-                print("Failed to create checkout.")
+       
+        
+
+        
+        if checkout == nil {
+            
+            let cartItems = CartController.shared.items
+            Client.shared.createCheckout(with: cartItems) { checkout in
+                guard let checkout = checkout else {
+                    print("Failed to create checkout.")
+                    return
+                }
+                self.checkout = checkout
+                self.requstPayment()
                 return
             }
-          //  var updatedCheckout = checkout
+        }
+        
+        
+        guard let checkout = checkout else {
+                        print("Failed to create checkout.")
+                        return
+                    }
+            var updatedCheckout = checkout
             if let accessToken = AccountController.shared.accessToken {
                 print("Associating checkout with customer: \(accessToken)")
-                print(checkout.webURL)
                 Client.shared.updateCheckout(checkout.id, associatingCustomer: accessToken) { associatedCheckout in
                     if let associatedCheckout = associatedCheckout {
-                        print(associatedCheckout.webURL)
-                        self.openWKWebViewControllerFor(associatedCheckout.webURL, title: "Checkout")
+                        updatedCheckout = associatedCheckout
+                        self.openWKWebViewControllerFor(updatedCheckout.webURL, title: "Checkout")
                     } else {
                         print("Failed to associate checkout with customer.")
                     }
                 }
-            }
+           // }
         }
     }
 }
