@@ -153,7 +153,7 @@ final class ClientQuery {
                         .title()
                         .description()
                         .image( ) { $0
-                            .url()
+                            .url( transform:  Client.imageTransferInput)
                         }
                         .products(first: Int32(productLimit), after: productCursor ) { $0
                             .fragmentForStandardProduct()
