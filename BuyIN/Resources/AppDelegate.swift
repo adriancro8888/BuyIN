@@ -9,12 +9,20 @@ import UIKit
 import CoreData
 import Firebase
 
+import AppCenter
+import AppCenterAnalytics
+import AppCenterCrashes
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     let window: UIWindow? = nil
   
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        AppCenter.start(withAppSecret: "4080aaec-4e6e-498e-9e0a-13344944eaed", services:[
+          Analytics.self,
+          Crashes.self
+        ])
+
         _ = CartController.shared
         Client.shared.loadBrands()
         Client.shared.loadTags()

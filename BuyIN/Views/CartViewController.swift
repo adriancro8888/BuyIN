@@ -164,8 +164,8 @@ class CartViewController: UIViewController {
 
     @IBAction func checkOutClicked(_ sender: Any) {
 
-        
-        totalsController( didRequestPaymentWith: .webCheckout)
+        requstPayment()
+//        totalsController( didRequestPaymentWith: .webCheckout)
         
     }
     
@@ -250,117 +250,121 @@ extension CartViewController {
 //  MARK: - TotalsControllerDelegate -
 //
 extension CartViewController: TotalsControllerDelegate {
-    
-    func totalsController(
-        //_ totalsController: TotalsViewController,
-        didRequestPaymentWith type: PaymentType) {
-        let cartItems = CartController.shared.items
-        if type == .shopPay {
-            Client.shared.fetchShopURL { shopURL in
-                guard let shopURL = shopURL else {
-                    print("Failed to fetch shop url.")
-                    return
-                }
-                
-                let shopPayURL = self.buildShopPayURL(shopURL, cartItems: cartItems)
-                if (shopPayURL != nil) {
-                    self.openSafariViewControllerFor(shopPayURL!)
-                }
-            }
-        } else {
-            Client.shared.createCheckout(with: cartItems) { checkout in
-                guard let checkout = checkout else {
-                    print("Failed to create checkout.")
-                    return
-                }
-                
-                let completeCreateCheckout: (CheckoutViewModel) -> Void = { checkout in
-                    switch type {
-                    case .webCheckout:
-                        self.openWKWebViewControllerFor(checkout.webURL, title: "Checkout")
-                        
-                    case .localCheckout:
-                        Client.shared.fetchShopName { shopName in
-                            guard shopName != nil else {
-                                print("Failed to fetch shop name.")
-                                return
-                            }
-                        }
-                    case .shopPay:
-                        // Shouldn't happen as it was handled above.
-                        break
-                    }
-                }
-                
-                /* ----------------------------------------
-                 ** Use "HALFOFF" discount code for a 50%
-                 ** discount in the graphql.myshopify.com
-                 ** store (the test shop).
-                 */
-                self.promptForCodes { (discountCode, giftCard) in
-                    var updatedCheckout = checkout
-                    
-                    let queue     = DispatchQueue.global(qos: .userInitiated)
-                    let group     = DispatchGroup()
-                    let semaphore = DispatchSemaphore(value: 1)
-                    
-                    if let discountCode = discountCode {
-                        group.enter()
-                        queue.async {
-                            semaphore.wait()
-                            
-                            print("Applying discount code: \(discountCode)")
-                            Client.shared.applyDiscount(discountCode, to: checkout.id) { checkout in
-                                if let checkout = checkout {
-                                    updatedCheckout = checkout
-                                } else {
-                                    print("Failed to apply discount to checkout")
-                                }
-                                semaphore.signal()
-                                group.leave()
-                            }
-                        }
-                    }
-                    
-                    if let giftCard = giftCard {
-                        group.enter()
-                        queue.async {
-                            semaphore.wait()
-                            
-                            print("Applying gift card: \(giftCard)")
-                            Client.shared.applyGiftCard(giftCard, to: checkout.id) { checkout in
-                                if let checkout = checkout {
-                                    updatedCheckout = checkout
-                                } else {
-                                    print("Failed to apply gift card to checkout")
-                                }
-                                semaphore.signal()
-                                group.leave()
-                            }
-                        }
-                    }
-                    
-                    group.notify(queue: .main) {
-                        if let accessToken = AccountController.shared.accessToken {
-                            
-                            print("Associating checkout with customer: \(accessToken)")
-                            Client.shared.updateCheckout(updatedCheckout.id, associatingCustomer: accessToken) { associatedCheckout in
-                                if let associatedCheckout = associatedCheckout {
-                                    completeCreateCheckout(associatedCheckout)
-                                } else {
-                                    print("Failed to associate checkout with customer.")
-                                    completeCreateCheckout(updatedCheckout)
-                                }
-                            }
-                            
-                        } else {
-                            completeCreateCheckout(updatedCheckout)
-                        }
-                    }
-                }
-            }
-        }
+    func requstPayment() {
+        
     }
+    
+    
+//    func totalsController(
+//        //_ totalsController: TotalsViewController,
+//        didRequestPaymentWith type: PaymentType) {
+//        let cartItems = CartController.shared.items
+//        if type == .shopPay {
+//            Client.shared.fetchShopURL { shopURL in
+//                guard let shopURL = shopURL else {
+//                    print("Failed to fetch shop url.")
+//                    return
+//                }
+//
+//                let shopPayURL = self.buildShopPayURL(shopURL, cartItems: cartItems)
+//                if (shopPayURL != nil) {
+//                    self.openSafariViewControllerFor(shopPayURL!)
+//                }
+//            }
+//        } else {
+//            Client.shared.createCheckout(with: cartItems) { checkout in
+//                guard let checkout = checkout else {
+//                    print("Failed to create checkout.")
+//                    return
+//                }
+//
+//                let completeCreateCheckout: (CheckoutViewModel) -> Void = { checkout in
+//                    switch type {
+//                    case .webCheckout:
+//                        self.openWKWebViewControllerFor(checkout.webURL, title: "Checkout")
+//
+//                    case .localCheckout:
+//                        Client.shared.fetchShopName { shopName in
+//                            guard shopName != nil else {
+//                                print("Failed to fetch shop name.")
+//                                return
+//                            }
+//                        }
+//                    case .shopPay:
+//                        // Shouldn't happen as it was handled above.
+//                        break
+//                    }
+//                }
+//
+//                /* ----------------------------------------
+//                 ** Use "HALFOFF" discount code for a 50%
+//                 ** discount in the graphql.myshopify.com
+//                 ** store (the test shop).
+//                 */
+//                self.promptForCodes { (discountCode, giftCard) in
+//                    var updatedCheckout = checkout
+//
+//                    let queue     = DispatchQueue.global(qos: .userInitiated)
+//                    let group     = DispatchGroup()
+//                    let semaphore = DispatchSemaphore(value: 1)
+//
+//                    if let discountCode = discountCode {
+//                        group.enter()
+//                        queue.async {
+//                            semaphore.wait()
+//
+//                            print("Applying discount code: \(discountCode)")
+//                            Client.shared.applyDiscount(discountCode, to: checkout.id) { checkout in
+//                                if let checkout = checkout {
+//                                    updatedCheckout = checkout
+//                                } else {
+//                                    print("Failed to apply discount to checkout")
+//                                }
+//                                semaphore.signal()
+//                                group.leave()
+//                            }
+//                        }
+//                    }
+//
+//                    if let giftCard = giftCard {
+//                        group.enter()
+//                        queue.async {
+//                            semaphore.wait()
+//
+//                            print("Applying gift card: \(giftCard)")
+//                            Client.shared.applyGiftCard(giftCard, to: checkout.id) { checkout in
+//                                if let checkout = checkout {
+//                                    updatedCheckout = checkout
+//                                } else {
+//                                    print("Failed to apply gift card to checkout")
+//                                }
+//                                semaphore.signal()
+//                                group.leave()
+//                            }
+//                        }
+//                    }
+//
+//                    group.notify(queue: .main) {
+//                        if let accessToken = AccountController.shared.accessToken {
+//
+//                            print("Associating checkout with customer: \(accessToken)")
+//                            Client.shared.updateCheckout(updatedCheckout.id, associatingCustomer: accessToken) { associatedCheckout in
+//                                if let associatedCheckout = associatedCheckout {
+//                                    completeCreateCheckout(associatedCheckout)
+//                                } else {
+//                                    print("Failed to associate checkout with customer.")
+//                                    completeCreateCheckout(updatedCheckout)
+//                                }
+//                            }
+//
+//                        } else {
+//                            completeCreateCheckout(updatedCheckout)
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
 }
 
 

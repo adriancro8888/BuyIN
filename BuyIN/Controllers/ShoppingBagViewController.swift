@@ -11,7 +11,7 @@ import SafariServices
 import SwipeCellKit
 
 class ShoppingBagViewController: UIViewController {
- 
+    
     private var checkout: CheckoutViewModel?
     
     static func collectionLayoutProvider() -> NSCollectionLayoutSection {
@@ -66,16 +66,16 @@ class ShoppingBagViewController: UIViewController {
     
     var itemCount: Int = 0 {
         didSet {
-//            self.cartItemCount.text = "\(self.itemCount)"
+            //            self.cartItemCount.text = "\(self.itemCount)"
         }
     }
     
     var subtotal: Decimal = 0.0 {
         didSet {
-//            self.totalPrice.text = Currency.stringFrom(self.subtotal)
+            //            self.totalPrice.text = Currency.stringFrom(self.subtotal)
         }
     }
-
+    
     private let emptyShoppingBagLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -96,7 +96,7 @@ class ShoppingBagViewController: UIViewController {
         button.layer.borderWidth = 1
         return button
     }()
-
+    
     
     private let newArrivalsButton: UIButton = {
         let button = UIButton(type: .system)
@@ -126,7 +126,7 @@ class ShoppingBagViewController: UIViewController {
     }()
     
     private let collectionView: UICollectionView = {
-
+        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout(section: ShoppingBagViewController.collectionLayoutProvider()))
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.register(ShoppingBagCollectionViewCell.self, forCellWithReuseIdentifier: ShoppingBagCollectionViewCell.identifier)
@@ -140,7 +140,7 @@ class ShoppingBagViewController: UIViewController {
         CartController.shared.items.count > 0 ? configureAsFilled() : configureAsEmpty()
     }
     
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -152,7 +152,7 @@ class ShoppingBagViewController: UIViewController {
         view.addSubview(wishListButton)
         view.addSubview(newArrivalsButton)
         view.addSubview(cartNavbar)
-
+        
         cartNavbar.addSubview(viewTitleLabel)
         navigationController?.navigationBar.isHidden = true
         collectionView.delegate = self
@@ -175,7 +175,7 @@ class ShoppingBagViewController: UIViewController {
     @objc private func didTapNewArrival() {
         
     }
- 
+    
     
     private func configureAsEmpty() {
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut) { [weak self] in
@@ -196,7 +196,7 @@ class ShoppingBagViewController: UIViewController {
             self?.newArrivalsButton.alpha = 0
         } completion: { _ in}
     }
-
+    
     private func registerNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(cartControllerItemsDidChange(_:)), name: Notification.Name.CartControllerItemsDidChange, object: nil)
     }
@@ -220,7 +220,7 @@ class ShoppingBagViewController: UIViewController {
         itemCount > 0 ? configureAsFilled() : configureAsEmpty()
         
     }
- 
+    
     private func configureConstraints() {
         
         let cartNavbarConstraints = [
@@ -266,7 +266,7 @@ class ShoppingBagViewController: UIViewController {
             viewTitleLabel.bottomAnchor.constraint(equalTo: cartNavbar.bottomAnchor, constant: -20)
         ]
         
-
+        
         NSLayoutConstraint.activate(emptyShoppingBagLabelConstraints)
         NSLayoutConstraint.activate(subShoppingBagLabelConstraints)
         NSLayoutConstraint.activate(wishListButtonConstraints)
@@ -289,11 +289,11 @@ extension ShoppingBagViewController: UICollectionViewDelegate, UICollectionViewD
     
     func swipableActionsLayout(forItemAt indexPath: IndexPath) -> CollectionSwipableCellLayout? {
         let actionLayout = CollectionSwipableCellOneButtonLayout(buttonWidth: 100, insets: .zero, direction: .leftToRight)
-          actionLayout.action = { [weak self] in
-              //do something
-          }
-
-          return actionLayout
+        actionLayout.action = { [weak self] in
+            //do something
+        }
+        
+        return actionLayout
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -316,7 +316,7 @@ extension ShoppingBagViewController: UICollectionViewDelegate, UICollectionViewD
         {
             return UICollectionReusableView()
         }
-
+        
         footer.configure(with: checkout, subtotal: CartController.shared.subtotal)
         footer.delegate = self
         return footer
@@ -324,19 +324,19 @@ extension ShoppingBagViewController: UICollectionViewDelegate, UICollectionViewD
 }
 
 extension ShoppingBagViewController: SwipeCollectionViewCellDelegate {
-
     
     
-   
+    
+    
     
     func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-    
+        
         if orientation == .left {
-          //  guard isSwipeRightEnabled else { return nil }
+            //  guard isSwipeRightEnabled else { return nil }
             return nil
         } else {
             let flag = SwipeAction(style: .default, title: "favorite"){ action, indexPath in
-               
+                
                 // Add to favorite
             }
             flag.hidesWhenSelected = true
@@ -347,7 +347,7 @@ extension ShoppingBagViewController: SwipeCollectionViewCellDelegate {
                 DispatchQueue.main.async { [weak self] in
                     self?.collectionView.reloadData()
                 }
-              
+                
             }
             configure(action: delete, with: .trash)
             return [delete] // ,more
@@ -360,28 +360,28 @@ extension ShoppingBagViewController: SwipeCollectionViewCellDelegate {
         let defaultOptions = SwipeOptions()
         let buttonStyle: ButtonStyle = .backgroundColor
         options.transitionStyle = defaultOptions.transitionStyle
-
+        
         switch buttonStyle {
         case .backgroundColor:
             options.buttonSpacing = 11
         case .circular:
             options.buttonSpacing = 4
-        #if canImport(Combine)
+#if canImport(Combine)
             if #available(iOS 13.0, *) {
                 options.backgroundColor = UIColor.systemGray6
             } else {
                 options.backgroundColor = #colorLiteral(red: 0.9467939734, green: 0.9468161464, blue: 0.9468042254, alpha: 1)
             }
-        #else
+#else
             options.backgroundColor = #colorLiteral(red: 0.9467939734, green: 0.9468161464, blue: 0.9468042254, alpha: 1)
-        #endif
+#endif
         }
         
         return options
     }
     
     func visibleRect(for collectionView: UICollectionView) -> CGRect? {
-       // if usesTallCells == false { return nil }
+        // if usesTallCells == false { return nil }
         
         if #available(iOS 11.0, *) {
             return collectionView.safeAreaLayoutGuide.layoutFrame
@@ -395,7 +395,7 @@ extension ShoppingBagViewController: SwipeCollectionViewCellDelegate {
     }
     
     func configure(action: SwipeAction, with descriptor: ActionDescriptor) {
-  
+        
         let buttonStyle: ButtonStyle = .circular
         let buttonDisplayMode: ButtonDisplayMode = .titleAndImage
         
@@ -434,7 +434,8 @@ extension ShoppingBagViewController: ShoppingBagFooterCollectionReusableViewDele
     }
     
     func shoppingBagFooterCollectionReusableViewDidTapCheckoutButton() {
-        totalsController(didRequestPaymentWith: .webCheckout)
+      //  requstPayment()
+        RequstWithApplePay()
     }
 }
 
@@ -454,7 +455,7 @@ extension ShoppingBagViewController: ShoppingBagCollectionViewCellDelegate {
             cartItem.viewModel.title == forItem.title && cartItem.variant.id == forItem.model.variant.id
         }
         CartController.shared.decrementAt(index!)
-
+        
     }
 }
 
@@ -472,7 +473,7 @@ extension ShoppingBagViewController: TotalsControllerDelegate {
         self.navigationController?.isNavigationBarHidden = true
         self.navigationController?.pushViewController(safariViewController, animated: false)
     }
-
+    
     func buildShopPayURL(_ shopURL: URL, cartItems: [CartItem]) -> URL? {
         func decodeBase64String(_ base64String: String) -> String {
             let decodedData = Data(base64Encoded: base64String)!
@@ -488,8 +489,8 @@ extension ShoppingBagViewController: TotalsControllerDelegate {
                 return ""
             }
             if let substringRange = Range(result[0].range(at: 1), in: fullVariantId) {
-                    return String(fullVariantId[substringRange])
-                }
+                return String(fullVariantId[substringRange])
+            }
             return ""
         }
         func buildVariantSlugForItem(_ item: CartItem) -> String {
@@ -508,70 +509,225 @@ extension ShoppingBagViewController: TotalsControllerDelegate {
     }
     
     
-    func totalsController(didRequestPaymentWith type: PaymentType) {
-        let cartItems = CartController.shared.items
-        if type == .shopPay {
-            Client.shared.fetchShopURL { shopURL in
-                guard let shopURL = shopURL else {
-                    print("Failed to fetch shop url.")
+    func requstPayment() {
+       
+        if checkout == nil {
+            
+            let cartItems = CartController.shared.items
+            Client.shared.createCheckout(with: cartItems) { checkout in
+                guard let checkout = checkout else {
+                    print("Failed to create checkout.")
                     return
                 }
-                
-                let shopPayURL = self.buildShopPayURL(shopURL, cartItems: cartItems)
-                if (shopPayURL != nil) {
-                    self.openSafariViewControllerFor(shopPayURL!)
-                }
+                self.checkout = checkout
+                self.requstPayment()
+                return
             }
-        } else {
-            if let checkout = checkout {
-                let completeCreateCheckout: (CheckoutViewModel) -> Void = { checkout in
-                    switch type {
-                    case .webCheckout:
-                        self.openWKWebViewControllerFor(checkout.webURL, title: "Checkout")
-                        
-                    case .localCheckout:
-                        Client.shared.fetchShopName { shopName in
-                            guard shopName != nil else {
-                                print("Failed to fetch shop name.")
-                                return
-                            }
-                        }
-                    case .shopPay:
-                        // Shouldn't happen as it was handled above.
-                        break
-                    }
-                }
-                
-                completeCreateCheckout(checkout)
-                
-            } else {
-                Client.shared.createCheckout(with: cartItems) { checkout in
-                    guard let checkout = checkout else {
+        }
+        guard let checkout = checkout else {
                         print("Failed to create checkout.")
                         return
                     }
-                    
-                    let completeCreateCheckout: (CheckoutViewModel) -> Void = { checkout in
-                        switch type {
-                        case .webCheckout:
-                            self.openWKWebViewControllerFor(checkout.webURL, title: "Checkout")
-                            
-                        case .localCheckout:
-                            Client.shared.fetchShopName { shopName in
-                                guard shopName != nil else {
-                                    print("Failed to fetch shop name.")
-                                    return
-                                }
-                            }
-                        case .shopPay:
-                            // Shouldn't happen as it was handled above.
-                            break
-                        }
+            var updatedCheckout = checkout
+            if let accessToken = AccountController.shared.accessToken {
+                print("Associating checkout with customer: \(accessToken)")
+                Client.shared.updateCheckout(checkout.id, associatingCustomer: accessToken) { associatedCheckout in
+                    if let associatedCheckout = associatedCheckout {
+                        updatedCheckout = associatedCheckout
+                        self.openWKWebViewControllerFor(updatedCheckout.webURL, title: "Checkout")
+                    } else {
+                        print("Failed to associate checkout with customer.")
                     }
-                    completeCreateCheckout(checkout)
                 }
+           // }
+        }
+    }
+    
+    func authorizePaymentFor(_ shopName: String, in checkout: CheckoutViewModel) {
+        let payCurrency = PayCurrency(currencyCode: "EGP", countryCode: "EG")
+        let paySession  = PaySession(
+            shopName: shopName,
+            checkout: checkout.payCheckout,
+            currency: payCurrency,
+            merchantID: Client.merchantID
+        )
+        
+        paySession.delegate = self
+        self.paySession     = paySession
+       // paySession.
+        paySession.authorize()
+    }
+    
+    func RequstWithApplePay(){
+        
+        if checkout == nil {
+            
+            let cartItems = CartController.shared.items
+            Client.shared.createCheckout(with: cartItems) { checkout in
+                guard let checkout = checkout else {
+                    print("Failed to create checkout.")
+                    return
+                }
+                self.checkout = checkout
+                self.RequstWithApplePay()
+                return
             }
+        }
+        guard let checkout = checkout else {
+                        print("Failed to create checkout.")
+                        return
+                    }
+            var updatedCheckout = checkout
+            if let accessToken = AccountController.shared.accessToken {
+                print("Associating checkout with customer: \(accessToken)")
+                Client.shared.updateCheckout(checkout.id, associatingCustomer: accessToken) { associatedCheckout in
+                    if let associatedCheckout = associatedCheckout {
+                        updatedCheckout = associatedCheckout
+                       
+                    //case .applePay:
+                        Client.shared.fetchShopName { shopName in
+                            guard let shopName = shopName else {
+                                print("Failed to fetch shop name.")
+                                return
+                            }
+                            self.authorizePaymentFor(shopName, in: checkout)
+                        }
+                        
+                        
+                    } else {
+                        print("Failed to associate checkout with customer.")
+                    }
+                }
+           // }
         }
     }
 }
 
+// ----------------------------------
+//  MARK: - PaySessionDelegate -
+//
+extension ShoppingBagViewController: PaySessionDelegate {
+    
+    func paySession(_ paySession: PaySession, didRequestShippingRatesFor address: PayPostalAddress, checkout: PayCheckout, provide: @escaping  (PayCheckout?, [PayShippingRate]) -> Void) {
+       // var rates :[PayShippingRate]=[PayShippingRate]()
+        let rate = PayShippingRate(handle: "domistec", title: "domistec", price: 15)
+        provide(checkout,[rate])
+        return;
+        print("Updating checkout with address...")
+        Client.shared.updateCheckout(checkout.id, updatingPartialShippingAddress: address) { checkout in
+            
+            guard let checkout = checkout else {
+                print("Update for checkout failed.")
+                provide(nil, [])
+                return
+            }
+            
+            print("Getting shipping rates...")
+            Client.shared.fetchShippingRatesForCheckout(checkout.id) { result in
+                if let result = result {
+                    print("Fetched shipping rates.")
+                    provide(result.checkout.payCheckout, result.rates.payShippingRates)
+                } else {
+                    provide(nil, [])
+                }
+            }
+        }
+    }
+    
+    func paySession(_ paySession: PaySession, didUpdateShippingAddress address: PayPostalAddress, checkout: PayCheckout, provide: @escaping (PayCheckout?) -> Void) {
+      
+        
+        provide(checkout)
+        return;
+        print("Updating checkout with shipping address for tax estimate...")
+        Client.shared.updateCheckout(checkout.id, updatingPartialShippingAddress: address) { checkout in
+            guard let checkout = checkout else {
+                print("Update for checkout failed.")
+                provide(nil)
+                return
+            }
+
+            if checkout.ready {
+                provide(checkout.payCheckout)
+            } else {
+                Client.shared.pollForReadyCheckout(checkout.id) { checkout in
+                    provide(checkout?.payCheckout)
+                }
+            }
+            
+        }
+    }
+    
+    func paySession(_ paySession: PaySession, didSelectShippingRate shippingRate: PayShippingRate, checkout: PayCheckout, provide: @escaping  (PayCheckout?) -> Void) {
+        provide(checkout)
+        return;
+        print("Selecting shipping rate...")
+        Client.shared.updateCheckout(checkout.id, updatingShippingRate: shippingRate) { updatedCheckout in
+            print("Selected shipping rate.")
+            guard let updatedCheckout = updatedCheckout else { return provide(nil) }
+            if updatedCheckout.ready {
+                provide(updatedCheckout.payCheckout)
+            } else {
+                Client.shared.pollForReadyCheckout(checkout.id) { checkout in
+                    provide(checkout?.payCheckout)
+                }
+            }
+        }
+    }
+    
+    func paySession(_ paySession: PaySession, didAuthorizePayment authorization: PayAuthorization, checkout: PayCheckout, completeTransaction: @escaping (PaySession.TransactionStatus) -> Void) {
+        
+        
+        Client.shared.pollForReadyCheckout(checkout.id) { readyCheckout in
+            guard let checkout = readyCheckout?.payCheckout else {
+                print("Checkout failed to get ready...")
+                completeTransaction(.failure)
+                return
+            }
+            
+            print("Checkout is ready...")
+            print("Completing checkout...")
+            Client.shared.completeCheckout(checkout, billingAddress: authorization.billingAddress, applePayToken: authorization.token, idempotencyToken: paySession.identifier) { payment in
+                if let payment = payment, checkout.paymentDue == payment.amount {
+                    print("Checkout completed successfully.")
+                    completeTransaction(.success)
+                } else {
+                    print("Checkout failed to complete.")
+                    completeTransaction(.failure)
+                }
+            }
+        }
+        
+        
+        
+//        guard let email = authorization.shippingAddress.email else {
+//            print("Unable to update checkout email. Aborting transaction.")
+//            completeTransaction(.failure)
+//            return
+//        }
+//
+//        print("Updating checkout shipping address...")
+//        Client.shared.updateCheckout(checkout.id, updatingCompleteShippingAddress: authorization.shippingAddress) { _updatedCheckout in
+////            guard let _ = updatedCheckout else {
+////                completeTransaction(.failure)
+////               return
+////            }
+//           var  updatedCheckout = checkout
+//            print("Updating checkout email...")
+//            Client.shared.updateCheckout(checkout.id, updatingEmail: email) { updatedCheckout in
+//                guard let _ = updatedCheckout else {
+//                    completeTransaction(.failure)
+//                    return
+//                }
+//
+//                print("Checkout email updated: \(email)")
+//
+//
+//            }
+//        }
+    }
+    
+    func paySessionDidFinish(_ paySession: PaySession) {
+        
+    }
+}

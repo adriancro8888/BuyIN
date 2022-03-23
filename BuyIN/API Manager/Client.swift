@@ -15,10 +15,10 @@ final class Client {
     
     static let shopDomain = "itiios.myshopify.com"
     static let apiKey     = "f78f765d212201e09cf5b3d6f8020421"
-
+    static let merchantID = "merchant.elhayani.com"
 //    static let shopDomain = "jets-ismailia.myshopify.com"
 //    static let apiKey     = "70adb96961fe55ab1ce308476d536e01"
-    static let merchantID = "merchant.com.your.id"
+
     static let shared = Client()
     
     private let client: Graph.Client = Graph.Client(shopDomain: Client.shopDomain, apiKey: Client.apiKey, locale:nil)
@@ -27,7 +27,7 @@ final class Client {
     //  MARK: - Init -
     //
     private init() {
-        self.client.cachePolicy = .networkFirst(expireIn: 100)
+        self.client.cachePolicy = .cacheFirst(expireIn: 3600)
         
     }
     
@@ -47,7 +47,7 @@ final class Client {
                 completion(container,nil)
             } else {
                 let errors = mutation?.customerCreate?.customerUserErrors ?? []
-                print("Failed to login customer: \(errors)")
+                print("Failed to Create customer: \(errors)")
                 completion(nil,errors)
             }
         }
@@ -94,7 +94,6 @@ final class Client {
                 completion(nil)
             }
         }
-        
         task.resume()
         return task
     }
