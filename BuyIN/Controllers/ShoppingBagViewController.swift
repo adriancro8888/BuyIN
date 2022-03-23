@@ -442,7 +442,7 @@ extension ShoppingBagViewController: ShoppingBagFooterCollectionReusableViewDele
 extension ShoppingBagViewController: ShoppingBagCollectionViewCellDelegate {
     func shoppingBagCollectionViewCellDidTapPlus(_ forItem: CartItemViewModel) {
         let index = CartController.shared.items.firstIndex { cartItem in
-            cartItem.viewModel.title == forItem.title
+            cartItem.viewModel.title == forItem.title && cartItem.variant.id == forItem.model.variant.id
         }
         
         CartController.shared.incrementAt(index!)
@@ -451,7 +451,7 @@ extension ShoppingBagViewController: ShoppingBagCollectionViewCellDelegate {
     
     func shoppingBagCollectionViewCellDidTapMinus(_ forItem: CartItemViewModel) {
         let index = CartController.shared.items.firstIndex { cartItem in
-            cartItem.viewModel.title == forItem.title
+            cartItem.viewModel.title == forItem.title && cartItem.variant.id == forItem.model.variant.id
         }
         CartController.shared.decrementAt(index!)
         
