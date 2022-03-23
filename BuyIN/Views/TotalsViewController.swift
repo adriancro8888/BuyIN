@@ -8,16 +8,9 @@
 import UIKit
 import Pay
 
-enum PaymentType {
-    case localCheckout
-    case webCheckout
-    case shopPay
-}
 
 protocol TotalsControllerDelegate: AnyObject {
-    func totalsController(
-        //_ totalsController: TotalsViewController,
-        didRequestPaymentWith type: PaymentType)
+    func requstPayment()
 }
 
 class TotalsViewController: UIViewController {

@@ -13,7 +13,6 @@ class SearchViewController: UIViewController {
     var categoryFilter:String?
     var typeFilter:String?
     var tagFilter:String?
-    var isFiltered: Bool = false
     var searchQuery: String? {
         didSet {
             applyFiltring()
@@ -34,7 +33,8 @@ class SearchViewController: UIViewController {
     }
     
     
-    private var products: [ProductViewModel] = []
+  //  private var products: [ProductViewModel] = []
+    var products: PageableArray<ProductViewModel>!
     private var filterViewHeight: CGFloat = 0
     private var heightConstraint: NSLayoutConstraint?
     private var isFilterExpanded: Bool = false
@@ -70,9 +70,9 @@ class SearchViewController: UIViewController {
         return section
     }
     
-    private let collectionView: UICollectionView = {
+    private let collectionView: StorefrontCollectionView = {
        
-        let collectionView = UICollectionView(
+        let collectionView = StorefrontCollectionView(
             frame: .zero,
             collectionViewLayout: UICollectionViewCompositionalLayout(
                 section: SearchViewController.sectionLayoutProvider()
@@ -81,6 +81,11 @@ class SearchViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.register(ProductPreviewCollectionViewCell.self, forCellWithReuseIdentifier: ProductPreviewCollectionViewCell.identifier)
+        
+        let nib2 = UINib(nibName: "LoadingCollectionViewCell", bundle: nil)
+        collectionView.register(nib2, forCellWithReuseIdentifier: "LoadingCollectionViewCell")
+        
+        
         return collectionView
     }()
    
@@ -107,6 +112,7 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         view.addSubview(collectionView)
+        self.collectionView .paginationDelegate = self ;
         configureNavbar()
         collectionView.backgroundColor = .white
         collectionView.delegate = self
@@ -116,16 +122,47 @@ class SearchViewController: UIViewController {
         fetchProducts()
     }
     
-    private func fetchProducts() {
-        Client.shared.fetchProducts { [weak self] result in
+    private func fetchProducts(after cursor: String? = nil
+                               ,completion: (() -> Void)? = nil) {
+        Client.shared.fetchProducts(limit: 200, after: cursor)  { [weak self] result in
             guard let result = result else {
                 return
             }
-            
-            self?.products = result.items
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
+            guard let self = self else {
+                return
             }
+            if let currentCursor = self.products?.items.last?.cursor
+                ,let incomingCursor = result.items.last?.cursor {
+                
+                if incomingCursor == currentCursor {
+                    // print("Cursors are the same ====================")
+                }
+                else {
+                    self.filteredProducts.append(contentsOf: self.getFilterdArray(result.items))
+                    
+                }
+                
+            }
+            if   cursor != nil {
+                self.products.appendPage(from: result)
+                
+            }else{
+                self.products = result;
+                self.filteredProducts .removeAll()
+                self.filteredProducts.append(contentsOf: self.getFilterdArray(result.items))
+                
+            }
+            self.collectionView.reloadData()
+            if let completion = completion {
+                completion()
+            }
+            
+            
+//            self?.products = result.items
+//            DispatchQueue.main.async {
+//                self?.collectionView.reloadData()
+//            }
+        
         }
     }
     
@@ -160,9 +197,7 @@ class SearchViewController: UIViewController {
     }
     func applyFiltring(){
         self.filteredProducts.removeAll()
-        self.filteredProducts.append(contentsOf: self.getFilterdArray(self.products))
-        print(self.filteredProducts)
-        isFiltered = !isFiltered
+        self.filteredProducts.append(contentsOf: self.getFilterdArray(self.products.items))
         self.collectionView.reloadData()
     }
     
@@ -216,14 +251,28 @@ extension SearchViewController: UITextFieldDelegate {
 
 extension SearchViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return isFiltered ? filteredProducts.count : products.count
+        //return isFiltered ? filteredProducts.count : products.count
+        let result = (self.products?.hasNextPage ?? false) ? 1 : 0
+        if ( self.filteredProducts.count == 0 && (self.products?.hasNextPage ?? false)){
+            if  let lastProduct = self.products?.items.last {
+                self.fetchProducts(after: lastProduct.cursor)
+            }
+        }
+        return self.filteredProducts.count + result
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if indexPath.item >=  self.filteredProducts.count{
+            let loadingCell = collectionView.dequeueReusableCell(withReuseIdentifier: "LoadingCollectionViewCell", for: indexPath)
+            return loadingCell
+        }
+        
+        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductPreviewCollectionViewCell.identifier, for: indexPath) as? ProductPreviewCollectionViewCell else {
             return UICollectionViewCell()
         }
-        let model = isFiltered ? filteredProducts[indexPath.row] : products[indexPath.row]
+        let model = filteredProducts[indexPath.row]
         cell.configure(with: model)
         return cell
     }
@@ -243,7 +292,7 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = ProductDetailsViewController()
-        vc.product = isFiltered ? filteredProducts[indexPath.row] : products[indexPath.row]
+        vc.product = self.filteredProducts[indexPath.row]
         navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -290,5 +339,30 @@ extension SearchViewController: FilterContainerViewDelegate {
         default:
             break
         }
+    }
+}
+
+
+extension SearchViewController: StorefrontCollectionViewDelegate {
+    
+    func collectionViewShouldBeginPaging(_ collectionView: StorefrontCollectionView) -> Bool {
+        
+        return self.products?.hasNextPage ?? false
+    }
+    
+    func collectionViewWillBeginPaging(_ collectionView: StorefrontCollectionView) {
+        if collectionView == collectionView {
+            if  let products = self.products,
+                let lastProduct = products.items.last {
+                self.fetchProducts(after: lastProduct.cursor) {
+                    collectionView.completePaging()
+                }
+            }
+        }
+    }
+    
+    func collectionViewDidCompletePaging(_ collectionView: StorefrontCollectionView) {
+        
+        
     }
 }

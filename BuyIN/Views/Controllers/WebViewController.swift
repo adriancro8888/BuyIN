@@ -30,7 +30,7 @@ class WebViewController: UIViewController ,WKNavigationDelegate {
     private func initialize() {
         self.webView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(self.webView)
-        
+  
         NSLayoutConstraint.activate([
             self.webView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
             self.webView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
@@ -38,6 +38,8 @@ class WebViewController: UIViewController ,WKNavigationDelegate {
             self.webView.topAnchor.constraint(equalTo: self.view.topAnchor),
         ])
         
+        WKWebView.clean()
+        WKWebsiteDataStore.default().removeData(ofTypes: [WKWebsiteDataTypeDiskCache, WKWebsiteDataTypeMemoryCache], modifiedSince: Date(timeIntervalSince1970: 0), completionHandler:{ })
         self.load(url: self.url)
     }
     
@@ -81,5 +83,27 @@ class WebViewController: UIViewController ,WKNavigationDelegate {
         }
         
         self.webView.load(request)
+    }
+}
+
+
+
+
+import WebKit
+
+extension WKWebView {
+    class func clean() {
+        guard #available(iOS 9.0, *) else {return}
+
+        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+
+        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+            records.forEach { record in
+                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+                #if DEBUG
+                    print("WKWebsiteDataStore record deleted:", record)
+                #endif
+            }
+        }
     }
 }
