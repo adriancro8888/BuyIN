@@ -88,7 +88,6 @@
 		18DF297E27D9719C006FE3C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18DF297D27D9719C006FE3C6 /* Assets.xcassets */; };
 		18DF298127D9719C006FE3C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18DF297F27D9719C006FE3C6 /* LaunchScreen.storyboard */; };
 		18DF298C27D9719D006FE3C6 /* BuyINTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF298B27D9719D006FE3C6 /* BuyINTests.swift */; };
-		18DF299727D9719D006FE3C6 /* BuyINUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF299627D9719D006FE3C6 /* BuyINUITests.swift */; };
 		18DF29B027D98369006FE3C6 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF29AF27D98369006FE3C6 /* Client.swift */; };
 		18DF29B527D9872A006FE3C6 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF29B427D9872A006FE3C6 /* CategoriesViewController.swift */; };
 		18DF29BA27D98740006FE3C6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF29B927D98740006FE3C6 /* ProfileViewController.swift */; };
@@ -211,13 +210,6 @@
 			remoteGlobalIDString = 18DF296D27D97198006FE3C6;
 			remoteInfo = BuyIN;
 		};
-		18DF299327D9719D006FE3C6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 18DF296627D97198006FE3C6 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 18DF296D27D97198006FE3C6;
-			remoteInfo = BuyIN;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -305,7 +297,6 @@
 		18DF298727D9719D006FE3C6 /* BuyINTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BuyINTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18DF298B27D9719D006FE3C6 /* BuyINTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyINTests.swift; sourceTree = "<group>"; };
 		18DF298D27D9719D006FE3C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		18DF299227D9719D006FE3C6 /* BuyINUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BuyINUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18DF299627D9719D006FE3C6 /* BuyINUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyINUITests.swift; sourceTree = "<group>"; };
 		18DF299827D9719D006FE3C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18DF29AF27D98369006FE3C6 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
@@ -438,13 +429,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		18DF298F27D9719D006FE3C6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -508,7 +492,6 @@
 			children = (
 				18DF296E27D97198006FE3C6 /* BuyIN.app */,
 				18DF298727D9719D006FE3C6 /* BuyINTests.xctest */,
-				18DF299227D9719D006FE3C6 /* BuyINUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -966,24 +949,6 @@
 			productReference = 18DF298727D9719D006FE3C6 /* BuyINTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		18DF299127D9719D006FE3C6 /* BuyINUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 18DF29A127D9719D006FE3C6 /* Build configuration list for PBXNativeTarget "BuyINUITests" */;
-			buildPhases = (
-				18DF298E27D9719D006FE3C6 /* Sources */,
-				18DF298F27D9719D006FE3C6 /* Frameworks */,
-				18DF299027D9719D006FE3C6 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				18DF299427D9719D006FE3C6 /* PBXTargetDependency */,
-			);
-			name = BuyINUITests;
-			productName = BuyINUITests;
-			productReference = 18DF299227D9719D006FE3C6 /* BuyINUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -997,10 +962,6 @@
 						CreatedOnToolsVersion = 12.4;
 					};
 					18DF298627D9719D006FE3C6 = {
-						CreatedOnToolsVersion = 12.4;
-						TestTargetID = 18DF296D27D97198006FE3C6;
-					};
-					18DF299127D9719D006FE3C6 = {
 						CreatedOnToolsVersion = 12.4;
 						TestTargetID = 18DF296D27D97198006FE3C6;
 					};
@@ -1026,7 +987,6 @@
 			targets = (
 				18DF296D27D97198006FE3C6 /* BuyIN */,
 				18DF298627D9719D006FE3C6 /* BuyINTests */,
-				18DF299127D9719D006FE3C6 /* BuyINUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -1081,13 +1041,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		18DF298527D9719D006FE3C6 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		18DF299027D9719D006FE3C6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1262,14 +1215,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		18DF298E27D9719D006FE3C6 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				18DF299727D9719D006FE3C6 /* BuyINUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1277,11 +1222,6 @@
 			isa = PBXTargetDependency;
 			target = 18DF296D27D97198006FE3C6 /* BuyIN */;
 			targetProxy = 18DF298827D9719D006FE3C6 /* PBXContainerItemProxy */;
-		};
-		18DF299427D9719D006FE3C6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 18DF296D27D97198006FE3C6 /* BuyIN */;
-			targetProxy = 18DF299327D9719D006FE3C6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1469,6 +1409,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8J6CP5DTV3;
 				INFOPLIST_FILE = BuyINTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1489,7 +1430,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8J6CP5DTV3;
 				INFOPLIST_FILE = BuyINTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1499,47 +1443,11 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yousraeid.BuyINTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BuyIN.app/BuyIN";
-			};
-			name = Release;
-		};
-		18DF29A227D9719D006FE3C6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = BuyINUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yousraeid.BuyINUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = BuyIN;
-			};
-			name = Debug;
-		};
-		18DF29A327D9719D006FE3C6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = BuyINUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yousraeid.BuyINUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = BuyIN;
 			};
 			name = Release;
 		};
@@ -1569,15 +1477,6 @@
 			buildConfigurations = (
 				18DF299F27D9719D006FE3C6 /* Debug */,
 				18DF29A027D9719D006FE3C6 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		18DF29A127D9719D006FE3C6 /* Build configuration list for PBXNativeTarget "BuyINUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				18DF29A227D9719D006FE3C6 /* Debug */,
-				18DF29A327D9719D006FE3C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

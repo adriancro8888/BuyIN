@@ -47,7 +47,7 @@ final class Client {
                 completion(container,nil)
             } else {
                 let errors = mutation?.customerCreate?.customerUserErrors ?? []
-                print("Failed to login customer: \(errors)")
+                print("Failed to Create customer: \(errors)")
                 completion(nil,errors)
             }
         }
@@ -94,7 +94,6 @@ final class Client {
                 completion(nil)
             }
         }
-        
         task.resume()
         return task
     }
