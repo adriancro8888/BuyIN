@@ -403,7 +403,7 @@ extension ShoppingBagViewController: SwipeCollectionViewCellDelegate {
         let buttonStyle: ButtonStyle = .circular
         let buttonDisplayMode: ButtonDisplayMode = .titleAndImage
         
-        action.title = descriptor.title(forDisplayMode: buttonDisplayMode)
+        action.title = action.title ?? descriptor.title(forDisplayMode: buttonDisplayMode)
         action.image = descriptor.image(forStyle: buttonStyle, displayMode: buttonDisplayMode)
         
         switch buttonStyle {
