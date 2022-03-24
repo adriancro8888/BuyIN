@@ -7,6 +7,7 @@
 
 
 import UIKit
+import Buy
 
 class ProductDetailsViewController: UIViewController {
     
@@ -137,6 +138,7 @@ class ProductDetailsViewController: UIViewController {
         productCardViewController.handleArea.addGestureRecognizer(tapGestureRecognizer)
         productCardViewController.handleArea.addGestureRecognizer(panGestureRecognizer)
     }
+    
     
     @objc private func handleProductCardTap(recognizer: UITapGestureRecognizer) {
         switch recognizer.state {
