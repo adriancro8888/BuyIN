@@ -1051,8 +1051,6 @@
 				328FE9AC27DE484B00FE22B2 /* XCRemoteSwiftPackageReference "SwipeCellKit" */,
 				1886743627E7A77300C86C8F /* XCRemoteSwiftPackageReference "Reachability" */,
 				0A7A183527EB8A8500BC9EA1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				0A7A184427EB981B00BC9EA1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				0A7A184927EBA64C00BC9EA1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 18DF296F27D97198006FE3C6 /* Products */;
 			projectDirPath = "";
@@ -1497,9 +1495,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = BuyIN/BuyIN.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = DJCKM4F4RZ;
+				DEVELOPMENT_TEAM = 8J6CP5DTV3;
 				INFOPLIST_FILE = BuyIN/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1507,7 +1505,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.elhayani.BuyIN;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "BuyIN Team Provisioning Profile";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1520,8 +1518,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = BuyIN/BuyIN.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 8J6CP5DTV3;
 				INFOPLIST_FILE = BuyIN/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1530,7 +1528,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.elhayani.BuyIN;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "BuyIN Team Provisioning Profile";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1623,24 +1621,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		0A7A184427EB981B00BC9EA1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		0A7A184927EBA64C00BC9EA1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
-			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
 			};
 		};
 		1886743627E7A77300C86C8F /* XCRemoteSwiftPackageReference "Reachability" */ = {
