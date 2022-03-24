@@ -26,6 +26,7 @@ class FilterSectionHeader: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(label)
+        backgroundColor = .white
         configureConstraints()
     }
     
@@ -56,6 +57,7 @@ class FilterContainerView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .white
         collectionView.register(
             FilterSectionHeader.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
@@ -108,6 +110,7 @@ extension FilterContainerView: UICollectionViewDelegate, UICollectionViewDataSou
         cell.filter = filters[indexPath.row]
         cell.configure(with: filterProperties[indexPath.row])
         cell.delegate = self
+        cell.backgroundColor = .white
         return cell
     }
     
@@ -123,7 +126,7 @@ extension FilterContainerView: UICollectionViewDelegate, UICollectionViewDataSou
         guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: FilterSectionHeader.identifier, for: indexPath) as? FilterSectionHeader else {
             return UICollectionReusableView()
         }
-        
+        header.backgroundColor = .white
         return header
     }
     

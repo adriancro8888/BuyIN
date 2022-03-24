@@ -34,6 +34,7 @@ class FilterOptionCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        contentView.backgroundColor = .white
         contentView.addSubview(filterButton)
         configureConstraints()
         layer.borderColor = UIColor.lightGray.cgColor
