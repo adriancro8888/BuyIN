@@ -19,45 +19,28 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jjw-GK-VeA">
-                        <rect key="frame" x="10" y="10" width="148" height="133"/>
+                        <rect key="frame" x="0.0" y="0.0" width="168" height="153"/>
                         <subviews>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Cgz-wR-7eE">
-                                <rect key="frame" x="8" y="8" width="132" height="117"/>
+                                <rect key="frame" x="0.0" y="0.0" width="168" height="153"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Cgz-wR-7eE" firstAttribute="top" secondItem="jjw-GK-VeA" secondAttribute="top" constant="8" id="67o-1N-Xhc"/>
-                            <constraint firstAttribute="trailing" secondItem="Cgz-wR-7eE" secondAttribute="trailing" constant="8" id="XFJ-eK-RaN"/>
-                            <constraint firstItem="Cgz-wR-7eE" firstAttribute="leading" secondItem="jjw-GK-VeA" secondAttribute="leading" constant="8" id="mwj-Sc-rnb"/>
-                            <constraint firstAttribute="bottom" secondItem="Cgz-wR-7eE" secondAttribute="bottom" constant="8" id="upk-j2-HJd"/>
+                            <constraint firstItem="Cgz-wR-7eE" firstAttribute="top" secondItem="jjw-GK-VeA" secondAttribute="top" id="67o-1N-Xhc"/>
+                            <constraint firstAttribute="trailing" secondItem="Cgz-wR-7eE" secondAttribute="trailing" id="XFJ-eK-RaN"/>
+                            <constraint firstItem="Cgz-wR-7eE" firstAttribute="leading" secondItem="jjw-GK-VeA" secondAttribute="leading" id="mwj-Sc-rnb"/>
+                            <constraint firstAttribute="bottom" secondItem="Cgz-wR-7eE" secondAttribute="bottom" id="upk-j2-HJd"/>
                         </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                <real key="value" value="15"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                <real key="value" value="1"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
-                                <size key="value" width="0.0" height="5"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                <real key="value" value="5"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstItem="jjw-GK-VeA" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="0Dj-yA-yyc"/>
-                <constraint firstAttribute="bottom" secondItem="jjw-GK-VeA" secondAttribute="bottom" constant="10" id="Ceq-eJ-xt7"/>
-                <constraint firstAttribute="trailing" secondItem="jjw-GK-VeA" secondAttribute="trailing" constant="10" id="moa-Ww-Ltd"/>
-                <constraint firstItem="jjw-GK-VeA" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="z2c-gX-sbq"/>
+                <constraint firstItem="jjw-GK-VeA" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="0Dj-yA-yyc"/>
+                <constraint firstAttribute="bottom" secondItem="jjw-GK-VeA" secondAttribute="bottom" id="Ceq-eJ-xt7"/>
+                <constraint firstAttribute="trailing" secondItem="jjw-GK-VeA" secondAttribute="trailing" id="moa-Ww-Ltd"/>
+                <constraint firstItem="jjw-GK-VeA" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="z2c-gX-sbq"/>
             </constraints>
             <size key="customSize" width="168" height="153"/>
             <point key="canvasLocation" x="217.39130434782609" y="122.20982142857142"/>

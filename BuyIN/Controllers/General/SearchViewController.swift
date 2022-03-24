@@ -294,6 +294,9 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.item >= self.filteredProducts.count {
+            return
+        }
         let vc = ProductDetailsViewController()
         vc.product = self.filteredProducts[indexPath.row]
         navigationController?.pushViewController(vc, animated: true)
