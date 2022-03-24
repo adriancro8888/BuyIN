@@ -9,6 +9,9 @@ import XCTest
 @testable import BuyIN
 
 class BuyINTests: XCTestCase {
+    var registeration = RegistrationViewController()
+    var cartController = CartController.shared
+    var wishListController = WishlistController.shared
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -29,5 +32,19 @@ class BuyINTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
+    
+    func testPhoneValidation() {
+        let phoneTestArray = ["+201012345678", "201012345678", "01012345678", "00201012345678"]
+        for phone in phoneTestArray{
+            let result = registeration.phonevalidation(phone: phone)
+            XCTAssert(result.0, "Not Valid")
+        }
+    }
+    
+//    func testCartAdd(){
+//        let cartItem: CartItem?
+//    }
+    
+
 
 }

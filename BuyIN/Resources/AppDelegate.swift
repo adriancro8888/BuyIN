@@ -7,16 +7,33 @@
 
 import UIKit
 import CoreData
+import AppCenter
+import AppCenterAnalytics
+import AppCenterCrashes
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    let window: UIWindow? = nil
+  
 
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        AppCenter.start(withAppSecret: "4080aaec-4e6e-498e-9e0a-13344944eaed", services:[
+          Analytics.self,
+          Crashes.self
+        ])
+
+        _ = CartController.shared
+        Client.shared.loadBrands()
+        Client.shared.loadTags()
+        Client.shared.loadTypes()
+        Client.shared.loadCategories()
         return true
     }
+    
+    
+    
 
     // MARK: UISceneSession Lifecycle
 
@@ -76,6 +93,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+//    @objc func reachabilityStatusChanged(_ notification:Notification){
+//        reachability.whenReachable = { reachability in
+//            let homeViewController : HomeViewController = HomeViewController.instantiateFromMainStoryboard()
+//            self.window?.rootViewController = homeViewController
+//            self.window?.makeKeyAndVisible()
+//        }
+//        reachability.whenUnreachable = { _ in
+//            let noInternetViewController : NoInternetViewController = NoInternetViewController.instantiateFromNib()
+//            self.window?.rootViewController =  noInternetViewController
+//            self.window?.makeKeyAndVisible()
+//            let alert = UIAlertController(title: "Disconnected", message: "Mobile is disconnected, please make sure it's connected", preferredStyle: .alert)
+//            
+//            // Create OK button with action handler
+//            let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+//                print("Ok button tapped")
+//             })
+//            
+//            //Add OK button to a dialog message
+//            alert.addAction(ok)
+//            // Present Alert to
+//            
+//           
+//            
+//        }
+//     }
+    
 
 }
 

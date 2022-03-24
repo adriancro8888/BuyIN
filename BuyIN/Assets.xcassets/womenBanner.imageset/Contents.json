@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "roland-denes-iHEeFZ6PJ_k-unsplash-2-2.jpg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
