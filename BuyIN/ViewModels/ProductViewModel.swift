@@ -56,6 +56,8 @@ final class ProductViewModel: ViewModel {
     // ----------------------------------
     //  MARK: - Init -
     //
+    
+
     required init(from model: ModelType) {
         self.model    = model
         self.cursor   = model.cursor
