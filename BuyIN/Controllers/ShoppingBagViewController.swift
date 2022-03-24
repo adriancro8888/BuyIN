@@ -175,7 +175,7 @@ class ShoppingBagViewController: UIViewController {
     }
     
     @objc private func didTapNewArrival() {
-        
+        tabBarController?.selectedIndex = 0
     }
     
     
@@ -431,7 +431,6 @@ extension ShoppingBagViewController: ApplyPromoViewControllerDelegate {
 
 extension ShoppingBagViewController: ShoppingBagFooterCollectionReusableViewDelegate {
     func shoppingBagFooterCollectionReusableViewDidTapApplePayCheckoutButton() {
-        print("tapped")
         RequstWithApplePay()
     }
     
