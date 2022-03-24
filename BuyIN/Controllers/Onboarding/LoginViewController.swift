@@ -60,7 +60,8 @@ class LoginViewController: UIViewController {
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.layer.masksToBounds = true
-        field.backgroundColor = UIColor.systemBackground
+        field.backgroundColor = .white
+        field.textColor = .black
         field.layer.cornerRadius = 10
         field.inputAccessoryView = doneToolBar
         field.translatesAutoresizingMaskIntoConstraints = false
@@ -80,9 +81,9 @@ class LoginViewController: UIViewController {
         }
     }
     
-    private let doneToolBar: UIToolbar = {
+    private lazy var doneToolBar: UIToolbar = {
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
-        toolbar.barStyle = .black
+        toolbar.barStyle = .default
         let spacing = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(didTapDone))
         toolbar.items = [spacing, doneButton]
@@ -98,8 +99,9 @@ class LoginViewController: UIViewController {
         field.autocorrectionType = .no
         field.isSecureTextEntry = true
         field.layer.masksToBounds = true
-        field.backgroundColor =  UIColor.systemBackground
+        field.backgroundColor = .white
         field.layer.cornerRadius = 10
+        field.textColor = .black
         field.inputAccessoryView = doneToolBar
         field.translatesAutoresizingMaskIntoConstraints = false
         field.attributedPlaceholder = NSAttributedString(

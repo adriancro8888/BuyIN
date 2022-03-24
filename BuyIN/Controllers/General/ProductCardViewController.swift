@@ -236,8 +236,10 @@ class ProductCardViewController: UIViewController {
     
     @objc private func didTapAddToCart() {
         let index = sizeActions.firstIndex { action in
-            action.title == sizeNameButton.titleLabel!.text
+            return action.title == sizeNameButton.titleLabel!.text!
         }!
+        
+        print("adding \(product!.variants.items[index].title)")
         CartController.shared.add(CartItem(product: product!, variant: product!.variants.items[index]))
     }
     
@@ -253,7 +255,7 @@ class ProductCardViewController: UIViewController {
 
         for varr in product!.variants.items {
             let option = varr.title.split(separator: Character("/"))
-            if 1 > option.count {
+            if option.count > 1 {
                 colors.insert(option[1].trimmingCharacters(in: CharacterSet(charactersIn: " ")))
             }
             sizes.insert(option[0].trimmingCharacters(in: CharacterSet(charactersIn: " ")))

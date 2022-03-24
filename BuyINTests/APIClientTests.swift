@@ -140,7 +140,4 @@ class APIClientTests: XCTestCase {
          dataTask.resume()
          waitForExpectations(timeout: 10, handler: nil)
     }
-
-    
-
 }
