@@ -39,11 +39,11 @@ class WishListViewController: UIViewController {
     }
     
     @objc private func WishlistControllerItemsDeleted(_ notification: Notification) {
-        if let indexPath = notification.userInfo?["indexPath"] as? IndexPath {
-            self.wishlistItems.remove(at: indexPath.row)
-            self.wishListTableView.deleteRows(at: [indexPath], with: .fade)
-            self.wishListTableView.reloadData()
-        }
+//        if let indexPath = notification.userInfo?["indexPath"] as? IndexPath {
+//            self.wishlistItems.remove(at: indexPath.row)
+//            self.wishListTableView.deleteRows(at: [indexPath], with: .fade)
+//            self.wishListTableView.reloadData()
+//        }
     }
     
 

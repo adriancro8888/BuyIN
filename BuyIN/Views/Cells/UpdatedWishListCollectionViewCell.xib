@@ -100,6 +100,7 @@
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="itemPrice" destination="oMj-sW-RcI" id="392-kq-rGZ"/>
+                <outlet property="visualEffect" destination="Uk3-Ig-UqH" id="ggS-ck-Ceg"/>
                 <outlet property="wishListItemImage" destination="jN5-zz-IcD" id="lgH-Yh-t4t"/>
             </connections>
             <point key="canvasLocation" x="130.43478260869566" y="125.89285714285714"/>

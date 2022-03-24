@@ -196,6 +196,8 @@
                     <tabBarItem key="tabBarItem" title="Profile" image="person" catalog="system" id="hpa-dZ-o6X"/>
                     <connections>
                         <outlet property="customerName" destination="th9-l0-WUb" id="0H7-pe-TsQ"/>
+                        <outlet property="moreOrderOutLet" destination="jkl-hs-eLA" id="d9T-4F-7fR"/>
+                        <outlet property="moreWishListOutlet" destination="RKQ-lV-V1q" id="8MG-Za-OQX"/>
                         <outlet property="ordersCollectionViews" destination="wnO-PB-vp8" id="cgL-Qa-Et1"/>
                         <outlet property="wishList" destination="c9Z-fh-2Fc" id="IjZ-3e-z55"/>
                     </connections>

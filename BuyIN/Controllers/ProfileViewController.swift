@@ -17,7 +17,11 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var ordersCollectionViews: StorefrontCollectionView!
     @IBOutlet var wishList: UICollectionView!
     
+    @IBOutlet weak var moreWishListOutlet: UIButton!
     @IBOutlet weak var customerName: UILabel!
+    
+    @IBOutlet weak var moreOrderOutLet: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.updateWishList()
@@ -259,10 +263,19 @@ extension ProfileViewController : UICollectionViewDataSource {
             }
         } else {
             if items.count >= 5{
+                self.moreWishListOutlet.isEnabled = true
                 return 6
             }
             else {
+                if items.count >= 1{
+                    self.moreWishListOutlet.isEnabled = true
             return items.count + 1
+                }else{
+                   
+                    self.moreWishListOutlet.isEnabled = false
+                    return 0
+                    
+                }
             }
         }
     }
@@ -292,6 +305,7 @@ extension ProfileViewController : UICollectionViewDataSource {
             if let orderCount = ordersArray?.items.count {
                 print(orderCount)
                 if orderCount >= 1 {
+                    self.moreOrderOutLet.isEnabled = true
 //                    if indexPath.row == 0 {
                     let orderIndex = (self.ordersArray?.items.count ?? 1) - (indexPath.row + 1)
                         if let order = self.ordersArray?.items[orderIndex]{
@@ -335,6 +349,7 @@ extension ProfileViewController : UICollectionViewDataSource {
                     }
                 else
                 {
+                    self.moreOrderOutLet.isEnabled = false
                     return noOrderCell
                 }
                 
@@ -346,13 +361,16 @@ extension ProfileViewController : UICollectionViewDataSource {
             
             
             
-        }else {
+        }
+        else {
             if (indexPath.row > items.count-1) || (indexPath.row == 5) {
-                let updatedWishListCell = collectionView.dequeueReusableCell(withReuseIdentifier: "UpdatedWishListCollectionViewCell", for: indexPath) as! UpdatedWishListCollectionViewCell
-                updatedWishListCell.itemPrice.text  = "More"
-                updatedWishListCell.wishListItemImage.image = UIImage(named: "More")
-                updatedWishListCell.wishListItemImage.contentMode = .scaleAspectFill
                
+                let updatedWishListCell = collectionView.dequeueReusableCell(withReuseIdentifier: "UpdatedWishListCollectionViewCell", for: indexPath) as! UpdatedWishListCollectionViewCell
+                updatedWishListCell.itemPrice.isHidden  = true
+                updatedWishListCell.visualEffect.isHidden = true
+                updatedWishListCell.wishListItemImage.image = UIImage(named: "More")
+                updatedWishListCell.wishListItemImage.contentMode = .scaleAspectFit
+
                 return updatedWishListCell
             }
             else{

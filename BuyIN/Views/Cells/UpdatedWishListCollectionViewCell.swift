@@ -11,6 +11,7 @@ class UpdatedWishListCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var wishListItemImage: UIImageView!
     
+    @IBOutlet weak var visualEffect: UIVisualEffectView!
     @IBOutlet weak var itemPrice: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
