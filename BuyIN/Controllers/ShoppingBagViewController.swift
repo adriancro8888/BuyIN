@@ -430,6 +430,10 @@ extension ShoppingBagViewController: ApplyPromoViewControllerDelegate {
 }
 
 extension ShoppingBagViewController: ShoppingBagFooterCollectionReusableViewDelegate {
+    func shoppingBagFooterCollectionReusableViewDidTapApplePayCheckoutButton() {
+        RequstWithApplePay()
+    }
+    
     func shoppingBagFooterCollectionReusableViewDidTapPromoButton(_ checkout: CheckoutViewModel) {
         let vc = ApplyPromoViewController()
         vc.delegate = self
@@ -439,7 +443,7 @@ extension ShoppingBagViewController: ShoppingBagFooterCollectionReusableViewDele
     
     func shoppingBagFooterCollectionReusableViewDidTapCheckoutButton() {
         requstPayment()
-       // RequstWithApplePay()
+      
     }
 }
 

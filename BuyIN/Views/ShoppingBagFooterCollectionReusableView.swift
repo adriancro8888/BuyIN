@@ -13,6 +13,9 @@ import PassKit
 protocol ShoppingBagFooterCollectionReusableViewDelegate: AnyObject {
     func shoppingBagFooterCollectionReusableViewDidTapPromoButton(_ checkout: CheckoutViewModel)
     func shoppingBagFooterCollectionReusableViewDidTapCheckoutButton()
+    
+    
+    func shoppingBagFooterCollectionReusableViewDidTapApplePayCheckoutButton()
 }
 
 class ShoppingBagFooterCollectionReusableView: UICollectionReusableView {
@@ -115,12 +118,16 @@ class ShoppingBagFooterCollectionReusableView: UICollectionReusableView {
         addSubview(applePayButton)
         promotionButton.addTarget(self, action: #selector(didTapAdd), for: .touchUpInside)
         checkoutButton.addTarget(self, action: #selector(didTapCheckout), for: .touchUpInside)
+        applePayButton.addTarget(self, action: #selector(didTapApplePayButton), for: .touchUpInside)
         configureConstraints()
         registerNotifications()
     }
     
     @objc private func didTapCheckout() {
         delegate?.shoppingBagFooterCollectionReusableViewDidTapCheckoutButton()
+    }
+    @objc private func didTapApplePayButton() {
+        delegate?.shoppingBagFooterCollectionReusableViewDidTapApplePayCheckoutButton()
     }
     
     private func registerNotifications() {

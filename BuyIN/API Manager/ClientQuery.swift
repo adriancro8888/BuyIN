@@ -220,6 +220,7 @@ final class ClientQuery {
                 .productRecommendations( productId: product.model.node.id)
             {$0
                 .fragmentForStandardProduct()
+                
             }
             
         }
