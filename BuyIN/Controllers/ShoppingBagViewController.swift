@@ -431,6 +431,7 @@ extension ShoppingBagViewController: ApplyPromoViewControllerDelegate {
 
 extension ShoppingBagViewController: ShoppingBagFooterCollectionReusableViewDelegate {
     func shoppingBagFooterCollectionReusableViewDidTapApplePayCheckoutButton() {
+        print("tapped")
         RequstWithApplePay()
     }
     
