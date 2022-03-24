@@ -57,9 +57,36 @@ class ProductDetailsViewController: UIViewController {
         case collapsed
     }
     
+    
+    private func configureCartButton() {
+        let added = CartController.shared.items.contains { cartItem in
+            cartItem.product.id == product?.id
+        }
+        
+        added ? configureAsAdded() : configureAsNotAdded()
+    }
+    
+    private func configureAsAdded() {
+        let image = UIImage(systemName: "bag.fill")
+        bagButton.tintColor = .systemGreen
+        bagButton.setImage(image, for: .normal)
+    }
+    
+    private func configureAsNotAdded() {
+        let image = UIImage(systemName: "bag")
+        bagButton.setImage(image, for: .normal)
+        bagButton.tintColor = .black
+    }
+
+    private var isAdded: Bool = false {
+        willSet {
+            configureCartButton()
+        }
+    }
+    
     private var isWished: Bool = false {
         willSet {
-            configureButtons()
+            configureWishButton()
         }
     }
 
@@ -209,12 +236,13 @@ class ProductDetailsViewController: UIViewController {
     var product: ProductViewModel? = nil {
         didSet {
             productPreviews = (product?.images.items)!
-            configureButtons()
+            configureWishButton()
+            configureCartButton()
 
         }
     }
     
-    private func configureButtons() {
+    private func configureWishButton() {
         let wished = WishlistController.shared.items.contains { cartItem in
             cartItem.product.id == product?.id
         }
@@ -267,6 +295,22 @@ class ProductDetailsViewController: UIViewController {
         pageControl.addTarget(self, action: #selector(pageControlDidChange), for: .valueChanged)
         dismissButton.addTarget(self, action: #selector(didTapDismiss), for: .touchUpInside)
         favoriteButton.addTarget(self, action: #selector(didTapFav), for: .touchUpInside)
+        bagButton.addTarget(self, action: #selector(didTapBag), for: .touchUpInside)
+    }
+    
+    @objc private func didTapBag() {
+        print("Didtapbag")
+        isAdded ? removeFromCart() : addToCart()
+    }
+    
+    private func addToCart() {
+        CartController.shared.add(CartItem(product: product!, variant: (product?.variants.items.first)!))
+        isAdded = true
+    }
+    
+    private func removeFromCart() {
+        CartController.shared.removeAllQuantitiesFor(CartItem(product: product!, variant: (product?.variants.items.first)!))
+        isAdded = false
     }
     
     private func addToWishList() {
@@ -282,6 +326,8 @@ class ProductDetailsViewController: UIViewController {
     @objc private func didTapFav() {
         isWished ? removeFromWishList() : addToWishList()
     }
+    
+    
     
     @objc private func pageControlDidChange() {
         previewCollectionView.scrollToItem(
