@@ -16,6 +16,8 @@ final class Client {
     static let shopDomain = "itiios.myshopify.com"
     static let apiKey     = "f78f765d212201e09cf5b3d6f8020421"
     static let merchantID = "merchant.elhayani.com"
+    
+    static let imageTransferInput =  Storefront.ImageTransformInput.create( maxWidth: .value(800), maxHeight: .value(800))
 //    static let shopDomain = "jets-ismailia.myshopify.com"
 //    static let apiKey     = "70adb96961fe55ab1ce308476d536e01"
 

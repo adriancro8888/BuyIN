@@ -197,8 +197,11 @@ class SearchViewController: UIViewController {
     }
     func applyFiltring(){
         self.filteredProducts.removeAll()
-        self.filteredProducts.append(contentsOf: self.getFilterdArray(self.products.items))
-        self.collectionView.reloadData()
+        if let products = self.products{
+            self.filteredProducts.append(contentsOf: self.getFilterdArray(self.products.items))
+            self.collectionView.reloadData()
+        }
+        
     }
     
     func getFilterdArray(_ datasource:[ProductViewModel]) -> [ProductViewModel]{
@@ -291,6 +294,9 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.item >= self.filteredProducts.count {
+            return
+        }
         let vc = ProductDetailsViewController()
         vc.product = self.filteredProducts[indexPath.row]
         navigationController?.pushViewController(vc, animated: true)

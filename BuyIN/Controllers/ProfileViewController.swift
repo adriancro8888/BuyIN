@@ -44,6 +44,11 @@ class ProfileViewController: UIViewController {
         self.ordersCollectionViews.register(orderNib, forCellWithReuseIdentifier: "OrderCollectionViewCell")
         fetchOrders()
         
+        let noOrderNib = UINib(nibName: "NoOrdersCollectionViewCell", bundle: nil)
+        self.ordersCollectionViews.register(noOrderNib, forCellWithReuseIdentifier: "NoOrdersCollectionViewCell")
+        
+    
+        
         
         
         
@@ -53,8 +58,8 @@ class ProfileViewController: UIViewController {
 
     
    @IBAction func bagButton(_ sender: Any) {
-    let cartController : CartViewController = CartViewController.instantiateFromNib()
-    cartController.modalPresentationStyle = .fullScreen
+    let cartController : ShoppingBagViewController = ShoppingBagViewController()
+   // cartController.modalPresentationStyle = .fullScreen
 
     
     self.present(cartController, animated: true, completion: nil)
@@ -66,6 +71,8 @@ class ProfileViewController: UIViewController {
     //
     private func registerNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(WishlistControllerItemsDidChange(_:)), name: Notification.Name.WishlistControllerItemsDidChange, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(OrderlistControllerItemsDidChange(_:)), name: Notification.Name.CartControllerItemsDidChange, object: nil)
     }
     
     private func unregisterNotifications() {
@@ -76,12 +83,20 @@ class ProfileViewController: UIViewController {
         self.updateWishList()
     }
     
+    @objc private func OrderlistControllerItemsDidChange(_ notification: Notification) {
+        self.updateOrdersList()
+    }
+    
     // ----------------------------------
     //  MARK: - Update -
     //
     func updateWishList() {
         self.items = WishlistController.shared.items
         wishList.reloadData()
+    }
+    
+    func updateOrdersList() {
+        self.fetchOrders()
     }
     
     func fetchOrders(after cursuer:String? = nil) {
@@ -109,10 +124,10 @@ class ProfileViewController: UIViewController {
     @IBAction func settingButton(_ sender: Any) {
         print("Settings Pressed")
         let settingsController : SettingViewController = SettingViewController.instantiateFromNib()
-        self.navigationController?.pushViewController(settingsController, animated: true)
-        self.navigationController?.navigationItem.backBarButtonItem?.tintColor = UIColor.black
-//        settingsController.modalPresentationStyle = .fullScreen
-//        self.present(settingsController, animated: true, completion: nil)
+//        self.navigationController?.pushViewController(settingsController, animated: true)
+//        self.navigationController?.navigationItem.backBarButtonItem?.tintColor = UIColor.black
+        settingsController.modalPresentationStyle = .fullScreen
+        self.present(settingsController, animated: true, completion: nil)
 //
         
 
@@ -215,6 +230,7 @@ extension ProfileViewController : UICollectionViewDelegateFlowLayout {
        
     
         if collectionView == ordersCollectionViews {
+
             return CGSize(width: 302, height: 236)
         }else {
             
@@ -271,7 +287,10 @@ extension ProfileViewController : UICollectionViewDataSource {
         if collectionView == ordersCollectionViews {
             let orderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "OrderCollectionViewCell", for: indexPath) as! OrderCollectionViewCell
             
+            let noOrderCell = collectionView.dequeueReusableCell(withReuseIdentifier: "NoOrdersCollectionViewCell", for: indexPath) as! NoOrdersCollectionViewCell
+            
             if let orderCount = ordersArray?.items.count {
+                print(orderCount)
                 if orderCount >= 1 {
 //                    if indexPath.row == 0 {
                     let orderIndex = (self.ordersArray?.items.count ?? 1) - (indexPath.row + 1)
@@ -312,31 +331,20 @@ extension ProfileViewController : UICollectionViewDataSource {
                         }
 
                     }
+                    return orderCell
                     }
-//                    if indexPath.row == 1 {
-//                        if let order = self.ordersArray?.items[1]{
-//
-//                            orderCell.orderNumber.text = "Order #\(String(order.model.node.orderNumber))"
-//                            let imageURL = order.model.node.lineItems.edges[0].node.variant?.image?.url
-//                            orderCell.orderImage.setImageFrom(imageURL)
-//                            //print(order1.model.node.lineItems.edges[0].node.variant?.image)
-//                            //orderCell.NameOfItem.text = order1.model.node.name
-//                            let dateOfCreation = DateFormatterClass.dateFormatter(date: order.model.node.processedAt)
-//                            orderCell.dateOfOrder.text = dateOfCreation
-//
-//                            let totalPriceMoney = order.model.node.currentTotalPrice
-//                            orderCell.totalPrice.text = Currency.stringFrom(totalPriceMoney.amount, totalPriceMoney.currencyCode.rawValue)
-//                    }
-//                    }
-                    
+                else
+                {
+                    return noOrderCell
                 }
-//            }
+                
+                }
             else
             {
-                //return no orders cell
+                return noOrderCell
             }
             
-            return orderCell
+            
             
         }else {
             if (indexPath.row > items.count-1) || (indexPath.row == 5) {
@@ -363,6 +371,21 @@ extension ProfileViewController : UICollectionViewDataSource {
 extension ProfileViewController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == ordersCollectionViews {
+            if let orderCount = ordersArray?.items.count {
+                if orderCount >= 1 {
+                    let ordersDetailController : OrdersDetailsViewController = OrdersDetailsViewController.instantiateFromNib()
+                    let ordersCount = ordersArray?.items.count ?? 1
+                    
+                    ordersDetailController.ordersDetails = ordersArray?.items[ordersCount-1-indexPath.row]
+                    ordersDetailController.userInfo = userInfo
+                    self.present(ordersDetailController, animated: true, completion: nil)
+                }else {
+                    let noOrderController : NoOrdersViewController = NoOrdersViewController.instantiateFromNib()
+                    self.present(noOrderController, animated: true, completion: nil)
+                }
+            
+            }
+            
             
         }else{
             if (indexPath.row > items.count-1) || (indexPath.row == 5){

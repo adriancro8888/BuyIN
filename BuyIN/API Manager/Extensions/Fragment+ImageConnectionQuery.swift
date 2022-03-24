@@ -12,7 +12,7 @@ extension Storefront.ImageConnectionQuery {
         .edges { $0
             .cursor()
             .node { $0
-                .url()
+            .url( transform: Client.imageTransferInput)
             }
         }
     }

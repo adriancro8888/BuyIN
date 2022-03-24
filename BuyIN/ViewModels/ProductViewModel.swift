@@ -28,11 +28,12 @@ import Foundation
 import Buy
 
 final class ProductViewModel: ViewModel {
+   
     
     typealias ModelType = Storefront.ProductEdge
     
-    let model:    ModelType
-    let cursor:   String
+    var model:    ModelType
+    var cursor:   String!
     
     let id:       String
     let title:    String
