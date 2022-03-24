@@ -10,6 +10,7 @@ import UIKit
 class WishListViewController: UIViewController {
     
     var wishlistItems : [CartItem] = []
+    var collectionProducts: [ProductViewModel]?
 
     @IBOutlet weak var wishListTableView: UITableView!
     override func viewDidLoad() {
@@ -23,6 +24,18 @@ class WishListViewController: UIViewController {
     }
     private func registerNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(WishlistControllerItemsDeleted(_:)), name: Notification.Name("DeletedWishList"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(WishlistControllerItemsDidChange(_:)), name: Notification.Name.WishlistControllerItemsDidChange, object: nil)
+        
+    }
+    
+    @objc private func WishlistControllerItemsDidChange(_ notification: Notification) {
+        self.updateWishList()
+    }
+    
+    func updateWishList() {
+        self.wishlistItems = WishlistController.shared.items
+        wishListTableView.reloadData()
     }
     
     @objc private func WishlistControllerItemsDeleted(_ notification: Notification) {
@@ -81,4 +94,17 @@ extension WishListViewController : UITableViewDataSource{
                 return configuration
         }
         
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            print("seleced")
+            tableView.deselectRow(at: indexPath, animated: true)
+            let vc = ProductDetailsViewController()
+
+            vc.product = wishlistItems[indexPath.row].product
+            //navigationController?.pushViewController(vc, animated: true)
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true, completion: nil)
+
+        }
+        
     }
+

@@ -19,23 +19,38 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="WsI-GK-s9d">
-                    <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                    <rect key="frame" x="0.0" y="94" width="414" height="802"/>
                     <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="qvS-0P-dXl"/>
                         <outlet property="delegate" destination="-1" id="J1U-aV-ngM"/>
                     </connections>
                 </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gKA-mM-C6d">
+                    <rect key="frame" x="20" y="44" width="21" height="22"/>
+                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" image="xmark" catalog="system">
+                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                    </state>
+                    <connections>
+                        <action selector="Dismiss:" destination="-1" eventType="touchUpInside" id="DaY-AS-U7U"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="WsI-GK-s9d" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="KF5-wT-BLT"/>
-                <constraint firstAttribute="bottom" secondItem="WsI-GK-s9d" secondAttribute="bottom" id="Mc4-VQ-TtZ"/>
-                <constraint firstItem="WsI-GK-s9d" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="NU3-ej-GOb"/>
-                <constraint firstItem="WsI-GK-s9d" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="t9e-iI-Rm4"/>
+                <constraint firstItem="WsI-GK-s9d" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Kbd-Cn-ntb"/>
+                <constraint firstAttribute="bottom" secondItem="WsI-GK-s9d" secondAttribute="bottom" id="N4p-sc-Rx0"/>
+                <constraint firstItem="gKA-mM-C6d" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="PlO-d6-NiC"/>
+                <constraint firstItem="gKA-mM-C6d" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="t5c-wj-9Tt"/>
+                <constraint firstItem="WsI-GK-s9d" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="50" id="vXK-Rf-Fpp"/>
+                <constraint firstItem="WsI-GK-s9d" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="wUf-7J-b55"/>
             </constraints>
             <point key="canvasLocation" x="21.739130434782609" y="77.678571428571431"/>
         </view>
     </objects>
+    <resources>
+        <image name="xmark" catalog="system" width="128" height="113"/>
+    </resources>
 </document>

@@ -217,6 +217,19 @@ extension OrdersDetailsViewController : UICollectionViewDataSource {
             orderCell.orderImage.setImageFrom(imageURL)
             //print(order1.model.node.lineItems.edges[0].node.variant?.image)
             //orderCell.NameOfItem.text = order1.model.node.name
+            if let option0 = orderItem?.variant?.selectedOptions[0]{
+
+                orderCell.NameOfItem.text = "\(String(option0.value))"
+            }
+            if let option1 = orderItem?.variant?.selectedOptions[1]{
+                    if let pastText = orderCell.NameOfItem.text{
+                        orderCell.NameOfItem.text = pastText + " \(String(option1.value))"
+                    } else {
+                        orderCell.NameOfItem.text =  "\(String(option1.value))"
+                    }
+                    
+            }
+           
             orderCell.dateOfOrder.text = "Quantity: \(String(orderItem?.currentQuantity ?? 0))"
             orderCell.firstItemInOrderImage.isHidden = true
             orderCell.secondItemInOrderImage.isHidden = true

@@ -80,6 +80,10 @@
 		1886744427E7EAA300C86C8F /* NoInternetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1886744227E7EAA300C86C8F /* NoInternetViewController.swift */; };
 		1886744527E7EAA300C86C8F /* NoInternetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1886744327E7EAA300C86C8F /* NoInternetViewController.xib */; };
 		1886744A27E8A02700C86C8F /* CartCoordinatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1886744927E8A02500C86C8F /* CartCoordinatorViewController.swift */; };
+		1886745627EB20E600C86C8F /* NoOrdersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1886745427EB20E500C86C8F /* NoOrdersCollectionViewCell.swift */; };
+		1886745727EB20E600C86C8F /* NoOrdersCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1886745527EB20E500C86C8F /* NoOrdersCollectionViewCell.xib */; };
+		1886745D27EB444200C86C8F /* NoOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1886745B27EB444200C86C8F /* NoOrdersViewController.swift */; };
+		1886745E27EB444200C86C8F /* NoOrdersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1886745C27EB444200C86C8F /* NoOrdersViewController.xib */; };
 		18DF297227D97198006FE3C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF297127D97198006FE3C6 /* AppDelegate.swift */; };
 		18DF297427D97198006FE3C6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF297327D97198006FE3C6 /* SceneDelegate.swift */; };
 		18DF297627D97198006FE3C6 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF297527D97198006FE3C6 /* HomeViewController.swift */; };
@@ -293,6 +297,10 @@
 		1886744227E7EAA300C86C8F /* NoInternetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoInternetViewController.swift; sourceTree = "<group>"; };
 		1886744327E7EAA300C86C8F /* NoInternetViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoInternetViewController.xib; sourceTree = "<group>"; };
 		1886744927E8A02500C86C8F /* CartCoordinatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartCoordinatorViewController.swift; sourceTree = "<group>"; };
+		1886745427EB20E500C86C8F /* NoOrdersCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoOrdersCollectionViewCell.swift; sourceTree = "<group>"; };
+		1886745527EB20E500C86C8F /* NoOrdersCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoOrdersCollectionViewCell.xib; sourceTree = "<group>"; };
+		1886745B27EB444200C86C8F /* NoOrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoOrdersViewController.swift; sourceTree = "<group>"; };
+		1886745C27EB444200C86C8F /* NoOrdersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoOrdersViewController.xib; sourceTree = "<group>"; };
 		18DF296E27D97198006FE3C6 /* BuyIN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BuyIN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18DF297127D97198006FE3C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18DF297327D97198006FE3C6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -695,6 +703,8 @@
 				1886744227E7EAA300C86C8F /* NoInternetViewController.swift */,
 				1886744327E7EAA300C86C8F /* NoInternetViewController.xib */,
 				1886744927E8A02500C86C8F /* CartCoordinatorViewController.swift */,
+				1886745B27EB444200C86C8F /* NoOrdersViewController.swift */,
+				1886745C27EB444200C86C8F /* NoOrdersViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -904,6 +914,8 @@
 				322E59AD27E251CB00F57DFB /* LoadingCollectionViewCell.xib */,
 				187F86D527E400C20053C82B /* SettingTableViewCell.swift */,
 				187F86D627E400C20053C82B /* SettingTableViewCell.xib */,
+				1886745427EB20E500C86C8F /* NoOrdersCollectionViewCell.swift */,
+				1886745527EB20E500C86C8F /* NoOrdersCollectionViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1041,7 +1053,9 @@
 				32EEEF8B27DA303F00188547 /* CategoriesCollectionViewCell.xib in Resources */,
 				32BC4BAB27E3509600E5FB94 /* red_ic_unchecked.png in Resources */,
 				18619A3927DD4A2200470847 /* WishListViewController.xib in Resources */,
+				1886745E27EB444200C86C8F /* NoOrdersViewController.xib in Resources */,
 				32BC4BA227E3509600E5FB94 /* YBTextPicker_unchecked.png in Resources */,
+				1886745727EB20E600C86C8F /* NoOrdersCollectionViewCell.xib in Resources */,
 				32BC4BA927E3509600E5FB94 /* YBTextPicker2.gif in Resources */,
 				32BC4BA627E3509600E5FB94 /* YBTextPicker4.gif in Resources */,
 				322E59A927E2104900F57DFB /* ProductsViewController.xib in Resources */,
@@ -1162,6 +1176,7 @@
 				1886743127E6147A00C86C8F /* OrderDetailsSummaryCollectionViewCell.swift in Sources */,
 				32B9202727E4C036003DFDC6 /* FilterViewController.swift in Sources */,
 				3293ECA727DD27BD00B97997 /* AddressViewModel.swift in Sources */,
+				1886745D27EB444200C86C8F /* NoOrdersViewController.swift in Sources */,
 				0A7A182E27E8EC5100BC9EA1 /* ShoppingBagCollectionViewCell.swift in Sources */,
 				187F86C227E1CEC90053C82B /* Date.swift in Sources */,
 				0A73474A27E0BADA00F0D5C0 /* GifLoad.swift in Sources */,
@@ -1219,6 +1234,7 @@
 				32EEEF5427DA131000188547 /* GraphQL+Serializable.swift in Sources */,
 				0A7A181827E6720C00BC9EA1 /* FilterOptionCollectionViewCell.swift in Sources */,
 				0AE911AF27E6350200F28A5B /* SearchHeaderCollectionReusableView.swift in Sources */,
+				1886745627EB20E600C86C8F /* NoOrdersCollectionViewCell.swift in Sources */,
 				328FE9A427DE32A600FE22B2 /* SwipableCollection.swift in Sources */,
 				328FE99827DE313900FE22B2 /* CollectionSwipableCellExtension.swift in Sources */,
 				32EEEF6327DA131D00188547 /* Fragment+DiscountAllocation.swift in Sources */,

@@ -35,13 +35,14 @@
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w83-8f-vYn">
                     <rect key="frame" x="20" y="62" width="30" height="30"/>
-                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="Orx-mG-8b9"/>
                         <constraint firstAttribute="width" constant="30" id="x5Q-pg-0YD"/>
                     </constraints>
                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <state key="normal" image="chevron.backward" catalog="system"/>
+                    <state key="normal" image="xmark" catalog="system">
+                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="light"/>
+                    </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                             <real key="value" value="15"/>
@@ -69,7 +70,7 @@
         </view>
     </objects>
     <resources>
-        <image name="chevron.backward" catalog="system" width="96" height="128"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

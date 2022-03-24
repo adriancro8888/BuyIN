@@ -132,6 +132,7 @@ class WishlistController {
     func removeAllQuantitiesFor(_ cartItem: CartItem) {
         if let index = self.items.firstIndex(of: cartItem) {
             self.removeAllQuantities(at: index)
+            self.itemsChanged()
         }
     }
     
@@ -142,6 +143,7 @@ class WishlistController {
     
     func moveToCart(at index: Int) {
         CartController.shared.add(self.items[index])
+        print(self.items[index])
         self.items.remove(at: index)
         self.itemsChanged()
     }

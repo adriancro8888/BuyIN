@@ -114,7 +114,7 @@ extension FilterContainerView: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = filterProperties[indexPath.row].size(withAttributes: [NSAttributedString.Key.font: UIFont(name: "arial", size: 30)!]).width
         let height = 30.0
-        return CGSize(width: width, height: height)
+        return CGSize(width: CGFloat(width), height: CGFloat(height))
     }
     
 
