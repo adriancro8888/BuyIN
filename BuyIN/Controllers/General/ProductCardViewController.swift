@@ -309,6 +309,7 @@ class ProductCardViewController: UIViewController {
         let productTitleConstraints = [
             productTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             productTitle.topAnchor.constraint(equalTo: handleArea.bottomAnchor, constant: 10),
+            productTitle.widthAnchor.constraint(equalToConstant: 250)
         ]
 
         
