@@ -9,6 +9,7 @@ import UIKit
 
 class ProductCollectionViewController: UIViewController {
 
+ 
     
     var collectionProducts: [ProductViewModel]? {
         didSet {
@@ -69,7 +70,11 @@ class ProductCollectionViewController: UIViewController {
         collectionView.dataSource = self
     }
     
+  
 
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return .slide
+    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

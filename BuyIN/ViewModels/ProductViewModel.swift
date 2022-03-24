@@ -58,52 +58,6 @@ final class ProductViewModel: ViewModel {
     //  MARK: - Init -
     //
     
-//      init(from product: Storefront.Product) {
-////        self.model    = model
-////        self.cursor   = model.cursor
-////
-//        let variants = product.variants.edges.viewModels.sorted {
-//            $0.price < $1.price
-//        }
-//
-//        let lowestPrice = variants.first?.price
-//
-//        self.id       = product.id.rawValue
-//        self.title    = product.title
-//        self.vendor   = product.vendor
-//        self.summary  = product.description
-//        self.type = product.productType
-//        self.price    = lowestPrice == nil ? "No price" : Currency.stringFrom(lowestPrice!)
-//
-//        self.images   = PageableArray(
-//            with:     product.images.edges,
-//            pageInfo: product.images.pageInfo
-//        )
-//
-//        self.variants = PageableArray(
-//            with:     product.variants.edges,
-//            pageInfo: product.variants.pageInfo
-//        )
-//
-////        self.collections = PageableArray(
-////            with:     model.node.collections.edges,
-////            pageInfo: model.node.collections.pageInfo
-////        )
-//        self.tags = product.tags
-//        let dix : [String : Any] = [:]
-//        do {
-//              let edge = try Storefront.ProductEdge(fields: dix)
-//
-//          }
-//
-//
-//
-//    }
-    
-    
-
-
-
 
     required init(from model: ModelType) {
         self.model    = model

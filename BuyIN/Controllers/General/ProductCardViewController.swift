@@ -176,6 +176,9 @@ class ProductCardViewController: UIViewController {
         }
     }
     
+    
+    private var widthConstarint: NSLayoutConstraint?
+    
     private let cardTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -236,9 +239,22 @@ class ProductCardViewController: UIViewController {
     
     @objc private func didTapAddToCart() {
         let index = sizeActions.firstIndex { action in
-            action.title == sizeNameButton.titleLabel!.text
+            return action.title == sizeNameButton.titleLabel!.text!
         }!
         CartController.shared.add(CartItem(product: product!, variant: product!.variants.items[index]))
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn) { [weak self] in
+            self?.widthConstarint?.constant = (self?.view.frame.width)!
+            self?.addToCartButton.backgroundColor = .systemGreen
+            self?.view.layoutIfNeeded()
+        } completion: { _ in
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn) { [weak self] in
+                self?.widthConstarint?.constant = ((self?.view.frame.width)!/3)
+                self?.view.layoutIfNeeded()
+            } completion: { _ in
+                self.addToCartButton.backgroundColor = .black
+            }
+        }
+
     }
     
   
@@ -253,7 +269,7 @@ class ProductCardViewController: UIViewController {
 
         for varr in product!.variants.items {
             let option = varr.title.split(separator: Character("/"))
-            if 1 > option.count {
+            if option.count > 1 {
                 colors.insert(option[1].trimmingCharacters(in: CharacterSet(charactersIn: " ")))
             }
             sizes.insert(option[0].trimmingCharacters(in: CharacterSet(charactersIn: " ")))
@@ -312,11 +328,15 @@ class ProductCardViewController: UIViewController {
             colorNameButton.topAnchor.constraint(equalTo: colorLabel.bottomAnchor)
         ]
         
+        
+        
+        widthConstarint = NSLayoutConstraint(item: addToCartButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: view.frame.width.magnitude/3)
         let addToCartButtonConstraints = [
             addToCartButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             addToCartButton.topAnchor.constraint(equalTo: productPrice.bottomAnchor, constant: 10),
-            addToCartButton.widthAnchor.constraint(equalToConstant: view.frame.width.magnitude/3),
-            addToCartButton.heightAnchor.constraint(equalToConstant: 60)
+//            addToCartButton.widthAnchor.constraint(equalToConstant: view.frame.width.magnitude/3),
+            addToCartButton.heightAnchor.constraint(equalToConstant: 60),
+            widthConstarint!
         ]
         
         let colorBlockViewConstraints = [

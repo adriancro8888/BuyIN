@@ -31,7 +31,7 @@ class ResetPasswordViewController: UIViewController {
 
    
    private lazy var blurredVisualEffect: UIVisualEffectView = {
-       let blurEffect = UIBlurEffect(style: .regular)
+       let blurEffect = UIBlurEffect(style: .dark)
        let view = UIVisualEffectView(effect: blurEffect)
        view.translatesAutoresizingMaskIntoConstraints = false
        view.clipsToBounds = true
@@ -48,7 +48,7 @@ class ResetPasswordViewController: UIViewController {
        field.autocapitalizationType = .none
        field.autocorrectionType = .no
        field.layer.masksToBounds = true
-       field.backgroundColor = UIColor.systemBackground
+       field.backgroundColor = .white
        field.layer.cornerRadius = 10
        field.inputAccessoryView = doneToolBar
        field.translatesAutoresizingMaskIntoConstraints = false
@@ -68,9 +68,9 @@ class ResetPasswordViewController: UIViewController {
        }
    }
    
-   private let doneToolBar: UIToolbar = {
+   private lazy var doneToolBar: UIToolbar = {
        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
-       toolbar.barStyle = .black
+       toolbar.barStyle = .default
        let spacing = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(didTapDone))
        toolbar.items = [spacing, doneButton]
@@ -197,8 +197,8 @@ class ResetPasswordViewController: UIViewController {
        
  
        
-       let signUpButtonConstraints = [
-           signinButton.trailingAnchor.constraint(equalTo: continueButton.trailingAnchor, constant: 0),
+       let signinButtonConstraints = [
+           signinButton.leadingAnchor.constraint(equalTo: continueButton.leadingAnchor),
            signinButton.topAnchor.constraint(equalTo: continueButton.bottomAnchor, constant: 15),
            signinButton.heightAnchor.constraint(equalToConstant: 20),
            signinButton.widthAnchor.constraint(equalToConstant: 60)
@@ -208,7 +208,7 @@ class ResetPasswordViewController: UIViewController {
        NSLayoutConstraint.activate(loginLabelConstraints)
        NSLayoutConstraint.activate(userEmailFieldConstraints)
        NSLayoutConstraint.activate(continueButtonConstraints)
-       NSLayoutConstraint.activate(signUpButtonConstraints)
+       NSLayoutConstraint.activate(signinButtonConstraints)
    }
 
 }

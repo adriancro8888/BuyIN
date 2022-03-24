@@ -132,6 +132,7 @@ class ShoppingBagViewController: UIViewController {
         collectionView.register(ShoppingBagCollectionViewCell.self, forCellWithReuseIdentifier: ShoppingBagCollectionViewCell.identifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(ShoppingBagFooterCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: ShoppingBagFooterCollectionReusableView.identifier)
+        collectionView.backgroundColor = .white
         return collectionView
     }()
     
@@ -146,6 +147,7 @@ class ShoppingBagViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.largeTitleDisplayMode = .never
+        view.backgroundColor = .white
         view.addSubview(collectionView)
         view.addSubview(emptyShoppingBagLabel)
         view.addSubview(subShoppingBagLabel)

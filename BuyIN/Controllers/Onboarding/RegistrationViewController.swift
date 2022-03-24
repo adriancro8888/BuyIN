@@ -145,9 +145,9 @@ class RegistrationViewController: UIViewController {
         return label
     }()
     
-    private let doneToolBar: UIToolbar = {
+    private lazy var doneToolBar: UIToolbar = {
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
-        toolbar.barStyle = .black
+        toolbar.barStyle = .default
         let spacing = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(didTapDone))
         toolbar.items = [spacing, doneButton]
