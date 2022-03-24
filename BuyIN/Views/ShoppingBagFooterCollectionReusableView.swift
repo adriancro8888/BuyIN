@@ -45,7 +45,7 @@ class ShoppingBagFooterCollectionReusableView: UICollectionReusableView {
     
     
     private let applePayButton: PKPaymentButton = {
-        let button = PKPaymentButton()
+        let button = PKPaymentButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .systemGreen
         button.tintColor = .white
