@@ -32,6 +32,10 @@ extension Storefront.OrderConnectionQuery {
                                 .image{$0
                                     .url()
                                 }
+                                .selectedOptions{$0
+                                    .name()
+                                    .value()
+                                }
                             }
                         }
                     }

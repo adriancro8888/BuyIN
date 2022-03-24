@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Reachability
 
 class CategoryViewController: UIViewController {
     
@@ -85,6 +86,7 @@ class CategoryViewController: UIViewController {
             }
             
         }
+        
         
         
     }

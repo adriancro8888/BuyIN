@@ -249,6 +249,7 @@ class ProductDetailsViewController: UIViewController {
         }
         
         wished ? configureAsWished() : configureAsNotWished()
+        
     }
     
     private func configureAsNotWished() {
@@ -345,7 +346,13 @@ class ProductDetailsViewController: UIViewController {
     }
    
     @objc private func didTapDismiss() {
-        navigationController?.popViewController(animated: true)
+        if let nav = navigationController{
+            nav.popViewController(animated: true)
+        }
+        else{
+            self.dismiss(animated: true, completion: nil)
+        }
+        
     }
 
     override var prefersStatusBarHidden: Bool {
