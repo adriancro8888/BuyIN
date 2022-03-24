@@ -335,8 +335,10 @@ extension ShoppingBagViewController: SwipeCollectionViewCellDelegate {
             //  guard isSwipeRightEnabled else { return nil }
             return nil
         } else {
-            let flag = SwipeAction(style: .default, title: "favorite"){ action, indexPath in
-                
+            let flag = SwipeAction(style: .default, title: "Wishlist"){ action, indexPath in
+                WishlistController.shared.add(CartController.shared.items[indexPath.row])
+                CartController.shared.removeAllQuantities(at: indexPath.item)
+               
                 // Add to favorite
             }
             flag.hidesWhenSelected = true
@@ -350,7 +352,7 @@ extension ShoppingBagViewController: SwipeCollectionViewCellDelegate {
                 
             }
             configure(action: delete, with: .trash)
-            return [delete] // ,more
+            return [delete,flag] // ,more
         }
     }
     
