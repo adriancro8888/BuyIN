@@ -18,7 +18,7 @@ class ShoppingBagViewController: UIViewController {
         
         let supplementaryViews = [
             NSCollectionLayoutBoundarySupplementaryItem(
-                layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(200)),
+                layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(300)),
                 elementKind: UICollectionView.elementKindSectionFooter,
                 alignment: .bottom
             )
@@ -161,6 +161,7 @@ class ShoppingBagViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.backgroundColor = .white
         configureConstraints()
+
         newArrivalsButton.addTarget(self, action: #selector(didTapNewArrival), for: .touchUpInside)
         wishListButton.addTarget(self, action: #selector(didTapWishList), for: .touchUpInside)
         self.registerNotifications()

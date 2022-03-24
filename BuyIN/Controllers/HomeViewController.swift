@@ -182,6 +182,7 @@ class HomeViewController: UIViewController {
             self.navigationBar.delegate = self
             self.searchButton.addTarget(self, action: #selector(self.didTapSearchButton), for: .touchUpInside)
 
+
         }
         reachability.whenUnreachable = { _ in
             let noInternetViewController: NoInternetViewController = NoInternetViewController.instantiateFromNib()
